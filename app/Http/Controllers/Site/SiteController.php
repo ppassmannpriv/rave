@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Models\ContentPage;
 use Illuminate\Http\Request;
-use App\Providers\ContentPageProvider;
+use App\Contracts\Navigation;
 
 class SiteController extends WebController
 {

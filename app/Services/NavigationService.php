@@ -11,4 +11,9 @@ class NavigationService implements Navigation {
     {
         return ContentPage::all();
     }
+
+    public function isActive(): bool
+    {
+        return request()->routeIs(request()->route()->getName());
+    }
 }
