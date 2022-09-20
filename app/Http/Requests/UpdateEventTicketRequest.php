@@ -23,6 +23,10 @@ class UpdateEventTicketRequest extends FormRequest
             'price' => [
                 'required',
             ],
+            'stock' => [
+                'required',
+                'integer',
+            ],
             'event_id' => [
                 'required',
                 'integer',

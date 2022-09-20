@@ -19,15 +19,16 @@ class CreateCodesForNewEventTicket
         if ($eventTicket->eventTicketCodes->count() > 0) {
             throw new \Exception('There already exist EventTicketCodes for this EventTicket.');
         }
-
-        $eventTicketCode = new EventTicketCode(['code' => $this->generateUniqueCode()]);
-        $eventTicketCode->eventTicket()->associate($eventTicket);
-        $eventTicketCode->save();
+        for ($i = 0; $i < $eventTicket->stock; $i++) {
+            $eventTicketCode = new EventTicketCode(['code' => $this->generateUniqueCode()]);
+            $eventTicketCode->eventTicket()->associate($eventTicket);
+            $eventTicketCode->save();
+        }
     }
 
     private function generateUniqueCode(): string
     {
-        $uniqueCode = Str::random(6);
+        $uniqueCode = Str::upper(Str::random(6));
         if (EventTicketCode::where('code', '=', $uniqueCode)->exists()) {
             return $this->generateUniqueCode();
         }

@@ -65,6 +65,7 @@ class EventTicket extends Model
     protected $fillable = [
         'ticket_type',
         'price',
+        'stock',
         'event_id',
         'from',
         'to',

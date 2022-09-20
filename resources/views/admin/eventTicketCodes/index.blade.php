@@ -29,6 +29,9 @@
                         {{ trans('cruds.eventTicketCode.fields.code') }}
                     </th>
                     <th>
+                        {{ trans('cruds.eventTicketCode.fields.event') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -44,6 +47,9 @@
                     </td>
                     <td>
                         {{ $eventTicketCode->code ?? '' }}
+                    </td>
+                    <td>
+                        {{ $eventTicketCode->eventTicket->event->name ?? '' }} - {{ $eventTicketCode->eventTicket->ticket_type ?? '' }}
                     </td>
                     <td>
                         @can('event_ticket_code_show')
