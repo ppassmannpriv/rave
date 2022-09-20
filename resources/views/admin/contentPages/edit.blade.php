@@ -21,6 +21,40 @@
             <span class="help-block">{{ trans('cruds.contentPage.fields.title_helper') }}</span>
         </div>
         <div class="form-group">
+            <label class="required" for="title">{{ trans('cruds.contentPage.fields.path') }}</label>
+            <input class="form-control {{ $errors->has('path') ? 'is-invalid' : '' }}" type="text" name="path" id="path" value="{{ old('path', $contentPage->path) }}" required>
+            @if($errors->has('path'))
+            <div class="invalid-feedback">
+                {{ $errors->first('path') }}
+            </div>
+            @endif
+            <span class="help-block">{{ trans('cruds.contentPage.fields.path_helper') }}</span>
+        </div>
+        <div class="form-group">
+            <div class="form-check {{ $errors->has('index') ? 'is-invalid' : '' }}">
+                <input class="form-check-input" type="checkbox" name="index" id="index" value="1" {{ $contentPage->index || old('index', 0) === 1 ? 'checked' : '' }}>
+                <label class="required form-check-label" for="index">{{ trans('cruds.contentPage.fields.index') }}</label>
+            </div>
+            @if($errors->has('index'))
+            <div class="invalid-feedback">
+                {{ $errors->first('index') }}
+            </div>
+            @endif
+            <span class="help-block">{{ trans('cruds.contentPage.fields.index_helper') }}</span>
+        </div>
+        <div class="form-group">
+            <div class="form-check {{ $errors->has('enabled') ? 'is-invalid' : '' }}">
+                <input class="form-check-input" type="checkbox" name="enabled" id="enabled" value="1" {{ $contentPage->enabled || old('enabled', 0) === 1 ? 'checked' : '' }} required>
+                <label class="required form-check-label" for="enabled">{{ trans('cruds.contentPage.fields.enabled') }}</label>
+            </div>
+            @if($errors->has('enabled'))
+            <div class="invalid-feedback">
+                {{ $errors->first('enabled') }}
+            </div>
+            @endif
+            <span class="help-block">{{ trans('cruds.contentPage.fields.enabled_helper') }}</span>
+        </div>
+        <div class="form-group">
             <label for="categories">{{ trans('cruds.contentPage.fields.category') }}</label>
             <div style="padding-bottom: 4px">
                 <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>

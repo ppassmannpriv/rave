@@ -14,7 +14,8 @@ class WebController extends Controller
 
     public function respond(string $view, array $parameters = [], array $mergeData = []): Factory|View|Application
     {
-        $parameters['isActive'] = $this->navigationService->isActive();
+        $parameters['pages'] = $this->navigationService->getPages();
+
         return view($view, $parameters, $mergeData);
     }
 }

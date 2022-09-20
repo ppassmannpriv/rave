@@ -5,21 +5,17 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item {{ $isActive ? "active" : "" }}">
-                @if ($isActive)
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                @else
-                    <a class="nav-link" href="{{ route("site.index") }}">Home</a>
-                @endif
-            </li>
+            @foreach($pages as $page)
+                <li class="nav-item {{ $page->isActive() ? "active" : "" }}">
+                    @if ($page->isActive())
+                    <a class="nav-link" href="#">{{ $page->title }}<span class="sr-only">(current)</span></a>
+                    @else
+                    <a class="nav-link" href="{{ route($page->path) }}">{{ $page->title }}</a>
+                    @endif
+                </li>
+            @endforeach
             <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
+                <a class="nav-link disabled" href="#">Shop</a>
             </li>
         </ul>
     </div>

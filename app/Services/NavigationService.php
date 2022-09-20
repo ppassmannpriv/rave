@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Collection;
 class NavigationService implements Navigation {
     public function getPages(): Collection
     {
-        return ContentPage::all();
+        return ContentPage::where('enabled', '=', true)->get();
     }
 
-    public function isActive(): bool
+    public function isActive(string $routeName): bool
     {
-        return request()->routeIs(request()->route()->getName());
+        return request()->routeIs($routeName);
     }
 }

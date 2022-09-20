@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Contracts\Navigation;
 
 /**
  * App\Models\ContentPage
@@ -20,6 +21,9 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property string $path
+ * @property boolean $enabled
+ * @property boolean $index
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ContentCategory[] $categories
  * @property-read int|null $categories_count
  * @property-read mixed $featured_image
@@ -67,7 +71,27 @@ class ContentPage extends Model implements HasMedia
         'created_at',
         'updated_at',
         'deleted_at',
+        'path',
+        'enabled',
+        'index',
     ];
+
+    protected $casts = [
+        'index' => 'boolean',
+        'enabled' => 'boolean',
+    ];
+
+    /**
+     * @var Navigation
+     */
+    private Navigation $navigationService;
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->navigationService = \App::make(Navigation::class);
+    }
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -100,5 +124,10 @@ class ContentPage extends Model implements HasMedia
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function isActive(): bool
+    {
+        return $this->navigationService->isActive($this->path);
     }
 }

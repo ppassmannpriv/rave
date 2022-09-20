@@ -21,6 +21,11 @@ class StoreContentPageRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'path' => [
+                'string',
+                'required',
+                'unique:content_pages'
+            ],
             'categories.*' => [
                 'integer',
             ],
@@ -32,6 +37,13 @@ class StoreContentPageRequest extends FormRequest
             ],
             'tags' => [
                 'array',
+            ],
+            'enabled' => [
+                'boolean',
+                'required'
+            ],
+            'index' => [
+                'boolean',
             ],
         ];
     }

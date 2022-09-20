@@ -1,4 +1,5 @@
 <?php
+use App\Contracts\Navigation;
 
 Route::redirect('/', '/login');
 Route::get('/home', function () {
@@ -71,4 +72,12 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
     }
 });
 
-Route::get('/site', 'Site\SiteController@index')->name('site.index');
+$navigationService = App::make(Navigation::class);
+foreach($navigationService->getPages() as $page) {
+    if ($page->index) {
+        Route::get($page->path, 'Site\SiteController@index')->name($page->path);
+    } else {
+        Route::get($page->path, 'Site\SiteController@page')->name($page->path);
+    }
+}
+// Route::get('/site', 'Site\SiteController@index')->name('site');
