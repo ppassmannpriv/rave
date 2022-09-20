@@ -1,7 +1,7 @@
 <?php
 use App\Contracts\Navigation;
 
-Route::redirect('/', '/login');
+Route::redirect('/admin', '/login');
 Route::get('/home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));
@@ -72,6 +72,7 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
     }
 });
 
+Route::redirect('/', '/site');
 $navigationService = App::make(Navigation::class);
 foreach($navigationService->getPages() as $page) {
     if ($page->index) {
@@ -80,4 +81,3 @@ foreach($navigationService->getPages() as $page) {
         Route::get($page->path, 'Site\SiteController@page')->name($page->path);
     }
 }
-// Route::get('/site', 'Site\SiteController@index')->name('site');
