@@ -24,7 +24,7 @@ class UpdateContentPageRequest extends FormRequest
             'path' => [
                 'string',
                 'required',
-                'unique:content_pages'
+                // 'unique:content_pages,path'
             ],
             'categories.*' => [
                 'integer',

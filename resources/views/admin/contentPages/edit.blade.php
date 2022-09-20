@@ -33,7 +33,7 @@
         <div class="form-group">
             <div class="form-check {{ $errors->has('index') ? 'is-invalid' : '' }}">
                 <input class="form-check-input" type="checkbox" name="index" id="index" value="1" {{ $contentPage->index || old('index', 0) === 1 ? 'checked' : '' }}>
-                <label class="required form-check-label" for="index">{{ trans('cruds.contentPage.fields.index') }}</label>
+                <label class="form-check-label" for="index">{{ trans('cruds.contentPage.fields.index') }}</label>
             </div>
             @if($errors->has('index'))
             <div class="invalid-feedback">

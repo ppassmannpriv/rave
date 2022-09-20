@@ -14,6 +14,7 @@
                         asdf
                     </div>-->
                     {!! $contentPage['page_text'] !!}
+                    {{ $contentPage->getFeaturedImageAttribute() }}
                 </div>
             </div>
         </div>
