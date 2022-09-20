@@ -12,6 +12,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "league/flysystem-aws-s3-v3": "^3.5",
+        "lorisleiva/laravel-actions": "^2.4",
         "spatie/laravel-medialibrary": "^10.0.7",
         "yajra/laravel-datatables-oracle": "^9.19"
     },
@@ -25,7 +26,8 @@
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
         "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.0"
+        "spatie/laravel-ignition": "^1.0",
+        "wulfheart/laravel-actions-ide-helper": "^0.3.0"
     },
     "autoload": {
         "psr-4": {
@@ -48,7 +50,8 @@
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:meta"
+            "@php artisan ide-helper:meta",
+            "@php artisan ide-helper:actions"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""

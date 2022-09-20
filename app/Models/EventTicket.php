@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\EventTicketCreatedEvent;
 use \DateTimeInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,6 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property int|null $event_id
+ * @property int $stock
  * @property-read \App\Models\Event|null $event
  * @method static \Illuminate\Database\Eloquent\Builder|EventTicket newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|EventTicket newQuery()
@@ -71,6 +73,10 @@ class EventTicket extends Model
         'deleted_at',
     ];
 
+    protected $dispatchesEvents = [
+        'created' => EventTicketCreatedEvent::class,
+    ];
+
     public function event()
     {
         return $this->belongsTo(Event::class, 'event_id');
@@ -99,5 +105,10 @@ class EventTicket extends Model
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function eventTicketCodes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(EventTicketCode::class, 'event_ticket_id', 'id');
     }
 }

@@ -103,6 +103,8 @@ return [
             'ticket_type_helper' => 'Ticket type you want to sell.',
             'price'              => 'Price',
             'price_helper'       => 'Price of your ticket',
+            'stock'              => 'Stock',
+            'stock_helper'       => 'Stock of your ticket',
             'event'              => 'Event',
             'event_helper'       => 'Select the event this ticket is for.',
             'from'               => 'Available from:',
