@@ -1,17 +1,15 @@
 <?php
 use App\Contracts\Navigation;
 
+// Admin routing
 Route::redirect('/admin', '/login');
-Route::get('/home', function () {
-    if (session('status')) {
-        return redirect()->route('admin.home')->with('status', session('status'));
-    }
-
-    return redirect()->route('admin.home');
-});
-
+//Route::get('/admin/home', function () {
+//    if (session('status')) {
+//        return redirect()->route('admin.home')->with('status', session('status'));
+//    }
+//    return redirect()->route('admin.home');
+//});
 Auth::routes(['register' => false]);
-
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
     // Permissions
@@ -72,6 +70,7 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
     }
 });
 
+// CMS Style routing
 Route::redirect('/', '/site');
 $navigationService = App::make(Navigation::class);
 foreach($navigationService->getPages() as $page) {
@@ -81,3 +80,8 @@ foreach($navigationService->getPages() as $page) {
         Route::get($page->path, 'Site\SiteController@page')->name($page->path);
     }
 }
+
+// Handle 404 and other errors
+Route::fallback(function() {
+    return redirect('/');
+});
