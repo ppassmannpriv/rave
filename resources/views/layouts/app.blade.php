@@ -23,6 +23,7 @@
 
 <body class="header-fixed">
 @include('partials.site.navigation')
+@include('partials.site.minicart')
 <div class="c-app flex-row align-items-center">
     <div class="container">
         @yield("content")

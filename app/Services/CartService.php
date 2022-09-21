@@ -2,14 +2,16 @@
 
 namespace App\Services;
 
+use App\Contracts\Cart;
 use Illuminate\Support\Collection;
 use Illuminate\Session\SessionManager;
 
-class CartService {
+class CartService implements Cart {
     const MINIMUM_QUANTITY = 1;
+    const TTL = 900;
     const DEFAULT_INSTANCE = 'cart';
 
-    protected $session;
+    protected SessionManager $session;
     protected $instance;
 
     /**
@@ -20,81 +22,6 @@ class CartService {
     public function __construct(SessionManager $session)
     {
         $this->session = $session;
-    }
-
-    /**
-     * Adds a new item to the cart.
-     *
-     * @param string $id
-     * @param string $name
-     * @param string $price
-     * @param string $quantity
-     * @param array $options
-     * @return void
-     */
-    public function add($id, $name, $price, $quantity, $options = []): void
-    {
-        $cartItem = $this->createCartItem($name, $price, $quantity, $options);
-
-        $content = $this->getContent();
-
-        if ($content->has($id)) {
-            $cartItem->put('quantity', $content->get($id)->get('quantity') + $quantity);
-        }
-
-        $content->put($id, $cartItem);
-
-        $this->session->put(self::DEFAULT_INSTANCE, $content);
-    }
-
-    /**
-     * Updates the quantity of a cart item.
-     *
-     * @param string $id
-     * @param string $action
-     * @return void
-     */
-    public function update(string $id, string $action): void
-    {
-        $content = $this->getContent();
-
-        if ($content->has($id)) {
-            $cartItem = $content->get($id);
-
-            switch ($action) {
-                case 'plus':
-                    $cartItem->put('quantity', $content->get($id)->get('quantity') + 1);
-                    break;
-                case 'minus':
-                    $updatedQuantity = $content->get($id)->get('quantity') - 1;
-
-                    if ($updatedQuantity < self::MINIMUM_QUANTITY) {
-                        $updatedQuantity = self::MINIMUM_QUANTITY;
-                    }
-
-                    $cartItem->put('quantity', $updatedQuantity);
-                    break;
-            }
-
-            $content->put($id, $cartItem);
-
-            $this->session->put(self::DEFAULT_INSTANCE, $content);
-        }
-    }
-
-    /**
-     * Removes an item from the cart.
-     *
-     * @param string $id
-     * @return void
-     */
-    public function remove(string $id): void
-    {
-        $content = $this->getContent();
-
-        if ($content->has($id)) {
-            $this->session->put(self::DEFAULT_INSTANCE, $content->except($id));
-        }
     }
 
     /**
@@ -118,22 +45,6 @@ class CartService {
     }
 
     /**
-     * Returns total price of the items in the cart.
-     *
-     * @return string
-     */
-    public function total(): string
-    {
-        $content = $this->getContent();
-
-        $total = $content->reduce(function ($total, $item) {
-            return $total += $item->get('price') * $item->get('quantity');
-        });
-
-        return number_format($total, 2);
-    }
-
-    /**
      * Returns the content of the cart.
      *
      * @return Collection
@@ -143,29 +54,21 @@ class CartService {
         return $this->session->has(self::DEFAULT_INSTANCE) ? $this->session->get(self::DEFAULT_INSTANCE) : collect([]);
     }
 
-    /**
-     * Creates a new cart item from given inputs.
-     *
-     * @param string $name
-     * @param string $price
-     * @param string $quantity
-     * @param array $options
-     * @return Collection
-     */
-    protected function createCartItem(string $name, string $price, string $quantity, array $options): Collection
+    public function add($payload)
     {
-        $price = floatval($price);
-        $quantity = intval($quantity);
+        $content = $this->getContent();
 
-        if ($quantity < self::MINIMUM_QUANTITY) {
-            $quantity = self::MINIMUM_QUANTITY;
+        if ($content->has($payload['id'])) {
+            $payload['id'] = $payload['id'] + $content->count();
         }
 
-        return collect([
-            'name' => $name,
-            'price' => $price,
-            'quantity' => $quantity,
-            'options' => $options,
-        ]);
+        $content->put($payload['id'], $payload['content']);
+
+        $this->session->put(self::DEFAULT_INSTANCE, $content);
+    }
+
+    public function getTickets(): Collection
+    {
+        return Collection::make([1, 2, 3]);
     }
 }
