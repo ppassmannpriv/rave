@@ -58,11 +58,11 @@ class CartService implements Cart {
     {
         $content = $this->getContent();
 
-        if ($content->has($payload['id'])) {
-            $payload['id'] = $payload['id'] + $content->count();
+        if ($content->has($payload->id)) {
+            $payload->id = $payload->id + $content->count();
         }
 
-        $content->put($payload['id'], $payload['content']);
+        $content->put($payload->id, $payload);
 
         $this->session->put(self::DEFAULT_INSTANCE, $content);
     }

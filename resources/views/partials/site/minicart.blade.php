@@ -6,7 +6,7 @@
                 <div class="col-lg-12">
                     <ul class="list-group">
                     @foreach($cart as $cartContent)
-                        <li class="list-group-item">{{ $cartContent }}</li>
+                        <li class="list-group-item">{{ $cartContent->eventTicket['ticket_type'] }}</li>
                     @endforeach
                     </ul>
                 </div>
