@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.7",
         "league/flysystem-aws-s3-v3": "^3.5",
         "lorisleiva/laravel-actions": "^2.4",
+        "sentry/sentry-laravel": "^2.13",
         "spatie/laravel-medialibrary": "^10.0.7",
         "yajra/laravel-datatables-oracle": "^9.19"
     },

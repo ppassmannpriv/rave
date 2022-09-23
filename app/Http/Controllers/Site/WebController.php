@@ -17,10 +17,9 @@ class WebController extends Controller
 
     public function respond(string $view, array $parameters = [], array $mergeData = []): Factory|View|Application
     {
-        // AddTicketToCart::make()->handle(EventTicket::find(1));
         $parameters['pages'] = $this->navigationService->getPages();
         $parameters['cart'] = $this->cartService->content();
-
+        dd($parameters, $view);
         return view($view, $parameters, $mergeData);
     }
 }
