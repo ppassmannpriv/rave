@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\CartItem
  *
  * @property int $id
+ * @property int $qty
+ * @property float $single_price
+ * @property float $row_price
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\EventTicket|null $eventTicket
@@ -30,6 +33,9 @@ class CartItem extends Model
     protected $fillable = [
         'event_ticket_id',
         'cart_id',
+        'qty',
+        'single_price',
+        'row_price',
         'created_at',
         'updated_at',
     ];

@@ -16,9 +16,6 @@ class RemoveTicketFromCart
         if ($cartService === null) {
             throw new \Exception('Cart could not be loaded!');
         }
-        $payload = (object)[
-            'id' => $eventTicketId,
-        ];
-        $cartService->remove($payload);
+        $cartService->remove($eventTicketId);
     }
 }

@@ -16,6 +16,9 @@ return new class extends Migration
         Schema::create('cart_items', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('event_ticket_id');
+            $table->integer('qty');
+            $table->decimal('single_price', 15, 2);
+            $table->decimal('row_price', 15, 2);
             $table->unsignedBigInteger('cart_id');
             $table->timestamps();
         });

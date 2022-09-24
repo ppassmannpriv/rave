@@ -7,7 +7,6 @@
                 <div class="card-header">
                     Events
                 </div>
-
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-12">
@@ -18,9 +17,6 @@
                             </ul>
                         </div>
                     </div>
-                    <!--<div class="alert alert-success" role="alert">
-                        asdf
-                    </div>-->
                 </div>
             </div>
         </div>

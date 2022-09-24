@@ -14,12 +14,8 @@ class AddTicketToCart
     {
         $cartService = \App::make(CartService::class);
         if ($cartService === null) {
-            throw new \Exception('Cart could not be loaded!');
+            throw new \Exception('Cart Service could not be loaded!');
         }
-        $payload = (object)[
-            'id' => $eventTicket->id . '-' . mt_rand(10000000, 99999999),
-            'eventTicket' => $eventTicket
-        ];
-        $cartService->add($payload);
+        $cartService->add($eventTicket);
     }
 }

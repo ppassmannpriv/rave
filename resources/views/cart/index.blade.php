@@ -13,9 +13,11 @@
                     <ul class="list-group">
                         @foreach($cart->cartItems as $cartItem)
                         <li class="list-group-item">
-                            <span>{{ $cartItem->ticket_type }}</span>
-                            <span>{{ $cartItem->price }}</span>
-                            <a href="{{ route('cart.remove', $cartItem->id) }}">Remove</a>
+                            <span>type: {{ $cartItem->eventTicket->ticket_type }}</span>
+                            <span>single price: {{ $cartItem->single_price }}</span>
+                            <span>x {{ $cartItem->qty }}</span>
+                            <span>row price: {{ $cartItem->row_price }}</span>
+                            <a href="{!! route('cart.remove', ['id' => $cartItem->id]) !!}">Remove</a>
                         </li>
                         @endforeach
                     </ul>

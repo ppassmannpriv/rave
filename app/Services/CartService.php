@@ -41,33 +41,38 @@ class CartService implements Cart {
 
     protected function getCart(): \App\Models\Cart
     {
-        if ($this->session->get(self::DEFAULT_INSTANCE) === null) {
+        $sessionCartId = $this->session->get(self::DEFAULT_INSTANCE);
+        if ($sessionCartId === null) {
+            $this->clear();
             $cart = $this->loadDatabaseCart();
-            $cart->save();
             $this->session->put(self::DEFAULT_INSTANCE, $cart->id);
             return $cart;
         }
-        return $this->loadDatabaseCart($this->session->get(self::DEFAULT_INSTANCE));
+        return $this->loadDatabaseCart($sessionCartId);
     }
 
-    public function add($payload)
+    public function add($eventTicket)
     {
         $cart = $this->getCart();
-        dd($cart);
+        $qty = 1 ?? self::MINIMUM_QUANTITY;
+        $cartItem = new \App\Models\CartItem([
+            'event_ticket_id' => $eventTicket->id,
+            'qty' => $qty,
+            'row_price' => $eventTicket->price * $qty,
+            'single_price' => $eventTicket->price
+        ]);
+
+        $cart->cartItems()->save($cartItem);
     }
 
-    public function remove($payload)
+    public function remove(int $cartItemId)
     {
         $cart = $this->getCart();
-        dd($cart);
-//        $content = $this->getContent();
-//
-//        if (!$content->has($payload->id)) {
-//            throw new \Exception('Cart item could not be found!');
-//        }
-//        $content->forget($payload->id);
-//
-//        $this->session->put(self::DEFAULT_INSTANCE, $content);
+        $cartItem = $cart->cartItems()->where('id', '=', $cartItemId)->first();
+        if ($cartItem === null) {
+            throw new \Exception('Cart item requested to remove is not attached to your session cart!');
+        }
+        $cartItem->delete();
     }
 
     public function getTickets(): Collection
