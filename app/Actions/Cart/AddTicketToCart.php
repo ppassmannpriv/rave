@@ -18,7 +18,7 @@ class AddTicketToCart
         }
         $payload = (object)[
             'id' => $eventTicket->id . '-' . mt_rand(10000000, 99999999),
-            'eventTicket' => $eventTicket->jsonSerialize()
+            'eventTicket' => $eventTicket
         ];
         $cartService->add($payload);
     }

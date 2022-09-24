@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Site;
 
 use App\Models\Event;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class EventController extends WebController
 {
-    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function index(Request $request): Factory|View|Application
     {
-        $event = Event::findOrFail(1);
-        return $this->respond('events.index', ['event' => $event]);
+        $events = Event::all();
+        return $this->respond('events.index', ['events' => $events]);
     }
 
     public function show($request)

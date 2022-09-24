@@ -1,12 +1,16 @@
-@if(isset($cart) && count($cart) > 0)
+@if($cart->cartItems->count() > 0)
 <div class="c-app flex-row align-items-top">
     <div class="container">
         <div class="content bg-white">
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="list-group">
-                    @foreach($cart as $cartContent)
-                        <li class="list-group-item">{{ $cartContent->eventTicket['ticket_type'] }}</li>
+                    @foreach($cart->cartItems as $cartItem)
+                        <li class="list-group-item">
+                            <span>{{ $cartItem->eventTicket->ticket_type }}</span>
+                            <span>{{ $cartItem->eventTicket->price }}</span>
+                            <a href="{!! route('cart.remove', ['id' => $cartItem->id]) !!}">Remove</a>
+                        </li>
                     @endforeach
                     </ul>
                 </div>

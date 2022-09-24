@@ -7,19 +7,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\CartItem
+ * App\Models\Cart
  *
  * @property int $id
+ * @property bool $active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\EventTicket|null $eventTicket
+ * @property-read \App\Models\User|null $user
  * @mixin \Eloquent
  */
-class CartItem extends Model
+class Cart extends Model
 {
     use HasFactory;
 
-    public $table = 'cart_items';
+    public $table = 'carts';
     public $primaryKey = 'id';
 
     protected $dates = [
@@ -28,19 +29,18 @@ class CartItem extends Model
     ];
 
     protected $fillable = [
-        'event_ticket_id',
-        'cart_id',
+        'user_id',
+        'active',
         'created_at',
         'updated_at',
     ];
 
-    public function eventTicket()
+    public function user()
     {
-        return $this->belongsTo(EventTicket::class, 'event_ticket_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function cart()
-    {
-        return $this->belongsTo(Cart::class, 'cart_id');
+    public function cartItems() {
+        return $this->hasMany(CartItem::class);
     }
 }

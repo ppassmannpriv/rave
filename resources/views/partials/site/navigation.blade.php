@@ -15,9 +15,9 @@
                     @endif
                 </li>
             @endforeach
-            <!--li class="nav-item">
-                <a class="nav-link disabled" href="#">Shop</a>
-            </li-->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('events.list') }}">Events</a>
+            </li>
         </ul>
     </div>
     @endif

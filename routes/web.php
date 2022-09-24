@@ -82,12 +82,13 @@ foreach($navigationService->getPages() as $page) {
 }
 
 // Events stuff
-// Route::get('/events/', '\App\Http\Controllers\Site\EventController@index')->name('event.list');
+Route::get('/events/', '\App\Http\Controllers\Site\EventController@index')->name('events.list');
 Route::get('/events/{id}', '\App\Http\Controllers\Site\EventController@show')->name('events.show');
 
 // Cart logical routes
 Route::get('/cart', '\App\Http\Controllers\Site\CartController@index')->name('cart.index');
 Route::post('/cart/add', '\App\Http\Controllers\Site\CartController@addToCart')->name('cart.add');
+Route::get('/cart/remove/{id}', '\App\Http\Controllers\Site\CartController@removeFromCart')->name('cart.remove');
 
 // Handle 404 and other errors
 Route::fallback(function() {

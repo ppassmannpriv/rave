@@ -10,10 +10,15 @@
                 </div>
 
                 <div class="card-body">
-                    <!--<div class="alert alert-success" role="alert">
-                        asdf
-                    </div>-->
-                    content
+                    <ul class="list-group">
+                        @foreach($cart->cartItems as $cartItem)
+                        <li class="list-group-item">
+                            <span>{{ $cartItem->ticket_type }}</span>
+                            <span>{{ $cartItem->price }}</span>
+                            <a href="{{ route('cart.remove', $cartItem->id) }}">Remove</a>
+                        </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>

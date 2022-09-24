@@ -23,7 +23,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventTicket[] $eventEventTickets
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventTicket[] $eventTickets
  * @property-read int|null $event_event_tickets_count
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|Media[] $media
  * @property-read int|null $media_count
@@ -77,7 +77,7 @@ class Event extends Model implements HasMedia
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
     }
 
-    public function eventTicket()
+    public function eventTickets()
     {
         return $this->hasMany(EventTicket::class, 'event_id', 'id');
     }

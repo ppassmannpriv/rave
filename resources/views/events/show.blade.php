@@ -5,19 +5,32 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    {!! $event->eventTicket !!}
+                    {{ $event->name }}
                 </div>
 
                 <div class="card-body">
-                    <!--<div class="alert alert-success" role="alert">
-                        asdf
-                    </div>-->
-                    <form action="/cart/add/" method="POST">
-                        @csrf
-                        <input type="text" value="1" name="event_ticket_id"/>
-                        <input type="text" value="1" name="qty"/>
-                        <input type="submit" value="Submit" />
-                    </form>
+                    <span>Start: {{ $event->start }}</span>
+                    <span>End: {{ $event->end }}</span>
+                    <span>{{ $event->location }}</span>
+
+                    <ul class="list-group">
+                    @foreach($event->eventTickets as $eventTicket)
+                        <li class="list-group-item">
+                            <span>type: {{ $eventTicket->ticket_type }}</span>
+                            <span>price: {{ $eventTicket->price }}</span>
+                            <span>from: {{ $eventTicket->from }}</span>
+                            <span>to: {{ $eventTicket->to }}</span>
+                            <span>in_stock: {{ $eventTicket->stock }}</span>
+                            <form action="/cart/add/" method="POST">
+                                @csrf
+                                <input type="hidden" value="{{ $eventTicket->id }}" name="event_ticket_id" />
+                                <label for="qty-{{ $event->id }}">QTY: </label>
+                                <input type="text" value="1" name="qty-{{ $event->id }}" id="qty-{{ $event->id }}" />
+                                <input type="submit" value="Submit" />
+                            </form>
+                        </li>
+                    @endforeach
+                    </ul>
                 </div>
             </div>
         </div>

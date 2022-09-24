@@ -9,7 +9,7 @@ use Illuminate\Session\SessionManager;
 class CartService implements Cart {
     const MINIMUM_QUANTITY = 1;
     const TTL = 900;
-    const DEFAULT_INSTANCE = 'cart';
+    const DEFAULT_INSTANCE = 'cartId';
 
     protected SessionManager $session;
     protected $instance;
@@ -34,41 +34,54 @@ class CartService implements Cart {
         $this->session->forget(self::DEFAULT_INSTANCE);
     }
 
-    /**
-     * Returns the content of the cart.
-     *
-     * @return Collection
-     */
-    public function content(): Collection
+    public function content()
     {
-        return is_null($this->session->get(self::DEFAULT_INSTANCE)) ? collect([]) : $this->session->get(self::DEFAULT_INSTANCE);
+        return $this->getCart();
     }
 
-    /**
-     * Returns the content of the cart.
-     *
-     * @return Collection
-     */
-    protected function getContent(): Collection
+    protected function getCart(): \App\Models\Cart
     {
-        return $this->session->has(self::DEFAULT_INSTANCE) ? $this->session->get(self::DEFAULT_INSTANCE) : collect([]);
+        if ($this->session->get(self::DEFAULT_INSTANCE) === null) {
+            $cart = $this->loadDatabaseCart();
+            $cart->save();
+            $this->session->put(self::DEFAULT_INSTANCE, $cart->id);
+            return $cart;
+        }
+        return $this->loadDatabaseCart($this->session->get(self::DEFAULT_INSTANCE));
     }
 
     public function add($payload)
     {
-        $content = $this->getContent();
+        $cart = $this->getCart();
+        dd($cart);
+    }
 
-        if ($content->has($payload->id)) {
-            $payload->id = $payload->id + $content->count();
-        }
-
-        $content->put($payload->id, $payload);
-
-        $this->session->put(self::DEFAULT_INSTANCE, $content);
+    public function remove($payload)
+    {
+        $cart = $this->getCart();
+        dd($cart);
+//        $content = $this->getContent();
+//
+//        if (!$content->has($payload->id)) {
+//            throw new \Exception('Cart item could not be found!');
+//        }
+//        $content->forget($payload->id);
+//
+//        $this->session->put(self::DEFAULT_INSTANCE, $content);
     }
 
     public function getTickets(): Collection
     {
         return Collection::make([1, 2, 3]);
+    }
+
+    private function loadDatabaseCart($cartId = 0)
+    {
+        $cart = \App\Models\Cart::findOrNew($cartId);
+        if ($cart->id === null) {
+            $cart->save();
+        }
+
+        return $cart;
     }
 }

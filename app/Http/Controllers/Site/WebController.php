@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Site;
 
-use App\Actions\Cart\AddTicketToCart;
 use App\Http\Controllers\Controller;
 use App\Contracts\Navigation;
 use App\Contracts\Cart;
-use App\Models\EventTicket;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -19,7 +17,7 @@ class WebController extends Controller
     {
         $parameters['pages'] = $this->navigationService->getPages();
         $parameters['cart'] = $this->cartService->content();
-        dd($parameters, $view);
+
         return view($view, $parameters, $mergeData);
     }
 }
