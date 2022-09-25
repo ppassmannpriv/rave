@@ -81,12 +81,6 @@
                     <td>
                     </td>
                     <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($event_ticket_codes as $key => $item)
-                            <option value="{{ $item->code }}">{{ $item->code }}</option>
-                            @endforeach
-                        </select>
                     </td>
                     <td>
                     </td>

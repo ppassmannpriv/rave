@@ -20,15 +20,13 @@ class OrderController extends Controller
     {
         abort_if(Gate::denies('order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $orders = Order::with(['user', 'transaction', 'event_ticket_code'])->get();
+        $orders = Order::with(['user', 'transaction'])->get();
 
         $users = User::get();
 
         $payments = Payment::get();
 
-        $event_ticket_codes = EventTicketCode::get();
-
-        return view('admin.orders.index', compact('event_ticket_codes', 'orders', 'payments', 'users'));
+        return view('admin.orders.index', compact('orders', 'payments', 'users'));
     }
 
     public function create()
