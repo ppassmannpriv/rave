@@ -86,6 +86,16 @@
                 </a>
             </li>
             @endcan
+            @can('payment_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.paymentMethods.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/paymentMethods") || request()->is("admin/paymentMethods/*") ? "c-active" : "" }}">
+                <i class="fa-fw far fa-money-bill-alt c-sidebar-nav-icon">
+
+                </i>
+                {{ trans('cruds.paymentMethods.title') }}
+                </a>
+            </li>
+            @endcan
         </ul>
         </li>
         @endcan

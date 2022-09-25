@@ -59,6 +59,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Payment
     Route::delete('payments/destroy', 'PaymentController@massDestroy')->name('payments.massDestroy');
     Route::resource('payments', 'PaymentController');
+
+    Route::get('paymentMethods/index', 'PaymentMethodController@index')->name('paymentMethods.index');
+    Route::post('paymentMethods/upload', 'PaymentMethodController@uploadCsv')->name('paymentMethods.uploadCsv');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password
