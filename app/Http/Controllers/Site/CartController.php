@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Site;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderCreated;
 use App\Actions\Cart\AddTicketToCart;
 use App\Actions\Cart\CreateOrderFromCart;
 use App\Actions\Cart\RemoveTicketFromCart;
@@ -31,6 +33,7 @@ class CartController extends WebController
     public function orderCart(OrderCartRequest $request) {
         $order = CreateOrderFromCart::make()->handle($request->all());
         session()->put('lastOrder', $order);
+        Mail::to($order->user)->send(new OrderCreated($order));
         return \Redirect::to('/cart/success');
     }
 

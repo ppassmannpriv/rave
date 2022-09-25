@@ -16,10 +16,9 @@ use App\Models\Order\OrderItem;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property int|null $user_id
- * @property int|null $payment_id
- * @property int|null $event_ticket_code_id
- * @property-read \App\Models\EventTicketCode|null $event_ticket_code
- * @property-read \App\Models\Payment|null $payment
+ * @property int|null $transaction_id
+ * @property-read \App\Models\Transaction|null $transaction
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order\OrderItem[] $orderItems
  * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
@@ -71,12 +70,7 @@ class Order extends Model
 
     public function orderItems()
     {
-        return $this->hasMany(OrderItem::Class, 'order_id');
-    }
-
-    public function event_ticket_code()
-    {
-        return $this->belongsTo(EventTicketCode::class, 'event_ticket_code_id');
+        return $this->hasMany(OrderItem::Class, 'order_id', 'id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

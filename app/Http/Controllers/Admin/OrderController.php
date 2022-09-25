@@ -20,7 +20,7 @@ class OrderController extends Controller
     {
         abort_if(Gate::denies('order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $orders = Order::with(['user', 'payment', 'event_ticket_code'])->get();
+        $orders = Order::with(['user', 'transaction', 'event_ticket_code'])->get();
 
         $users = User::get();
 

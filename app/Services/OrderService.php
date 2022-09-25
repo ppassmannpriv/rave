@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\OrderEventTicketGenerationEvent;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\PaymentMethod;
@@ -15,6 +16,9 @@ use Illuminate\Support\Str;
  * @mixin \Eloquent
  */
 class OrderService {
+    /**
+     * @throws \Exception
+     */
     public function makeFromCart(array $cartData): Order
     {
         $user = User::where('email', '=', $cartData['email'])->first();
@@ -27,25 +31,38 @@ class OrderService {
             ]);
         }
         $cartItem = CartItem::find($cartData['cart_item']);
+
+        $eventTicket = $cartItem->eventTicket;
+        if ($eventTicket->stock === 0) {
+            throw new \Exception('There is not enough stock for this ticket.');
+        }
+        $eventTicket->stock = $eventTicket->stock - 1;
+        $eventTicket->save();
+
         $orderItem = Order\OrderItem::create([
             'qty' => $cartItem->qty,
             'single_price' => $cartItem->single_price,
             'row_price' => $cartItem->row_price,
             'cart_item_id' => $cartItem->id,
-            'event_ticket_id' => $cartItem->eventTicket?->id
+            'event_ticket_id' => $eventTicket->id
         ]);
 
         $order = Order::create([
             'user_id' => $user->id,
             'price' => $orderItem->row_price,
         ]);
+        $order->orderItems()->save($orderItem);
         $transaction = $this->createTransaction($order, $cartData);
         $order->transaction()->associate($transaction);
+        OrderEventTicketGenerationEvent::dispatch($order);
         $order->save();
 
         return $order;
     }
 
+    /**
+     * @throws \Exception
+     */
     private function createTransaction(Order $order, array $cartData): Transaction
     {
         $paymentMethod = PaymentMethod::where('alias', '=', $cartData['payment_method'])->first();

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Order\OrderItem;
 use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property int $event_ticket_id
+ * @property int|null $order_item_id
+ * @property-read \App\Models\Order\OrderItem|null $orderItem
+ * @property-read \App\Models\EventTicket|null $eventTicket
  * @method static \Illuminate\Database\Eloquent\Builder|EventTicketCode newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|EventTicketCode newQuery()
  * @method static \Illuminate\Database\Query\Builder|EventTicketCode onlyTrashed()
@@ -45,6 +49,7 @@ class EventTicketCode extends Model
     protected $fillable = [
         'code',
         'event_ticket_id',
+        'order_item_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -58,5 +63,10 @@ class EventTicketCode extends Model
     public function eventTicket(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(EventTicket::class, 'event_ticket_id');
+    }
+
+    public function orderItem(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(OrderItem::class, 'order_item_id');
     }
 }

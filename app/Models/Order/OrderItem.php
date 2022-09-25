@@ -9,6 +9,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\Models\Order
+ *
+ * @property int $id
+ * @property int $qty
+ * @property int|null $order_id
+ * @property int|null $cart_item_id
+ * @property int|null $event_ticket_id
+ * @property float $single_price
+ * @property float $row_price
+ * @property-read \App\Models\EventTicket|null $eventTicket
+ * @property-read \App\Models\Order|null $order
+ * @property-read \App\Models\CartItem|null $cartItem
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ */
 class OrderItem extends Model
 {
     use SoftDeletes;
@@ -36,16 +53,16 @@ class OrderItem extends Model
 
     public function order()
     {
-        return $this->belongsTo(Order::class, 'order_id');
+        return $this->belongsTo(Order::class, 'id', 'order_id');
     }
 
     public function cartItem()
     {
-        return $this->hasOne(CartItem::class, 'cart_item_id');
+        return $this->hasOne(CartItem::class, 'id', 'cart_item_id');
     }
 
     public function eventTicket()
     {
-        return $this->hasOne(EventTicket::class, 'event_ticket_id');
+        return $this->hasOne(EventTicket::class, 'id', 'event_ticket_id');
     }
 }

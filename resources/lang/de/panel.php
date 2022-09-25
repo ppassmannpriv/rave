@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'site_title' => 'RaveTickets',
+    'site_title' => 'Rave',
 ];
