@@ -24,9 +24,8 @@
                             <form action="/cart/add/" method="POST">
                                 @csrf
                                 <input type="hidden" value="{{ $eventTicket->id }}" name="event_ticket_id" />
-                                <label for="qty-{{ $event->id }}">QTY: </label>
-                                <input type="text" value="1" name="qty-{{ $event->id }}" id="qty-{{ $event->id }}" />
-                                <input type="submit" value="Submit" />
+                                <input type="hidden" value="1" name="qty-{{ $event->id }}" id="qty-{{ $event->id }}" />
+                                <input type="submit" value="Add to Cart" />
                             </form>
                         </li>
                     @endforeach

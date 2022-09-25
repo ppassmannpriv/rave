@@ -1,4 +1,4 @@
-@if($cart->cartItems->count() > 0)
+@if(isset($cart) && $cart->cartItems->count() > 0)
 
     <div class="container">
         <div class="content bg-white">

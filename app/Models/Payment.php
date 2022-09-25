@@ -40,7 +40,7 @@ class Payment extends Model
     use HasFactory;
 
     public const PROVIDER_RADIO = [
-        'paypal_friends_family' => 'PayPal for Friends & Family',
+        'paypal_friends_family' => 'PayPalFriendsFamily for Friends & Family',
     ];
 
     public const STATE_SELECT = [

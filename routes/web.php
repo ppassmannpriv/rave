@@ -89,6 +89,7 @@ Route::get('/events/{id}', '\App\Http\Controllers\Site\EventController@show')->n
 Route::get('/cart', '\App\Http\Controllers\Site\CartController@index')->name('cart.index');
 Route::post('/cart/add', '\App\Http\Controllers\Site\CartController@addToCart')->name('cart.add');
 Route::get('/cart/remove/{id}', '\App\Http\Controllers\Site\CartController@removeFromCart')->name('cart.remove');
+Route::post('/cart/order', '\App\Http\Controllers\Site\CartController@orderCart')->name('cart.order');
 
 // Handle 404 and other errors
 Route::fallback(function() {
