@@ -4,6 +4,7 @@ namespace App\Models\Order;
 
 use App\Models\CartItem;
 use App\Models\EventTicket;
+use App\Models\EventTicketCode;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,6 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\EventTicket|null $eventTicket
  * @property-read \App\Models\Order|null $order
  * @property-read \App\Models\CartItem|null $cartItem
+ * @property-read \App\Models\EventTicketCode|null $eventTicketCode
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -64,5 +66,10 @@ class OrderItem extends Model
     public function eventTicket()
     {
         return $this->hasOne(EventTicket::class, 'id', 'event_ticket_id');
+    }
+
+    public function eventTicketCode()
+    {
+        return $this->hasOne(EventTicketCode::class, 'order_item_id', 'id');
     }
 }
