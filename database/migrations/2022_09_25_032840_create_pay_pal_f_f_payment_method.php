@@ -17,10 +17,8 @@ return new class extends Migration
             'name' => 'PayPalFriendsFamily Friends&Family',
             'active' => true,
             'FQN' => 'PayPalFriendsFamily',
+            'description' => 'PayPalFriendsFamily Friends & Family - We will generate a code for you, that you will have to use as a subject after ordering. Make sure to do this within the following 24h after you ordered otherwise we will cancel your order!',
         ]);
-        $paymentMethod = PaymentMethod::where('alias', '=', 'paypal_ff')->first();
-        $paymentMethod->description = 'PayPalFriendsFamily Friends & Family - We will generate a code for you, that you will have to use as a subject after ordering. Make sure to do this within the following 24h after you ordered otherwise we will cancel your order!';
-        $paymentMethod->save();
     }
 
     /**

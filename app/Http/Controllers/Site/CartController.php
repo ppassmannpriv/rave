@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Actions\Cart\AddTicketToCart;
+use App\Actions\Cart\CreateOrderFromCart;
 use App\Actions\Cart\RemoveTicketFromCart;
 use App\Http\Requests\Site\AddToCartRequest;
 use App\Http\Requests\Site\RemoveFromCartRequest;
@@ -28,5 +29,6 @@ class CartController extends WebController
 
     public function orderCart(OrderCartRequest $request) {
         dd($request->all());
+        CreateOrderFromCart::make()->handle($request->all());
     }
 }

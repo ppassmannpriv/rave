@@ -62,9 +62,14 @@ class Order extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function payment()
+    public function transaction()
     {
-        return $this->belongsTo(Payment::class, 'payment_id');
+        return $this->belongsTo(Transaction::class, 'transaction_id');
+    }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::Class, 'order_id');
     }
 
     public function event_ticket_code()

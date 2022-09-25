@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Events\EventTicketCreatedEvent;
+use App\Models\Order\OrderItem;
 use \DateTimeInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -111,5 +112,13 @@ class EventTicket extends Model
     public function eventTicketCodes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(EventTicketCode::class, 'event_ticket_id', 'id');
+    }
+
+    public function delete()
+    {
+        if (OrderItem::where('cart_item_id', '=', $this->id)->get()->count()) {
+            throw new \Exception('Sorry, you cannot delete this ticket. It has been ordered.');
+        }
+        return parent::delete();
     }
 }
