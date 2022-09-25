@@ -274,5 +274,10 @@ return [
             'created_at' => 'Created at',
             'raw' => 'Raw Transaction data'
         ]
+    ],
+    'orderItems' => [
+        'fields' => [
+            'code' => 'Ticket Code'
+        ]
     ]
 ];

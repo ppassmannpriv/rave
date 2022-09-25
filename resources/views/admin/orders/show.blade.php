@@ -36,17 +36,26 @@
                         {{ trans('cruds.order.fields.payment') }}
                     </th>
                     <td>
-                        {{ $order->payment->reference ?? '' }}
+                        {{ $order->transaction->reference ?? '' }}
                     </td>
                 </tr>
+                </tbody>
+            </table>
+            <fieldset>
+                <legend>Order Items</legend>
+            </fieldset>
+            <table class="table table-bordered table-striped">
+                <tbody>
+                @foreach($order->orderItems as $orderItem)
                 <tr>
                     <th>
-                        {{ trans('cruds.order.fields.event_ticket_code') }}
+                        {{ trans('cruds.orderItems.fields.code') }}
                     </th>
                     <td>
-                        {{ $order->event_ticket_code->code ?? '' }}
+                        {{ $orderItem->eventTicketCode->code }}
                     </td>
                 </tr>
+                @endforeach
                 </tbody>
             </table>
             <div class="form-group">

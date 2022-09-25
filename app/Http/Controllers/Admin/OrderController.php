@@ -75,7 +75,7 @@ class OrderController extends Controller
     {
         abort_if(Gate::denies('order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $order->load('user', 'payment', 'event_ticket_code');
+        $order->load('user', 'transaction', 'orderItems');
 
         return view('admin.orders.show', compact('order'));
     }
