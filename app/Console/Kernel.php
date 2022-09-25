@@ -15,6 +15,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('payment_methods:paypal_ff:scan-report')
+            ->everyTwoMinutes()
+            ->emailOutputOnFailure(env('SYSADMIN'));
         // $schedule->command('inspire')->hourly();
     }
 

@@ -16,3 +16,6 @@ yarn-error.log
 /.vscode
 /storage/tmp
 /storage/debugbar
+_ide_helper_actions.php
+_ide_helper.php
+.phpstorm.meta.php
