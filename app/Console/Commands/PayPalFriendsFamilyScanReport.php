@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Exceptions\PaymentMethodException;
 use App\Actions\Payment\PayPalFriendsFamily\PayTransaction;
 use App\Models\PaymentMethod\PayPalFriendsFamily;
 use Illuminate\Console\Command;
@@ -39,7 +40,11 @@ class PayPalFriendsFamilyScanReport extends Command
             $csv = Reader::createFromString(Storage::get($file));
             $csv->setHeaderOffset(0);
             foreach ($csv->getRecords($csv->getHeader()) as $record) {
-                $transaction = PayTransaction::make()->handle($record);
+                try {
+                    $transaction = PayTransaction::make()->handle($record);
+                } catch (PaymentMethodException $exception) {
+
+                }
                 dd($transaction);
             }
         }

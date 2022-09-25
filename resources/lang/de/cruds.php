@@ -267,4 +267,12 @@ return [
             'deleted_at_helper' => ' ',
         ],
     ],
+    'transactionPartials' => [
+        'fields' => [
+            'id' => 'ID',
+            'amount' => 'Amount',
+            'created_at' => 'Created at',
+            'raw' => 'Raw Transaction data'
+        ]
+    ]
 ];

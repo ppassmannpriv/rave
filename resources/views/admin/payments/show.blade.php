@@ -28,7 +28,7 @@
                         {{ trans('cruds.payment.fields.provider') }}
                     </th>
                     <td>
-                        {{ App\Models\Payment::PROVIDER_RADIO[$payment->provider] ?? '' }}
+                        {{ $payment->paymentMethod->name ?? '' }}
                     </td>
                 </tr>
                 <tr>
@@ -57,6 +57,47 @@
                 </tr>
                 </tbody>
             </table>
+            <fieldset>
+                <legend>Transaction History</legend>
+            </fieldset>
+            @foreach($payment->partialTransactions as $partial)
+            <table class="table table-bordered table-striped">
+                <tbody>
+                <tr>
+                    <th>
+                        {{ trans('cruds.transactionPartials.fields.id') }}
+                    </th>
+                    <td>
+                        {{ $partial->id }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ trans('cruds.transactionPartials.fields.amount') }}
+                    </th>
+                    <td>
+                        {{ $partial->amount ?? '' }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ trans('cruds.transactionPartials.fields.created_at') }}
+                    </th>
+                    <td>
+                        {{ $partial->created_at ?? '' }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ trans('cruds.transactionPartials.fields.raw') }}
+                    </th>
+                    <td>
+                        {{ $partial->raw ?? '' }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            @endforeach
             <div class="form-group">
                 <a class="btn btn-default" href="{{ route('admin.payments.index') }}">
                     {{ trans('global.back_to_list') }}

@@ -72,7 +72,7 @@ class OrderService {
         return Transaction::create([
             'payment_method_id' => $paymentMethod->id,
             'order_id' => $order->id,
-            'reference' => Str::upper(Str::random(10)),
+            'reference' => Str::upper(Str::random(Transaction::REFERENCE_LENGTH)),
             'amount' => $order->price,
             'state' => Transaction::STATE_INIT
         ]);
