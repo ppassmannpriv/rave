@@ -69,4 +69,12 @@ class EventTicketCode extends Model
     {
         return $this->belongsTo(OrderItem::class, 'order_item_id');
     }
+
+    public function delete()
+    {
+        if ($this->orderItem === null) {
+            throw new \Exception('You cannot delete a code that has been purchased.');
+        }
+        return parent::delete();
+    }
 }

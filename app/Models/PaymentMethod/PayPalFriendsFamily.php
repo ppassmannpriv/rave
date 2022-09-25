@@ -1,6 +1,8 @@
 <?php
 
-use \App\Models\PaymentMethod;
+namespace App\Models\PaymentMethod;
+
+use App\Models\PaymentMethod;
 
 class PayPalFriendsFamily extends PaymentMethod
 {

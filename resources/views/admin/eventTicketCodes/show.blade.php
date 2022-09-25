@@ -31,6 +31,14 @@
                         {{ $eventTicketCode->code }}
                     </td>
                 </tr>
+                <tr>
+                    <th>
+                        {{ trans('cruds.eventTicketCode.fields.order_item') }}
+                    </th>
+                    <td>
+                        {{ $eventTicketCode->orderItem }}
+                    </td>
+                </tr>
                 </tbody>
             </table>
             <div class="form-group">

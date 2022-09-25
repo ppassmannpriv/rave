@@ -74,45 +74,45 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($payments as $key => $payment)
-                <tr data-entry-id="{{ $payment->id }}">
+                @foreach($transactions as $key => $transaction)
+                <tr data-entry-id="{{ $transaction->id }}">
                     <td>
 
                     </td>
                     <td>
-                        {{ $payment->id ?? '' }}
+                        {{ $transaction->id ?? '' }}
                     </td>
                     <td>
-                        {{ App\Models\Payment::PROVIDER_RADIO[$payment->provider] ?? '' }}
+                        {{ $transaction->paymentMethod->name ?? '' }}
                     </td>
                     <td>
-                        {{ $payment->amount ?? '' }}
+                        {{ $transaction->amount ?? '' }}
                     </td>
                     <td>
-                        {{ App\Models\Payment::STATE_SELECT[$payment->state] ?? '' }}
+                        {{ $transaction->state ?? '' }}
                     </td>
                     <td>
-                        {{ $payment->reference ?? '' }}
+                        {{ $transaction->reference ?? '' }}
                     </td>
                     <td>
                         @can('payment_show')
-                        <a class="btn btn-xs btn-primary" href="{{ route('admin.payments.show', $payment->id) }}">
+                        <a class="btn btn-xs btn-primary" href="{{ route('admin.payments.show', $transaction->id) }}">
                             {{ trans('global.view') }}
                         </a>
                         @endcan
 
                         @can('payment_edit')
-                        <a class="btn btn-xs btn-info" href="{{ route('admin.payments.edit', $payment->id) }}">
+                        <a class="btn btn-xs btn-info" href="{{ route('admin.payments.edit', $transaction->id) }}">
                             {{ trans('global.edit') }}
                         </a>
                         @endcan
 
                         @can('payment_delete')
-                        <form action="{{ route('admin.payments.destroy', $payment->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                        <!--<form action="{{ route('admin.payments.destroy', $transaction->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                        </form>
+                        </form>-->
                         @endcan
 
                     </td>
