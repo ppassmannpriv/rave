@@ -6,6 +6,7 @@ use App\Actions\Order\FinishOrderEmailUserAction;
 use App\Models\Order;
 use App\Models\Transaction;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class FinishOrders extends Command
 {
@@ -30,10 +31,13 @@ class FinishOrders extends Command
      */
     public function handle()
     {
+        $this->info('Looking for outstanding orders.');
         $outstandingOrders = Order::whereRelation('transaction', 'state', '=', Transaction::STATE_PAID)->get();
+        $this->info('Finishing ' . $outstandingOrders->count() . ' outstanding orders.');
         foreach ($outstandingOrders as $outstandingOrder) {
             FinishOrderEmailUserAction::make()->handle($outstandingOrder);
         }
+        $this->info('Done.');
 
         return 0;
     }

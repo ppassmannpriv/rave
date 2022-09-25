@@ -17,8 +17,13 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('payment_methods:paypal_ff:scan-report')
             ->everyFifteenMinutes()
-            ->appendOutputTo('storage/logs/paypal_ff_scan-report.log')
-            ->emailOutputOnFailure(env('SYSADMIN'));
+            ->emailOutputOnFailure([env('SYSADMIN')])
+            ->appendOutputTo('storage/logs/paypal_ff_scan-report.log');
+
+        $schedule->command('orders:finish')
+            ->everyTenMinutes()
+            ->emailOutputOnFailure([env('SYSADMIN')])
+            ->appendOutputTo('storage/logs/order-successful.log');
     }
 
     /**
