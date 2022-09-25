@@ -16,7 +16,7 @@ class PayTransaction
      * @throws TransactionNotFoundException
      * @throws ValidationException
      */
-    public function handle(array $transactionData): ?Transaction
+    public function handle(array $transactionData): void
     {
         $this->validateTransactionData($transactionData);
         $transactionAmount = str_replace(',', '.', $transactionData[PayPalFriendsFamily::AMOUNT_COLUMN]);
@@ -26,11 +26,11 @@ class PayTransaction
                 Transaction::STATE_ORDERED
             ])->where('amount', '=', $transactionAmount)->first();
 
-        if ($transaction === null) {
-            throw new TransactionNotFoundException('Transaction not found.', [
+        if ($transaction === null && app()->isLocal()) {
+            throw new TransactionNotFoundException('Transaction not found. ' . json_encode([
                 'reference' => $transactionData[PayPalFriendsFamily::NOTE_COLUMN],
-                'amount' => $transactionAmount,
-            ]);
+                'amount' => $transactionAmount ?? null,
+            ]));
         }
 
         $partialTransaction = Transaction\PartialTransaction::create([
@@ -42,8 +42,6 @@ class PayTransaction
             $transaction->state = Transaction::STATE_PAID;
         }
         $transaction->save();
-
-        return $transaction;
     }
 
     private function validateTransactionData(array $transactionData): void

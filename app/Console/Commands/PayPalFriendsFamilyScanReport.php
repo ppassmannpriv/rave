@@ -8,6 +8,7 @@ use App\Models\PaymentMethod\PayPalFriendsFamily;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use League\Csv\Reader;
+use Illuminate\Support\Facades\Log;
 
 class PayPalFriendsFamilyScanReport extends Command
 {
@@ -32,7 +33,7 @@ class PayPalFriendsFamilyScanReport extends Command
      */
     public function handle()
     {
-        $files = Storage::allFiles(PayPalFriendsFamily::REPORT_DIR);
+        $files = Storage::files(PayPalFriendsFamily::REPORT_DIR);
         foreach ($files as $file) {
             if (Storage::exists($file) === false) {
                 continue;
@@ -41,14 +42,21 @@ class PayPalFriendsFamilyScanReport extends Command
             $csv->setHeaderOffset(0);
             foreach ($csv->getRecords($csv->getHeader()) as $record) {
                 try {
-                    $transaction = PayTransaction::make()->handle($record);
+                    PayTransaction::make()->handle($record);
                 } catch (PaymentMethodException $exception) {
+                    Log::error($exception, ['record' => $record]);
+                    $this->info($exception->getMessage());
+                } catch (\Exception $exception) {
+                    Log::error($exception, ['record' => $record]);
+                    $this->info($exception->getMessage());
 
+                    return 1;
                 }
-                dd($transaction);
             }
+
+            Storage::move($file, str_replace(PayPalFriendsFamily::REPORT_DIR, PayPalFriendsFamily::REPORT_DIR . '/processed', $file));
         }
-        dd($files);
+
         return 0;
     }
 }
