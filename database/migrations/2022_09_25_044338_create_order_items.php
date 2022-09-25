@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('order_id');
-            $table->integer('qty');
+            $table->unsignedBigInteger('order_id')->nullable();
+            $table->integer('qty')->default(1);
             $table->decimal('single_price', 15, 2);
             $table->decimal('row_price', 15, 2);
-            $table->unsignedBigInteger('cart_item_id');
-            $table->unsignedInteger('event_ticket_id');
+            $table->unsignedBigInteger('cart_item_id')->nullable();
+            $table->unsignedInteger('event_ticket_id')->nullable();
             $table->timestamps();
         });
     }

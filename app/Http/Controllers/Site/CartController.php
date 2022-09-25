@@ -10,6 +10,7 @@ use App\Http\Requests\Site\RemoveFromCartRequest;
 use App\Http\Requests\Site\OrderCartRequest;
 use App\Models\EventTicket;
 use App\Models\PaymentMethod;
+use App\Services\CartService;
 
 class CartController extends WebController
 {
@@ -28,7 +29,15 @@ class CartController extends WebController
     }
 
     public function orderCart(OrderCartRequest $request) {
-        dd($request->all());
-        CreateOrderFromCart::make()->handle($request->all());
+        $order = CreateOrderFromCart::make()->handle($request->all());
+        session()->put('lastOrder', $order);
+        return \Redirect::to('/cart/success');
+    }
+
+    public function success() {
+        $order = session()->get('lastOrder');
+        session()->forget('lastOrder');
+        session()->forget(CartService::DEFAULT_INSTANCE);
+        return $this->respond('cart.success', ['order' => $order]);
     }
 }

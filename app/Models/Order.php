@@ -6,6 +6,7 @@ use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Order\OrderItem;
 
 /**
  * App\Models\Order
@@ -51,7 +52,8 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'payment_id',
-        'event_ticket_code_id',
+        'price',
+        'transaction_id',
         'created_at',
         'updated_at',
         'deleted_at',

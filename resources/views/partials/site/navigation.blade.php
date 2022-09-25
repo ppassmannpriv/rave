@@ -18,6 +18,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('events.list') }}">Events</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('cart.index') }}">Cart</a>
+            </li>
         </ul>
     </div>
     @endif

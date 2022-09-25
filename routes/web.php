@@ -90,6 +90,7 @@ Route::get('/cart', '\App\Http\Controllers\Site\CartController@index')->name('ca
 Route::post('/cart/add', '\App\Http\Controllers\Site\CartController@addToCart')->name('cart.add');
 Route::get('/cart/remove/{id}', '\App\Http\Controllers\Site\CartController@removeFromCart')->name('cart.remove');
 Route::post('/cart/order', '\App\Http\Controllers\Site\CartController@orderCart')->name('cart.order');
+Route::get('/cart/success', '\App\Http\Controllers\Site\CartController@success')->name('cart.success');
 
 // Handle 404 and other errors
 Route::fallback(function() {

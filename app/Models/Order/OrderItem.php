@@ -2,6 +2,8 @@
 
 namespace App\Models\Order;
 
+use App\Models\CartItem;
+use App\Models\EventTicket;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -35,5 +37,15 @@ class OrderItem extends Model
     public function order()
     {
         return $this->belongsTo(Order::class, 'order_id');
+    }
+
+    public function cartItem()
+    {
+        return $this->hasOne(CartItem::class, 'cart_item_id');
+    }
+
+    public function eventTicket()
+    {
+        return $this->hasOne(EventTicket::class, 'event_ticket_id');
     }
 }

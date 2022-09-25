@@ -13,24 +13,30 @@
                         @csrf
                         <fieldset>
                             <legend>Cart</legend>
-                            <ul class="list-group container" id="cart-list">
-                                @foreach($cart->cartItems as $cartItem)
-                                <li class="list-group-item d-flex">
-                                    <input type="hidden" name="cart_item" value="{{ $cartItem->id }}" />
-                                    <span class="d-flex name col-sm-6">{{ $cartItem->eventTicket->event->name }}</span>
-                                    <span class="d-flex type col-sm-2 text-right">{{ $cartItem->eventTicket->ticket_type }}</span>
-                                    <span class="d-flex qty col-sm-1 text-right">x {{ $cartItem->qty }}</span>
-                                    <span class="d-flex price col-sm-2 text-right">{{ $cartItem->row_price }} EUR</span>
-                                    <a class="d-flex remove col-sm-1 text-right" href="{!! route('cart.remove', ['id' => $cartItem->id]) !!}">Remove</a>
-                                </li>
-                                @endforeach
-                            </ul>
+                            @if($cart->cartItems->count() > 0)
+                                <ul class="list-group container" id="cart-list">
+                                    @foreach($cart->cartItems as $cartItem)
+                                    <li class="list-group-item d-flex">
+                                        <input type="hidden" name="cart_item" value="{{ $cartItem->id }}" />
+                                        <span class="d-flex name col-sm-6">{{ $cartItem->eventTicket->event->name }}</span>
+                                        <span class="d-flex type col-sm-2 text-right">{{ $cartItem->eventTicket->ticket_type }}</span>
+                                        <span class="d-flex qty col-sm-1 text-right">x {{ $cartItem->qty }}</span>
+                                        <span class="d-flex price col-sm-2 text-right">{{ $cartItem->row_price }} EUR</span>
+                                        <a class="d-flex remove col-sm-1 text-right" href="{!! route('cart.remove', ['id' => $cartItem->id]) !!}">Remove</a>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                <p>There is nothing in your cart.</p>
+                            @endif
                         </fieldset>
-                        <div class="form-group mt-5">
-                            @include('partials.checkout.billing-address')
-                            @include('partials.checkout.payment-method')
-                            <button type="submit" class="btn btn-success">Order</button>
-                        </div>
+                        @if($cart->cartItems->count() > 0)
+                            <div class="form-group mt-5">
+                                @include('partials.checkout.billing-address')
+                                @include('partials.checkout.payment-method')
+                                <button type="submit" class="btn btn-success">Order</button>
+                            </div>
+                        @endif
                     </form>
                 </div>
             </div>
