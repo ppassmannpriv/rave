@@ -55,13 +55,17 @@ class OrderController extends Controller
 
         $users = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $payments = Payment::pluck('reference', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $order->load('user', 'transaction', 'orderItems');
 
-        $event_ticket_codes = EventTicketCode::pluck('code', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $orderStatuses = [
+            Order::STATUS_INITIALIZED,
+            Order::STATUS_PROCESSING,
+            Order::STATUS_PAID,
+            Order::STATUS_CLOSED,
+            Order::STATUS_CANCELLED,
+        ];
 
-        $order->load('user', 'payment', 'event_ticket_code');
-
-        return view('admin.orders.edit', compact('event_ticket_codes', 'order', 'payments', 'users'));
+        return view('admin.orders.edit', compact('order', 'users', 'orderStatuses'));
     }
 
     public function update(UpdateOrderRequest $request, Order $order)

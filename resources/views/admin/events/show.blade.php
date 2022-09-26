@@ -80,14 +80,14 @@
     </div>
     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="#event_event_tickets" role="tab" data-toggle="tab">
+            <a class="nav-link" href="#event_tickets" role="tab" data-toggle="tab">
                 {{ trans('cruds.eventTicket.title') }}
             </a>
         </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="event_event_tickets">
-            @includeIf('admin.events.relationships.eventEventTickets', ['eventTickets' => $event->eventEventTickets])
+        <div class="tab-pane" role="tabpanel" id="event_tickets">
+            @includeIf('admin.events.relationships.eventTickets', ['eventTickets' => $event->eventTickets])
         </div>
     </div>
 </div>

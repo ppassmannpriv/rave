@@ -32,9 +32,6 @@
                         {{ trans('cruds.user.fields.email') }}
                     </th>
                     <th>
-                        {{ trans('cruds.order.fields.payment') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.payment.fields.provider') }}
                     </th>
                     <th>
@@ -42,9 +39,6 @@
                     </th>
                     <th>
                         {{ trans('cruds.payment.fields.state') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.order.fields.event_ticket_code') }}
                     </th>
                     <th>
                         &nbsp;
@@ -61,16 +55,6 @@
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($users as $key => $item)
                             <option value="{{ $item->name }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($payments as $key => $item)
-                            <option value="{{ $item->reference }}">{{ $item->reference }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -102,23 +86,12 @@
                         {{ $order->user->email ?? '' }}
                     </td>
                     <td>
-                        {{ $order->payment->reference ?? '' }}
-                    </td>
-                    <td>
-                        @if($order->payment)
-                        {{ $order->payment::PROVIDER_RADIO[$order->payment->provider] ?? '' }}
-                        @endif
-                    </td>
-                    <td>
                         {{ $order->payment->amount ?? '' }}
                     </td>
                     <td>
-                        @if($order->payment)
-                        {{ $order->payment::STATE_SELECT[$order->payment->state] ?? '' }}
-                        @endif
+                        {{ $order->status ?? '' }}
                     </td>
                     <td>
-                        {{ $order->event_ticket_code->code ?? '' }}
                     </td>
                     <td>
                         @can('order_show')

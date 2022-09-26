@@ -21,13 +21,9 @@ class UpdateOrderRequest extends FormRequest
                 'required',
                 'integer',
             ],
-            'payment_id' => [
+            'status' => [
                 'required',
-                'integer',
-            ],
-            'event_ticket_code_id' => [
-                'required',
-                'integer',
+                'string',
             ],
         ];
     }

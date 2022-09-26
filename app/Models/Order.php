@@ -40,6 +40,12 @@ class Order extends Model
     use SoftDeletes;
     use HasFactory;
 
+    public const STATUS_INITIALIZED = 'initialized';
+    public const STATUS_PROCESSING = 'processing';
+    public const STATUS_PAID = 'paid';
+    public const STATUS_CLOSED = 'closed';
+    public const STATUS_CANCELLED = 'cancelled';
+
     public $table = 'orders';
 
     protected $dates = [
@@ -50,7 +56,7 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
-        'payment_id',
+        'status',
         'price',
         'transaction_id',
         'created_at',
