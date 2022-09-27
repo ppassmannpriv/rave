@@ -13,20 +13,21 @@
                     <span>End: {{ $event->end }}</span>
                     <span>{{ $event->location }}</span>
 
-                    <ul class="list-group">
+                    <ul class="list-group d-flex">
                     @foreach($event->eventTickets as $eventTicket)
-                        <li class="list-group-item">
-                            <span>type: {{ $eventTicket->ticket_type }}</span>
-                            <span>price: {{ $eventTicket->price }}</span>
-                            <span>from: {{ $eventTicket->from }}</span>
-                            <span>to: {{ $eventTicket->to }}</span>
-                            <span>in_stock: {{ $eventTicket->stock }}</span>
-                            <form action="/cart/add/" method="POST">
-                                @csrf
-                                <input type="hidden" value="{{ $eventTicket->id }}" name="event_ticket_id" />
-                                <input type="hidden" value="1" name="qty-{{ $event->id }}" id="qty-{{ $event->id }}" />
-                                <input type="submit" value="Add to Cart" />
-                            </form>
+                        <li class="list-group-item d-flex">
+                            <div class="col-sm-3"><span>type: {{ $eventTicket->ticket_type }}</span></div>
+                            <div class="col-sm-3"><span>price: {{ $eventTicket->price }}</span></div>
+                            <div class="col-sm-3"><span>from: {{ $eventTicket->from }}</span><br />
+                                <span>to: {{ $eventTicket->to }}</span></div>
+                            <div class="col-sm-3">
+                                <form action="/cart/add/" method="POST">
+                                    @csrf
+                                    <input type="hidden" value="{{ $eventTicket->id }}" name="event_ticket_id" />
+                                    <input type="hidden" value="1" name="qty-{{ $event->id }}" id="qty-{{ $event->id }}" />
+                                    <input type="submit" value="Add to Cart" />
+                                </form>
+                            </div>
                         </li>
                     @endforeach
                     </ul>

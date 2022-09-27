@@ -86,7 +86,7 @@ foreach($navigationService->getPages() as $page) {
 
 // Events stuff
 Route::get('/events/', '\App\Http\Controllers\Site\EventController@index')->name('events.list');
-Route::get('/events/{id}', '\App\Http\Controllers\Site\EventController@show')->name('events.show');
+Route::get('/events/{id}', '\App\Http\Controllers\Site\EventController@show')->name('events.show')->middleware('password');
 
 // Cart logical routes
 Route::get('/cart', '\App\Http\Controllers\Site\CartController@index')->name('cart.index');
