@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $reference
  * @property string $state
  * @property float $amount
- * @property-read \App\Models\Transaction|null $transaction
+ * @property-read \App\Models\PaymentMethod|null $paymentMethod
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @mixin \Eloquent

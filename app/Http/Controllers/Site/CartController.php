@@ -39,6 +39,9 @@ class CartController extends WebController
 
     public function success() {
         $order = session()->get('lastOrder');
+        if ($order === null) {
+            return \Redirect::to('/')->with('warning', 'No order made, you cannot see an empty success page.');
+        }
         session()->forget('lastOrder');
         session()->forget(CartService::DEFAULT_INSTANCE);
         return $this->respond('cart.success', ['order' => $order]);

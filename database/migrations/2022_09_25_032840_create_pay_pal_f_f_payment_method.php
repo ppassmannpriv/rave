@@ -14,10 +14,10 @@ return new class extends Migration
     {
         PaymentMethod::create([
             'alias' => 'paypal_ff',
-            'name' => 'PayPalFriendsFamily Friends&Family',
+            'name' => 'PayPal Friends&Family',
             'active' => true,
             'FQN' => 'PayPalFriendsFamily',
-            'description' => 'PayPalFriendsFamily Friends & Family - We will generate a code for you, that you will have to use as a subject after ordering. Make sure to do this within the following 24h after you ordered otherwise we will cancel your order!',
+            'description' => 'PayPal Friends & Family - We will generate a code for you, that you will have to use as a subject after ordering. Make sure to do this within the following 24h after you ordered otherwise we will cancel your order!',
         ]);
     }
 
