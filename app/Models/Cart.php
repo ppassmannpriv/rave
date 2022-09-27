@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\CartItem[] $cartItems
  * @property-read \App\Models\User|null $user
  * @mixin \Eloquent
  */
@@ -35,12 +36,13 @@ class Cart extends Model
         'updated_at',
     ];
 
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function cartItems() {
+    public function cartItems(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
         return $this->hasMany(CartItem::class);
     }
 }

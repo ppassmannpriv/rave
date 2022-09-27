@@ -26,9 +26,11 @@
 @include('partials.site.minicart')
 <div class="flex-row align-items-center">
     <div class="container">
+        @include('partials.common.flash')
         @yield("content")
     </div>
 </div>
+<!--<script type="text/javascript" src="https://unpkg.com/@coreui/coreui@3.2.2/dist/js/coreui.min.js"></script>-->
 @yield('scripts')
 </body>
 

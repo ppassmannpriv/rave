@@ -96,6 +96,9 @@ return [
     'eventTicket' => [
         'title'          => 'Event Tickets',
         'title_singular' => 'Event Ticket',
+        'ticket_types'   => [
+
+        ],
         'fields'         => [
             'id'                 => 'ID',
             'id_helper'          => ' ',
@@ -281,5 +284,6 @@ return [
         'fields' => [
             'code' => 'Ticket Code'
         ]
-    ]
+    ],
+    ''
 ];

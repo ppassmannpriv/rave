@@ -16,10 +16,14 @@
                     <ul class="list-group d-flex">
                     @foreach($event->eventTickets as $eventTicket)
                         <li class="list-group-item d-flex">
-                            <div class="col-sm-3"><span>type: {{ $eventTicket->ticket_type }}</span></div>
-                            <div class="col-sm-3"><span>price: {{ $eventTicket->price }}</span></div>
+                            <div class="col-sm-3"><span>{{ $eventTicket::TICKET_TYPE_RADIO[$eventTicket->ticket_type] }}</span></div>
+                            <div class="col-sm-3"><span>@money($eventTicket->price)</span></div>
+                            @if ($eventTicket->from || $eventTicket->to)
                             <div class="col-sm-3"><span>from: {{ $eventTicket->from }}</span><br />
                                 <span>to: {{ $eventTicket->to }}</span></div>
+                            @else
+                            <div class="col-sm-3"></div>
+                            @endif
                             <div class="col-sm-3">
                                 <form action="/cart/add/" method="POST">
                                     @csrf

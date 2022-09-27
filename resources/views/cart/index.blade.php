@@ -19,9 +19,9 @@
                                     <li class="list-group-item d-flex">
                                         <input type="hidden" name="cart_item" value="{{ $cartItem->id }}" />
                                         <span class="d-flex name col-sm-6">{{ $cartItem->eventTicket->event->name }}</span>
-                                        <span class="d-flex type col-sm-2 text-right">{{ $cartItem->eventTicket->ticket_type }}</span>
+                                        <span class="d-flex type col-sm-2 text-right">{{ $cartItem->eventTicket::TICKET_TYPE_RADIO[$cartItem->eventTicket->ticket_type] }}</span>
                                         <span class="d-flex qty col-sm-1 text-right">x {{ $cartItem->qty }}</span>
-                                        <span class="d-flex price col-sm-2 text-right">{{ $cartItem->row_price }} EUR</span>
+                                        <span class="d-flex price col-sm-2 text-right">@money($cartItem->row_price)</span>
                                         <a class="d-flex remove col-sm-1 text-right" href="{!! route('cart.remove', ['id' => $cartItem->id]) !!}">Remove</a>
                                     </li>
                                     @endforeach

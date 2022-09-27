@@ -97,5 +97,5 @@ Route::get('/cart/success', '\App\Http\Controllers\Site\CartController@success')
 
 // Handle 404 and other errors
 Route::fallback(function() {
-    return redirect('/');
+    return redirect('/')->with('warning', 'Sorry, this route is not available.');
 });
