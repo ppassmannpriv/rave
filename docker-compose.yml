@@ -36,18 +36,21 @@ services:
         container_name: rave-nginx
         restart: unless-stopped
         ports:
-            - "8000:80"
+            - "80:80"
             - "443:443"
         volumes:
             - ./:/var/www
             - ./deployment/nginx:/etc/nginx/conf.d:ro
-            - ./deployment/certbot/www:/var/www/certbot/:ro
+            - ./deployment/certbot/www/:/var/www/certbot/:ro
+            - ./deployment/certbot/conf/:/etc/nginx/ssl/:ro
         networks:
             - rave
     certbot:
         image: certbot/certbot:latest
         volumes:
             - ./deployment/certbot/www/:/var/www/certbot/:rw
+            - ./deployment/certbot/conf/:/var/www/certbot/:rw
+
     redis:
         image: 'redis:alpine'
         container_name: rave-redis
