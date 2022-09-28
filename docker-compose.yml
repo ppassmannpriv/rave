@@ -44,6 +44,10 @@ services:
             - ./deployment/certbot/www:/var/www/certbot/:ro
         networks:
             - rave
+    certbot:
+        image: certbot/certbot:latest
+        volumes:
+            - ./deployment/certbot/www/:/var/www/certbot/:rw
     redis:
         image: 'redis:alpine'
         container_name: rave-redis
