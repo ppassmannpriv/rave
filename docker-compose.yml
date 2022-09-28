@@ -49,7 +49,7 @@ services:
         image: certbot/certbot:latest
         volumes:
             - ./deployment/certbot/www/:/var/www/certbot/:rw
-            - ./deployment/certbot/conf/:/var/www/certbot/:rw
+            - ./deployment/certbot/conf/:/etc/letsencrypt/:rw
 
     redis:
         image: 'redis:alpine'
