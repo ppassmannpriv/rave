@@ -1,0 +1,92 @@
+version: '3'
+services:
+  rave-production:
+    image: ghcr.io/ppassmannpriv/rave:latest
+    build:
+      dockerfile: Dockerfile
+    env_file:
+      - .env.production
+    volumes:
+      - ./storage:/app/storage
+    ports:
+      - "8000:80"
+    networks:
+      - rave-production-rave
+    depends_on:
+      - rave-production-mysql
+      - rave-production-redis
+      - rave-production-meilisearch
+      - rave-production-minio
+  rave-production-mysql:
+    image: 'mysql/mysql-server:8.0'
+    ports:
+      - '${FORWARD_DB_PORT:-3306}:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - 'rave-production-rave-mysql:/var/lib/mysql'
+      - './deployment/create-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+    networks:
+      - rave-production-rave
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}" ]
+      retries: 3
+      timeout: 5s
+  rave-production-redis:
+    image: 'redis:alpine'
+    ports:
+      - '${FORWARD_REDIS_PORT:-6379}:6379'
+    volumes:
+      - 'rave-production-rave-redis:/data'
+    networks:
+      - rave-production-rave
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      retries: 3
+      timeout: 5s
+  rave-production-meilisearch:
+    image: 'getmeili/meilisearch:latest'
+    ports:
+      - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
+    volumes:
+      - 'rave-production-rave-meilisearch:/meili_data'
+    networks:
+      - rave-production-rave
+    healthcheck:
+      test: [ "CMD", "wget", "--no-verbose", "--spider",  "http://localhost:7700/health" ]
+      retries: 3
+      timeout: 5s
+  rave-production-minio:
+    image: 'minio/minio:latest'
+    ports:
+      - '${FORWARD_MINIO_PORT:-9000}:9000'
+      - '${FORWARD_MINIO_CONSOLE_PORT:-8900}:8900'
+    environment:
+      MINIO_ROOT_USER: '${MINIO_USER}'
+      MINIO_ROOT_PASSWORD: '${MINIO_PASSWORD}'
+    volumes:
+      - 'rave-production-rave-minio:/data/minio'
+    networks:
+      - rave-production-rave
+    command: minio server /data/minio --console-address ":8900"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      retries: 3
+      timeout: 5s
+networks:
+  rave-production-rave:
+    driver: bridge
+volumes:
+  rave-production-rave-mysql:
+    driver: local
+  rave-production-rave-redis:
+    driver: local
+  rave-production-rave-meilisearch:
+    driver: local
+  rave-production-rave-minio:
+    driver: local
