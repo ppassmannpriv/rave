@@ -40,7 +40,8 @@ services:
             - "443:443"
         volumes:
             - ./:/var/www
-            - ./deployment/nginx:/etc/nginx/conf.d
+            - ./deployment/nginx:/etc/nginx/conf.d:ro
+            - ./deployment/certbot/www:/var/www/certbot/:ro
         networks:
             - rave
     redis:
