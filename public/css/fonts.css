@@ -1,0 +1,92 @@
+@font-face {
+    font-family: '911_porscha_bold_italicBdIt';
+    src: url('../font/schleuse_eins/911porschav3boldital-webfont.woff2') format('woff2'),
+    url('../font/schleuse_eins/911porschav3boldital-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: '911_porscha_condensed_itaCnIt';
+    src: url('../font/schleuse_eins/911porschav3condital-webfont.woff2') format('woff2'),
+    url('../font/schleuse_eins/911porschav3condital-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: '911_porscha_expandeexpandedIt';
+    src: url('../font/schleuse_eins/911porschav3expandital-webfont.woff2') format('woff2'),
+    url('../font/schleuse_eins/911porschav3expandital-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: '911_porscha_italicitalic';
+    src: url('../font/schleuse_eins/911porschav3ital-webfont.woff2') format('woff2'),
+    url('../font/schleuse_eins/911porschav3ital-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: '911_porscha_laser_italicIt';
+    src: url('../font/schleuse_eins/911porschav3laserital-webfont.woff2') format('woff2'),
+    url('../font/schleuse_eins/911porschav3laserital-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: '911_porscha_semi-italicSIt';
+    src: url('../font/schleuse_eins/911porschav3semital-webfont.woff2') format('woff2'),
+    url('../font/schleuse_eins/911porschav3semital-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: '911_porscha_title_italicIt';
+    src: url('../font/schleuse_eins/911porschav3titleital-webfont.woff2') format('woff2'),
+    url('../font/schleuse_eins/911porschav3titleital-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: '911_porscha_3d_italicitalic';
+    src: url('../font/schleuse_eins/911porschav33dital-webfont.woff2') format('woff2'),
+    url('../font/schleuse_eins/911porschav33dital-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
