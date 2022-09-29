@@ -66,7 +66,7 @@
     @media screen and (max-width: 63rem) {
         h1 { font-size: 2em; }
         body { font-size: 2em; }
-        .article-wrap { align-items: start; margin-top: 1em; }
+        .article-wrap { align-items: start; margin-top: 1.5em; }
         article { width: 28em; padding: 0; }
         #logo { width: auto; margin: 0; }
     }
