@@ -58,10 +58,16 @@
         to {margin-left: -900%;}
     }
 
-    @media screen and (max-width: 768px) {
+    /* iPhone XR */
+    /*@media only screen
+    and (device-width: 414px)
+    and (device-height: 896px)
+    and (-webkit-device-pixel-ratio : 2) {*/
+    @media screen and (max-width: 63rem) {
         h1 { font-size: 2em; }
-        body { font-size: 1em; }
-        article { padding: .5em;}
+        body { font-size: 2em; }
+        .article-wrap { align-items: start; margin-top: 1em; }
+        article { padding: .5em; width: 25.2em; }
     }
 
     @media screen and (max-width: 480px) {
