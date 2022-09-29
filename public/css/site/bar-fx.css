@@ -1,0 +1,19 @@
+.bar {
+    width: 1000%;
+    height: 5px;
+    background: linear-gradient(90deg, rgba(255,0,159,1) 0%, rgba(255,145,0,1) 50%, rgba(162,0,255,1) 100%);
+    animation-name: bar;
+    animation-duration: 12s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+}
+
+.bar-wrap {
+    width: 100%;
+    overflow: hidden;
+}
+
+@keyframes bar {
+    from {margin-left: 0;}
+    to {margin-left: -900%;}
+}

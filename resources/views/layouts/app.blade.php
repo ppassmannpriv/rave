@@ -18,14 +18,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
     <link href="{{ asset('css/fonts.css') }}" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,500;1,800&display=swap" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/site.css') }}" rel="stylesheet" />
     @yield('styles')
 </head>
 
 <body class="header-fixed">
+<div class="bar-wrap"><div class="bar"></div></div>
 @include('partials.site.navigation')
 @include('partials.site.minicart')
-<div class="flex-row align-items-center">
+<div class="flex-row align-items-center p-5">
     <div class="container">
         @include('partials.common.flash')
         @yield("content")
