@@ -67,7 +67,8 @@
         h1 { font-size: 2em; }
         body { font-size: 2em; }
         .article-wrap { align-items: start; margin-top: 1em; }
-        article { width: 26em; padding: 0; }
+        article { width: 28em; padding: 0; }
+        #logo { width: auto; margin: 0; }
     }
 
     @media screen and (max-width: 480px) {
