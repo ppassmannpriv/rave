@@ -1,0 +1,110 @@
+version: "3.7"
+services:
+    app:
+        build:
+            args:
+                user: rave
+                uid: 1000
+            context: ./
+            dockerfile: Dockerfile
+        image: rave
+        container_name: rave-app
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        networks:
+            - rave
+    db:
+        image: mysql:8.0
+        container_name: rave-db
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+            SERVICE_TAGS: prod
+            SERVICE_NAME: mysql
+        volumes:
+            - 'rave-db:/var/lib/mysql'
+            - ./deployment/mysql:/docker-entrypoint-initdb.d
+        networks:
+            - rave
+    nginx:
+        image: nginx:latest
+        container_name: rave-nginx
+        restart: unless-stopped
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./:/var/www
+            - ./deployment/nginx:/etc/nginx/conf.d:ro
+            - ./deployment/certbot/www/:/var/www/certbot/:ro
+            - ./deployment/certbot/conf/:/etc/nginx/ssl/:ro
+        networks:
+            - rave
+    certbot:
+        image: certbot/certbot:latest
+        volumes:
+            - ./deployment/certbot/www/:/var/www/certbot/:rw
+            - ./deployment/certbot/conf/:/etc/letsencrypt/:rw
+
+    redis:
+        image: 'redis:alpine'
+        container_name: rave-redis
+        ports:
+            - '${FORWARD_REDIS_PORT:-6379}:6379'
+        volumes:
+            - 'rave-redis:/data'
+        networks:
+            - rave
+        healthcheck:
+            test: [ "CMD", "redis-cli", "ping" ]
+            retries: 3
+            timeout: 5s
+    minio:
+        image: 'minio/minio:latest'
+        container_name: rave-minio
+        ports:
+            - '${FORWARD_MINIO_PORT:-9000}:9000'
+            - '${FORWARD_MINIO_CONSOLE_PORT:-8900}:8900'
+        environment:
+            MINIO_ROOT_USER: ${MINIO_USER}
+            MINIO_ROOT_PASSWORD: ${MINIO_PASSWORD}
+        volumes:
+            - 'rave-minio:/data/minio'
+        networks:
+            - rave
+        command: minio server /data/minio --console-address ":8900"
+        healthcheck:
+            test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+            retries: 3
+            timeout: 5s
+    meilisearch:
+        image: 'getmeili/meilisearch:latest'
+        container_name: rave-meilisearch
+        ports:
+            - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
+        volumes:
+            - 'rave-meilisearch:/meili_data'
+        networks:
+            - rave
+        healthcheck:
+            test: [ "CMD", "wget", "--no-verbose", "--spider",  "http://localhost:7700/health" ]
+            retries: 3
+            timeout: 5s
+
+networks:
+    rave:
+        driver: bridge
+volumes:
+    rave-db:
+        driver: local
+    rave-redis:
+        driver: local
+    rave-meilisearch:
+        driver: local
+    rave-minio:
+        driver: local

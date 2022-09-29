@@ -9,7 +9,12 @@ use Illuminate\Database\Eloquent\Collection;
 class NavigationService implements Navigation {
     public function getPages(): Collection
     {
-        return ContentPage::where('enabled', '=', true)->get();
+        return ContentPage::where('enabled', '=', true)->whereNot('index', '=', true)->get();
+    }
+
+    public function getIndexPage(): ?ContentPage
+    {
+        return ContentPage::where('index', '=', true)->first();
     }
 
     public function isActive(string $routeName): bool

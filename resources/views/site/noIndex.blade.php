@@ -6,12 +6,11 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    {{ $contentPage['title'] }}
+                    No index page defined.
                 </div>
 
                 <div class="card-body">
-                    {!! $contentPage['page_text'] !!}
-                    {{ $contentPage->getFeaturedImageAttribute() }}
+                    <p>It seems like no content page has been marked as index yet!</p>
                 </div>
             </div>
         </div>

@@ -1,14 +1,6 @@
 <?php
-use App\Contracts\Navigation;
-
 // Admin routing
 Route::redirect('/admin', '/login');
-//Route::get('/admin/home', function () {
-//    if (session('status')) {
-//        return redirect()->route('admin.home')->with('status', session('status'));
-//    }
-//    return redirect()->route('admin.home');
-//});
 Auth::routes(['register' => false]);
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
@@ -73,17 +65,6 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
     }
 });
 
-// CMS Style routing
-Route::redirect('/', '/site');
-$navigationService = App::make(Navigation::class);
-foreach($navigationService->getPages() as $page) {
-    if ($page->index) {
-        Route::get($page->path, 'Site\SiteController@index')->name($page->path);
-    } else {
-        Route::get($page->path, 'Site\SiteController@page')->name($page->path);
-    }
-}
-
 // Events stuff
 Route::get('/events/', '\App\Http\Controllers\Site\EventController@index')->name('events.list');
 Route::get('/events/{id}', '\App\Http\Controllers\Site\EventController@show')->name('events.show')->middleware('password');
@@ -95,7 +76,22 @@ Route::get('/cart/remove/{id}', '\App\Http\Controllers\Site\CartController@remov
 Route::post('/cart/order', '\App\Http\Controllers\Site\CartController@orderCart')->name('cart.order');
 Route::get('/cart/success', '\App\Http\Controllers\Site\CartController@success')->name('cart.success');
 
+use App\Contracts\Navigation;
+
+// CMS Style routing
+// Route::redirect('/', '/site');
+$navigationService = App::make(Navigation::class);
+Route::get('/', 'Site\SiteController@index')->name('site.index');
+foreach($navigationService->getPages() as $page) {
+    Route::get($page->path, 'Site\SiteController@page')->name($page->path);
+}
+
+if ($navigationService->getIndexPage() === null) {
+    Route::get('/', 'Site\SiteController@noIndex')->name('site.index');
+}
+Route::get('/site-error', 'Site\SiteController@error')->name('site.error');
+
 // Handle 404 and other errors
 Route::fallback(function() {
-    return redirect('/')->with('warning', 'Sorry, this route is not available.');
+    return redirect('/site-error')->with('warning', 'Sorry, this route is not available.');
 });

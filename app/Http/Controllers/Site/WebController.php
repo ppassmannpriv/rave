@@ -15,8 +15,12 @@ class WebController extends Controller
 
     public function respond(string $view, array $parameters = [], array $mergeData = []): Factory|View|Application
     {
-        $parameters['pages'] = $this->navigationService->getPages();
-        $parameters['cart'] = $this->cartService->content();
+        try {
+            $parameters['pages'] = $this->navigationService->getPages();
+            $parameters['cart'] = $this->cartService->content();
+        } catch (\Throwable $throwable) {
+            report($throwable);
+        }
 
         return view($view, $parameters, $mergeData);
     }

@@ -6,12 +6,11 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    {{ $contentPage['title'] }}
+                    An error occured
                 </div>
 
                 <div class="card-body">
-                    {!! $contentPage['page_text'] !!}
-                    {{ $contentPage->getFeaturedImageAttribute() }}
+                    <p>Please contact your site administrator!</p>
                 </div>
             </div>
         </div>

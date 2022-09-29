@@ -9,7 +9,7 @@ class SiteController extends WebController
 {
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        $contentPage = ContentPage::findOrFail(1);
+        $contentPage = $this->navigationService->getIndexPage();
         return $this->respond('site.index', ['contentPage' => $contentPage]);
     }
 
@@ -18,5 +18,15 @@ class SiteController extends WebController
         $pathInfo = \Str::replaceFirst('/', '', $request->getPathInfo());
         $contentPage = ContentPage::where('path', '=', $pathInfo)->first();
         return $this->respond('site.index', ['contentPage' => $contentPage]);
+    }
+
+    public function error(Request $request)
+    {
+        return $this->respond('site.error', ['error' => $request->get('error')]);
+    }
+
+    public function noIndex(Request $request)
+    {
+        return $this->respond('site.noIndex');
     }
 }
