@@ -79,16 +79,27 @@ Route::get('/cart/success', '\App\Http\Controllers\Site\CartController@success')
 use App\Contracts\Navigation;
 
 // CMS Style routing
-// Route::redirect('/', '/site');
-$navigationService = App::make(Navigation::class);
-Route::get('/', 'Site\SiteController@index')->name('site.index');
-foreach($navigationService->getPages() as $page) {
-    Route::get($page->path, 'Site\SiteController@page')->name($page->path);
-}
+Route::group([], function () {
+    try {
+        // Default index route stuff
+        // Route::redirect('/', '/site');
+        Route::get('/', 'Site\SiteController@index')->name('site.index');
 
-if ($navigationService->getIndexPage() === null) {
-    Route::get('/', 'Site\SiteController@noIndex')->name('site.index');
-}
+        // Get pages into router
+        $navigationService = App::make(Navigation::class);
+        foreach ($navigationService->getPages() as $page) {
+            Route::get($page->path, 'Site\SiteController@page')->name($page->path);
+        }
+
+        // Fallback index route aka noIndex
+        if ($navigationService->getIndexPage() === null) {
+            Route::get('/', 'Site\SiteController@noIndex')->name('site.index');
+        }
+    } catch (\Throwable $throwable) {
+        report($throwable);
+    }
+});
+
 Route::get('/site-error', 'Site\SiteController@error')->name('site.error');
 
 // Handle 404 and other errors
