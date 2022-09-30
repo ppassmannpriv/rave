@@ -6,7 +6,7 @@
         <div class="col-lg-12">
             <div class="card rounded-0">
                 <div class="card-header">
-                    {{ $contentPage['title'] }}
+                    <h2 class="h4 m-0">{{ $contentPage['title'] }}</h2>
                 </div>
 
                 <div class="card-body">

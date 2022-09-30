@@ -27,7 +27,6 @@
 </head>
 
 <body class="header-fixed">
-<div class="bar-wrap"><div class="bar"></div></div>
 @include('partials.site.navigation')
 @include('partials.site.minicart')
 <div class="flex-row align-items-center p-5">
@@ -38,6 +37,7 @@
 </div>
 <!--<script type="text/javascript" src="https://unpkg.com/@coreui/coreui@3.2.2/dist/js/coreui.min.js"></script>-->
 @yield('scripts')
+<div class="bar-wrap"><div class="bar"></div></div>
 </body>
 
 </html>
