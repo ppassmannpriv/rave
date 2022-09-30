@@ -3,7 +3,7 @@
 <div class="content">
     <div class="row">
         <div class="col-lg-12">
-            <div class="card">
+            <div class="card rounded-0">
                 <div class="card-header">
                     <h1 class="h4 m-0">Checkout</h1>
                 </div>

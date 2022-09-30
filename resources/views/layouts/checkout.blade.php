@@ -29,8 +29,8 @@
 <body class="header-fixed">
 <div class="bar-wrap"><div class="bar"></div></div>
 @include('partials.site.navigation')
-<div class="flex-row align-items-center">
-    <div class="container">
+<div class="flex-row align-items-center p-5">
+    <div class="container-fluid p-0">
         @yield("content")
     </div>
 </div>

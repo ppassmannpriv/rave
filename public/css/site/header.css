@@ -14,7 +14,7 @@
 }
 
 #navbarNav {
-    align-self: start;
+    align-self: flex-end;
 }
 
 .navbar-nav {

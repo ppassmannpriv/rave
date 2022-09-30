@@ -31,7 +31,7 @@
 @include('partials.site.navigation')
 @include('partials.site.minicart')
 <div class="flex-row align-items-center p-5">
-    <div class="container">
+    <div class="container-fluid p-0">
         @include('partials.common.flash')
         @yield("content")
     </div>

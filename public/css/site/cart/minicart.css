@@ -1,0 +1,12 @@
+#minicart {
+    margin-top: -1px;
+}
+
+#minicart a {
+    opacity: .3;
+    text-decoration: none;
+    color: #fff;
+}
+#minicart a:hover {
+    opacity: 1;
+}
