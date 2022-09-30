@@ -16,6 +16,9 @@ class WebController extends Controller
     public function respond(string $view, array $parameters = [], array $mergeData = []): Factory|View|Application
     {
         try {
+            if (array_key_exists('siteType', $parameters) === false) {
+                $parameters['siteType'] = 'cms';
+            }
             $parameters['pages'] = $this->navigationService->getPages();
             $parameters['cart'] = $this->cartService->content();
         } catch (\Throwable $throwable) {

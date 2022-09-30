@@ -1,7 +1,8 @@
 .bar {
     width: 1000%;
     height: 5px;
-    background: linear-gradient(90deg, rgba(255,0,159,1) 0%, rgba(255,145,0,1) 50%, rgba(162,0,255,1) 100%);
+    background: linear-gradient(90deg, rgba(248,234,31,1) 12.5%, rgba(229,28,32,1) 37.5%, rgba(129,28,97,1) 67.5%, rgba(59,109,180,1) 87.5%);
+    /* background: linear-gradient(90deg, rgba(255,0,159,1) 0%, rgba(255,145,0,1) 50%, rgba(162,0,255,1) 100%); */
     animation-name: bar;
     animation-duration: 12s;
     animation-direction: alternate;

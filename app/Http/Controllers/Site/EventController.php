@@ -13,12 +13,12 @@ class EventController extends WebController
     public function index(Request $request): Factory|View|Application
     {
         $events = Event::all();
-        return $this->respond('events.index', ['events' => $events]);
+        return $this->respond('events.index', ['events' => $events, 'siteType' => 'events']);
     }
 
     public function show($request)
     {
         $event = Event::find($request);
-        return $this->respond('events.show', ['event' => $event]);
+        return $this->respond('events.show', ['event' => $event, 'siteType' => 'events']);
     }
 }

@@ -17,7 +17,7 @@ use App\Services\CartService;
 class CartController extends WebController
 {
     public function index() {
-        return $this->respond('cart.index', ['paymentMethods' => PaymentMethod::where('active', '=', true)->get()]);
+        return $this->respond('cart.index', ['paymentMethods' => PaymentMethod::where('active', '=', true)->get(), 'siteType' => 'checkout']);
     }
 
     public function addToCart(AddToCartRequest $request) {
@@ -44,6 +44,6 @@ class CartController extends WebController
         }
         session()->forget('lastOrder');
         session()->forget(CartService::DEFAULT_INSTANCE);
-        return $this->respond('cart.success', ['order' => $order]);
+        return $this->respond('cart.success', ['order' => $order, 'siteType' => 'checkout']);
     }
 }

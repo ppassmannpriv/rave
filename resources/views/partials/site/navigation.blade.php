@@ -1,7 +1,13 @@
 <nav class="navbar navbar-expand-lg p-0">
-    <a id="logo" class="navbar-brand p-4 pl-5 pr-5 m-0 border" href="{{ route('site.index') }}">Schleuse Eins</a>
+    @include('partials.site.logo')
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <div class="lines d-flex navbar-toggler-icon">
+            <i class="d-flex"></i>
+            <i class="d-flex"></i>
+            <i class="d-flex"></i>
+            <i class="d-flex"></i>
+            <i class="d-flex"></i>
+        </div>
     </button>
     @if(isset($pages))
     <div class="collapse navbar-collapse p-0 m-0" id="navbarNav">
@@ -20,6 +26,12 @@
             </div>
             <div class="d-flex ">
                 <a class="nav-link nav-item pl-5 pr-5 border-right border-bottom border-top" href="{{ route('cart.index') }}">Cart</a>
+            </div>
+            <div class="d-flex">
+                <a class="gradient-hover social-link" href="https://www.instagram.com/schleuse_eins/" target="_blank" title="@schleuse_eins on Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span class="d-none">@schleuse_eins on Instagram</span>
+                </a>
             </div>
         </div>
     </div>

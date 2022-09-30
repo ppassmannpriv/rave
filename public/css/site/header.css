@@ -1,10 +1,14 @@
+.logo-wrap {
+    background: #000;
+}
 #logo {
     font-size: 3.5rem;
     font-family: '911_porscha_semi-italicSIt', sans-serif;
 }
+.gradient-hover:hover,
 #logo:hover {
     color: #A02D0A;
-    background: linear-gradient(90deg, rgba(255,0,159,1) 0%, rgba(255,145,0,1) 50%, rgba(162,0,255,1) 100%);
+    background: linear-gradient(90deg, rgba(248,234,31,1) 12.5%, rgba(229,28,32,1) 37.5%, rgba(129,28,97,1) 67.5%, rgba(59,109,180,1) 87.5%);
     padding-right: .125em;
     background-repeat: no-repeat;
     -webkit-background-clip: text;
@@ -13,6 +17,25 @@
     transition: .5s 0s cubic-bezier(.25,.46,.45,.94);
 }
 
+.lines {
+    width: 5em;
+    height: 2.25em;
+}
+
+.lines i {
+    width:.5em;
+    height: 100%;
+    background: #fff;
+    margin-right: .75em;
+    transform: skew(-30deg, 0deg);
+}
+
+.lines i:nth-child(1) { width: .375em; }
+.lines i:nth-child(2) { width: .5em; }
+.lines i:nth-child(3) { width: .625em; }
+.lines i:nth-child(4) { width: .75em; }
+.lines i:nth-child(5) { width: .875em; }
+
 #navbarNav {
     align-self: flex-end;
 }
@@ -20,7 +43,9 @@
 .navbar-nav {
     flex-wrap: wrap;
 }
-
+.nav-link {
+    margin-top: -1px;
+}
 .nav-item {
     font-size: 1.5rem;
     text-transform: uppercase;
@@ -33,4 +58,12 @@
     color: #000;
     background: #fff;
     transition: .2s;
+}
+
+.social-link {
+    color: #000;
+    font-size: 2rem;
+    display: table;
+    margin: auto;
+    padding: 0 1.5rem;
 }

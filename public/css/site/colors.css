@@ -6,4 +6,16 @@ body, p, a, span, em, strong, b, div, h1, h2, h3, h4, h5, h6, blockquote, articl
     color: #fff;
     font-family: 'Open Sans', sans-serif;
 }
+body:after {
+    display: inline-flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    content: '';
+    background: linear-gradient(90deg, rgba(248,234,31,1) 12.5%, rgba(229,28,32,1) 37.5%, rgba(129,28,97,1) 67.5%, rgba(59,109,180,1) 87.5%);
+}
 
+.index, .index #page-content,
+.cms, .cms #page-content {
+    background: #fff;
+}

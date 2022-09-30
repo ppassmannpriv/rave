@@ -24,12 +24,13 @@
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/site.css') }}" rel="stylesheet" />
     @yield('styles')
+    <script src="https://kit.fontawesome.com/cbac56de10.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="header-fixed">
+<body class="header-fixed {{ $siteType }}">
 @include('partials.site.navigation')
 @include('partials.site.minicart')
-<div class="flex-row align-items-center p-5">
+<div class="flex-row align-items-center p-0" id="page-content">
     <div class="container-fluid p-0">
         @include('partials.common.flash')
         @yield("content")
