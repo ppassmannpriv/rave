@@ -30,7 +30,7 @@
             <div class="d-flex">
                 <a class="gradient-hover social-link" href="https://www.instagram.com/schleuse_eins/" target="_blank" title="@schleuse_eins on Instagram">
                     <i class="fa-brands fa-instagram"></i>
-                    <span class="d-none">@schleuse_eins on Instagram</span>
+                    <span class="sr-only">@schleuse_eins on Instagram</span>
                 </a>
             </div>
         </div>

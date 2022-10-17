@@ -73,6 +73,7 @@
                     </th>
                     <td>
                         @if($contentPage->featured_image)
+                        @dd(asset($contentPage->featured_image->getUrl('thumb')))
                         <a href="{{ $contentPage->featured_image->getUrl() }}" target="_blank" style="display: inline-block">
                             <img src="{{ $contentPage->featured_image->getUrl('thumb') }}">
                         </a>

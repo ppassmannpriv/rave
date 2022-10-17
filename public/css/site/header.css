@@ -35,35 +35,3 @@
 .lines i:nth-child(3) { width: .625em; }
 .lines i:nth-child(4) { width: .75em; }
 .lines i:nth-child(5) { width: .875em; }
-
-#navbarNav {
-    align-self: flex-end;
-}
-
-.navbar-nav {
-    flex-wrap: wrap;
-}
-.nav-link {
-    margin-top: -1px;
-}
-.nav-item {
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    font-style: italic;
-    font-weight: 800;
-    background: #000;
-    color: #fff;
-}
-.nav-item:hover {
-    color: #000;
-    background: #fff;
-    transition: .2s;
-}
-
-.social-link {
-    color: #000;
-    font-size: 2rem;
-    display: table;
-    margin: auto;
-    padding: 0 1.5rem;
-}

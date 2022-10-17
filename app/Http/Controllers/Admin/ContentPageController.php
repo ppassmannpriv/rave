@@ -74,8 +74,11 @@ class ContentPageController extends Controller
         $contentPage->categories()->sync($request->input('categories', []));
         $contentPage->tags()->sync($request->input('tags', []));
         if ($request->input('featured_image', false)) {
-            if (!$contentPage->featured_image || $request->input('featured_image') !== $contentPage->featured_image->file_name) {
-                if ($contentPage->featured_image) {
+            if ($contentPage->featured_image) {
+                $contentPage->featured_image->delete();
+            }
+            if ($request->input('featured_image')) {
+                if ($contentPage->featured_image && $request->input('featured_image') !== $contentPage?->featured_image?->file_name) {
                     $contentPage->featured_image->delete();
                 }
                 $contentPage->addMedia(storage_path('tmp/uploads/' . basename($request->input('featured_image'))))->toMediaCollection('featured_image');
@@ -92,6 +95,7 @@ class ContentPageController extends Controller
         abort_if(Gate::denies('content_page_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $contentPage->load('categories', 'tags');
+        $file = $contentPage->getMedia('featured_image')->last();
 
         return view('admin.contentPages.show', compact('contentPage'));
     }
