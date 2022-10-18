@@ -2,7 +2,7 @@
 @section('content')
 <div class="content">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6 col-xs-12">
             <div class="card">
                 <div class="card-header">
                     <h2 class="h4 m-0">{{ $event->name }}</h2>
@@ -13,7 +13,8 @@
                     <span>End: {{ date('d-m-Y', strtotime($event->end)) }}</span><br />
                     <span>{{ $event->location }}</span>
                     {!! $event->description !!}
-                    <ul class="list-group d-flex mt-4">
+                    <h4 class="mt-4">Tickets</h4>
+                    <ul class="list-group d-flex mt-4 border">
                     @foreach($event->eventTickets as $eventTicket)
                         <li class="list-group-item d-flex flex-wrap">
                             <div class="col-lg-3 col-sm-6 d-flex align-content-center flex-wrap"><span>{{ $eventTicket::TICKET_TYPE_RADIO[$eventTicket->ticket_type] }}</span></div>
