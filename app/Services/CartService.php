@@ -51,14 +51,14 @@ class CartService implements Cart {
         return $this->loadDatabaseCart($sessionCartId);
     }
 
-    public function add($eventTicket): \App\Models\Cart
+    public function add($eventTicket, $qty): \App\Models\Cart
     {
         $cart = $this->getCart();
         if ($cart->cartItems->count() > 0) {
             return $cart;
         }
         // for now no qty.
-        $qty = self::MINIMUM_QUANTITY;
+        // $qty = self::MINIMUM_QUANTITY;
         $cartItem = new \App\Models\CartItem([
             'event_ticket_id' => $eventTicket->id,
             'qty' => $qty,

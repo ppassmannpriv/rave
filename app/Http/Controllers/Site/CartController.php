@@ -21,7 +21,7 @@ class CartController extends WebController
     }
 
     public function addToCart(AddToCartRequest $request) {
-        AddTicketToCart::make()->handle(EventTicket::find($request->event_ticket_id));
+        AddTicketToCart::make()->handle(EventTicket::find($request->event_ticket_id), $request->qty);
         return \Redirect::to('/cart');
     }
 

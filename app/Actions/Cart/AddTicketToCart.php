@@ -10,12 +10,12 @@ class AddTicketToCart
 {
     use AsAction;
 
-    public function handle(EventTicket $eventTicket): void
+    public function handle(EventTicket $eventTicket, int $qty = 1): void
     {
         $cartService = \App::make(CartService::class);
         if ($cartService === null) {
             throw new \Exception('Cart Service could not be loaded!');
         }
-        $cartService->add($eventTicket);
+        $cartService->add($eventTicket, $qty);
     }
 }
