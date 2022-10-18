@@ -31,7 +31,6 @@
 @include('partials.site.navigation')
 <div class="flex-row align-items-center p-0" id="page-content">
     <div class="container-fluid p-0">
-        @include('partials.common.flash')
         @yield("content")
     </div>
 </div>
