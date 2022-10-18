@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\Cart;
+use App\Models\CartItem;
 use Illuminate\Support\Collection;
 use Illuminate\Session\SessionManager;
 
@@ -55,6 +56,12 @@ class CartService implements Cart {
     {
         $cart = $this->getCart();
         if ($cart->cartItems->count() > 0) {
+            $cartItem = CartItem::where('event_ticket_id', '=', $eventTicket->id)->first();
+            $cartItem->qty = $qty;
+            $cartItem->row_price = $eventTicket->price * $qty;
+            $cartItem->single_price = $eventTicket->price;
+            $cartItem->save();
+            
             return $cart;
         }
         // for now no qty.
