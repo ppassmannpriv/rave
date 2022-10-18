@@ -13,7 +13,7 @@
                     <span>End: {{ date('d-m-Y', strtotime($event->end)) }}</span><br />
                     <span>{{ $event->location }}</span>
                     {!! $event->description !!}
-                    <h4 class="mt-4">Tickets</h4>
+                    <h4 class="mt-4 border-top pt-4">Tickets</h4>
                     <ul class="list-group d-flex mt-4 border">
                     @foreach($event->eventTickets as $eventTicket)
                         <li class="list-group-item d-flex flex-wrap">
