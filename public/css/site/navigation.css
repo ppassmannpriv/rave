@@ -67,3 +67,8 @@ nav.navbar {
     margin: auto;
     padding: 0 1.5rem;
 }
+
+.events .social-link,
+.checkout .social-link {
+    color: #fff;
+}

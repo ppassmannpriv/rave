@@ -19,3 +19,7 @@ body:after {
 .cms, .cms #page-content {
     background: #fff;
 }
+
+.bg-black {
+    background: #000;
+}
