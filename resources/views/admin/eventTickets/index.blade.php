@@ -32,6 +32,9 @@
                         {{ trans('cruds.eventTicket.fields.price') }}
                     </th>
                     <th>
+                        {{ trans('cruds.eventTicket.fields.stock') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.eventTicket.fields.event') }}
                     </th>
                     <th>
@@ -85,6 +88,8 @@
                     <td>
                     </td>
                     <td>
+                    </td>
+                    <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
@@ -108,6 +113,9 @@
                     </td>
                     <td>
                         {{ $eventTicket->price ?? '' }}
+                    </td>
+                    <td>
+                        {{ $eventTicket->stock ?? '' }}
                     </td>
                     <td>
                         {{ $eventTicket->event->name ?? '' }}

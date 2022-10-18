@@ -41,6 +41,14 @@
                 </tr>
                 <tr>
                     <th>
+                        {{ trans('cruds.eventTicket.fields.stock') }}
+                    </th>
+                    <td>
+                        {{ $eventTicket->stock }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
                         {{ trans('cruds.eventTicket.fields.event') }}
                     </th>
                     <td>
