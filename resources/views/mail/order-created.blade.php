@@ -137,7 +137,7 @@
                                             Please read the following payment instructions:
                                         </p>
                                         <ul style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
-                                            <li style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Go to <a href="https://paypal.me/bastiangores/{{ $order->price }}EUR" target="_blank">paypal.me/bastiangores/{{ $order->price }EUR</a></li>
+                                            <li style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Go to <a href="https://paypal.me/bastiangores/{{ $order->price }}EUR" target="_blank">paypal.me/bastiangores/{{ $order->price }}EUR</a></li>
                                             <li style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Transfer us the {{ $order->price }} in EUR and as a Message please use {{ $order->transaction->reference }}</li>
                                             <li style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Once you have completed the payment and we have checked it on our end, we will send you your ticket code.</li>
                                         </ul>
