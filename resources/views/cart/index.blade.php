@@ -14,7 +14,7 @@
                         <fieldset>
                             <legend>Cart</legend>
                             @if($cart->cartItems->count() > 0)
-                                <ul class="list-group container" id="cart-list">
+                                <ul class="list-group container-fluid p-0" id="cart-list">
                                     @foreach($cart->cartItems as $cartItem)
                                     <li class="list-group-item d-flex">
                                         <input type="hidden" name="cart_item" value="{{ $cartItem->id }}" />

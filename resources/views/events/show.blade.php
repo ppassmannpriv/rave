@@ -12,17 +12,13 @@
                     <span>Start: {{ date('d-m-Y', strtotime($event->start)) }}</span><br />
                     <span>End: {{ date('d-m-Y', strtotime($event->end)) }}</span><br />
                     <span>{{ $event->location }}</span>
+                    {!! $event->description !!}
                     <ul class="list-group d-flex mt-4">
                     @foreach($event->eventTickets as $eventTicket)
                         <li class="list-group-item d-flex flex-wrap">
                             <div class="col-lg-3 col-sm-6 d-flex align-content-center flex-wrap"><span>{{ $eventTicket::TICKET_TYPE_RADIO[$eventTicket->ticket_type] }}</span></div>
                             <div class="col-lg-3 col-sm-6 d-flex align-content-center flex-wrap"><span>@money($eventTicket->price)</span></div>
-                            @if ($eventTicket->from || $eventTicket->to)
-                            <div class="col-lg-3 col-sm-12 d-flex align-content-center flex-wrap"><span>from: {{ $eventTicket->from }}</span><br />
-                                <span>to: {{ $eventTicket->to }}</span></div>
-                            @else
                             <div class="col-lg-3 col-sm-12 d-flex align-content-center flex-wrap"></div>
-                            @endif
                             <div class="col-sm-12 d-md-none d-flex flex-wrap mt-3"></div>
                             <div class="col-lg-3 col-sm-12 d-flex align-content-center flex-wrap">
                                 <form action="/cart/add/" method="POST" class="w-100">
