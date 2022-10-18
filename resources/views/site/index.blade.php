@@ -10,8 +10,9 @@
                 </div>
 
                 <div class="card-body pl-5">
-                    {!! $contentPage->page_text !!}
-                    {{ $contentPage->getFeaturedImageAttribute() }}
+                    @php
+                        echo $contentPage->page_text;
+                    @endphp
                 </div>
             </div>
         </div>
