@@ -21,7 +21,7 @@ class AddToCartRequest extends FormRequest
     {
         return [
             'event_ticket_id'   => 'required|integer|exists:event_tickets,id',
-            'qty' => 'min:1|integer',
+            'qty' => 'min:1|max:4|integer',
         ];
     }
 }
