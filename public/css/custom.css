@@ -131,6 +131,7 @@ table.dataTable thead .sorting_desc {
     padding: 0.25rem 1.5rem;
 }
 
-body {
+html body.header-fixed {
     background: url('/img/bg.jpeg');
+    background-size: contain;
 }
