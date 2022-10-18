@@ -27,7 +27,7 @@
     <script src="https://kit.fontawesome.com/cbac56de10.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="header-fixed {{ $siteType }}">
+<body class="header-fixed {{ $siteType ?? '' }}">
 @include('partials.site.navigation')
 @include('partials.site.minicart')
 <div class="flex-row align-items-center p-0" id="page-content">
