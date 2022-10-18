@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg p-0">
     @include('partials.site.logo')
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <div class="lines d-flex navbar-toggler-icon">
             <i class="d-flex"></i>
             <i class="d-flex"></i>
@@ -8,9 +8,9 @@
             <i class="d-flex"></i>
             <i class="d-flex"></i>
         </div>
-    </button>
+    </button>-->
     @if(isset($pages))
-    <div class="collapse navbar-collapse p-0 m-0" id="navbarNav">
+    <div class="p-0 m-0" id="navbarNav">
         <div class="navbar-nav">
             @foreach($pages as $page)
                 <div class="d-flex {{ $page->isActive() ? "active" : "" }}">
