@@ -9,14 +9,16 @@
         "fruitcake/laravel-cors": "^2.0.5",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
-        "laravel/ui": "^3.4",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "laravel/ui": "^3.4",
         "league/csv": "^9.8",
         "league/flysystem-aws-s3-v3": "^3.5",
         "lorisleiva/laravel-actions": "^2.4",
         "sentry/sentry-laravel": "^2.13",
         "spatie/laravel-medialibrary": "^10.0.7",
+        "symfony/http-client": "^6.1",
+        "symfony/mailgun-mailer": "^6.1",
         "yajra/laravel-datatables-oracle": "^9.19"
     },
     "require-dev": {
