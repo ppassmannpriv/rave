@@ -19,9 +19,8 @@
                         <li class="list-group-item d-flex flex-wrap">
                             <div class="col-lg-3 col-sm-6 d-flex align-content-center flex-wrap"><span>{{ $eventTicket::TICKET_TYPE_RADIO[$eventTicket->ticket_type] }}</span></div>
                             <div class="col-lg-3 col-sm-6 d-flex align-content-center flex-wrap"><span>@money($eventTicket->price)</span></div>
-                            <div class="col-lg-3 col-sm-12 d-flex align-content-center flex-wrap"></div>
                             <div class="col-sm-12 d-md-none d-flex flex-wrap mt-3"></div>
-                            <div class="col-lg-3 col-sm-12 d-flex align-content-center flex-wrap">
+                            <div class="col-lg-6 col-sm-12 d-flex align-content-center flex-wrap">
                                 <form action="/cart/add/" method="POST" class="w-100">
                                     @csrf
                                     <input type="hidden" value="{{ $eventTicket->id }}" name="event_ticket_id" />
