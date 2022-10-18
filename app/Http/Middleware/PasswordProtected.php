@@ -10,7 +10,7 @@ class PasswordProtected {
 
     public function handle(Request $request, Closure $next, string $guard = null)
     {
-        $password = 'rave';
+        $password = env('PASSWORD_PROTECTION');
 
         if (empty($password) ||
             $this->isNotInProtectedOnlyPath($request)) {
