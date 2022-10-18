@@ -15,7 +15,7 @@
 <li class="list-group-item flex-wrap d-flex">
     <div class="col-sm-6 col-lg-12 d-flex"><h4>{{ $event->name }}</h4></div>
     <div class="col-sm-6 col-lg-6 d-flex">{{ date('d-m-Y', strtotime($event->start)) }} - {{ date('d-m-Y', strtotime($event->end)) }}</div>
-    <div class="col-sm-6 col-lg-6 d-flex"><a href="{{ route('events.show', ['id' => $event->id]) }}/">Details</a></div>
+    <div class="col-sm-6 col-lg-6 d-flex"><a class="btn btn-outline-success w-100" href="{{ route('events.show', ['id' => $event->id]) }}/">Details</a></div>
 </li>
                                 @endforeach
                             </ul>
