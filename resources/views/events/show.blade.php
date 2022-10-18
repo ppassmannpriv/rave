@@ -25,7 +25,7 @@
                                 <form action="/cart/add/" method="POST" class="w-100">
                                     @csrf
                                     <input type="hidden" value="{{ $eventTicket->id }}" name="event_ticket_id" />
-                                    <input type="hidden" value="1" name="qty-{{ $event->id }}" id="qty-{{ $event->id }}" />
+                                    <input type="hidden" value="1" name="qty" id="qty-{{ $event->id }}" />
                                     <input type="submit" value="Buy" class="btn btn-outline-success w-100"/>
                                 </form>
                             </div>
