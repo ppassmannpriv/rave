@@ -56,7 +56,7 @@ class CartService implements Cart {
     {
         $cart = $this->getCart();
         if ($cart->cartItems->count() > 0) {
-            $cartItem = CartItem::where('event_ticket_id', '=', $eventTicket->id)->first();
+            $cartItem = $cart->cartItems()->where('event_ticket_id', '=', $eventTicket->id)->first();
             $cartItem->qty = $qty;
             $cartItem->row_price = $eventTicket->price * $qty;
             $cartItem->single_price = $eventTicket->price;
