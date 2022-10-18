@@ -17,7 +17,7 @@ body:after {
 
 .index, .index #page-content,
 .cms, .cms #page-content {
-    background: #fff;
+    background: transparent;
 }
 
 .bg-black {
