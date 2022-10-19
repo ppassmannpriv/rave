@@ -10,7 +10,9 @@
                 {{ trans('cruds.orderItems.fields.code') }}
             </th>
             <td>
-                {{ $orderItem->eventTicketCode->code }}
+                @foreach($orderItem->eventTicketCodes as $eventTicketCode)
+                    {{ $eventTicketCode->code }}
+                @endforeach
             </td>
         </tr>
         @endforeach

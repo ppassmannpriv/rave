@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Mail\OrderCreatedNotification;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderCreated;
 use App\Actions\Cart\AddTicketToCart;
@@ -34,6 +35,7 @@ class CartController extends WebController
         $order = CreateOrderFromCart::make()->handle($request->all());
         session()->put('lastOrder', $order);
         Mail::to($order->user)->send(new OrderCreated($order));
+        Mail::to(env('MAIL_FROM_ADDRESS'))->send(new OrderCreatedNotification($order));
         return \Redirect::to('/cart/success');
     }
 

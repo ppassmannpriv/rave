@@ -26,12 +26,16 @@
                                                 Location: {{ $orderItem->eventTicket->event->location }}<br />
                                                 Start: {{ \Carbon\Carbon::parse($orderItem->eventTicket->event->start)->format('d-m-Y H:i:s') }}<br />
                                                 End: {{ \Carbon\Carbon::parse($orderItem->eventTicket->event->end)->format('d-m-Y H:i:s') }}<br />
-                                                Type: {{ $orderItem->eventTicket->ticket_type }}<br />
-                                                <span style="font-size: 18px;">Code: <strong>{{ $orderItem->eventTicketCode->code }}</strong></span>
+                                                Type: {{ $orderItem->eventTicket->ticket_type }}<br /><br />
+                                                <span>Codes:<br />
+                                                    @foreach($orderItem->eventTicketCodes as $eventTicketCode)
+                                                        <strong style="font-size: 18px;">{{ $eventTicketCode->code }}</strong><br />
+                                                    @endforeach
+                                                </span>
                                             </p>
                                         @endforeach
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-top: 15px; margin-bottom: 15px;">
-                                            Thank you again and we hope you will have a lot of fun and make great memories with us soon!
+                                            Thank you again! We hope you will have a lot of fun and make great memories with us soon!
                                         </p>
                                     </td>
                                 </tr>

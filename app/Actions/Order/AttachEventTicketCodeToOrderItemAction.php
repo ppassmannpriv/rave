@@ -13,12 +13,14 @@ class AttachEventTicketCodeToOrderItemAction
     public function handle(Order $order): void
     {
         foreach ($order->orderItems as $orderItem) {
-            $eventTicketCode = $orderItem->eventTicket->eventTicketCodes()->whereNull('order_item_id')->first();
-            if ($eventTicketCode === null) {
-                throw new \Exception('There are no more event ticket codes available.');
+            for ($i = 0; $i < $orderItem->qty; $i++) {
+                $eventTicketCode = $orderItem->eventTicket->eventTicketCodes()->whereNull('order_item_id')->first();
+                if ($eventTicketCode === null) {
+                    throw new \Exception('There are no more event ticket codes available.');
+                }
+                $eventTicketCode->orderItem()->associate($orderItem);
+                $eventTicketCode->save();
             }
-            $eventTicketCode->orderItem()->associate($orderItem);
-            $eventTicketCode->save();
         }
     }
 }

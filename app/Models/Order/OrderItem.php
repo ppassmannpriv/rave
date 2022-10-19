@@ -68,8 +68,8 @@ class OrderItem extends Model
         return $this->hasOne(EventTicket::class, 'id', 'event_ticket_id');
     }
 
-    public function eventTicketCode()
+    public function eventTicketCodes()
     {
-        return $this->hasOne(EventTicketCode::class, 'order_item_id', 'id');
+        return $this->hasMany(EventTicketCode::class, 'order_item_id', 'id');
     }
 }

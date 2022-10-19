@@ -21,6 +21,10 @@ class FinishOrderEmailUserAction
 
         $order->transaction->state = Transaction::STATE_SUCCESS;
         $order->transaction->save();
-        Log::info('Order state changed to ' . Transaction::STATE_SUCCESS);
+        Log::info('Transaction state changed to ' . Transaction::STATE_SUCCESS);
+
+        $order->status = Order::STATUS_CLOSED;
+        $order->save();
+        Log::info('Order state changed to ' . Order::STATUS_CLOSED);
     }
 }
