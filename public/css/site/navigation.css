@@ -16,6 +16,12 @@ nav.navbar {
     }
 }
 
+@media (max-width: 400px) {
+    #navbarNav .navbar-nav a.border-right {
+        border-left: 1px solid white;
+    }
+}
+
 .navbar-nav {
     flex-wrap: wrap;
 }
