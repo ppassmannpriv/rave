@@ -30,7 +30,7 @@
 <body class="header-fixed {{ $siteType }}">
 <div class="bar-wrap"><div class="bar"></div></div>
 @include('partials.site.navigation')
-<div class="flex-row align-items-center p-5" id="page-content">
+<div class="flex-row align-items-center p-0" id="page-content">
     <div class="container-fluid p-0">
         @yield("content")
     </div>
