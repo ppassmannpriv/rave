@@ -4,6 +4,7 @@ namespace App\Actions\Payment\PayPalFriendsFamily;
 
 use App\Exceptions\PaymentMethods\PayPalFriendsFamily\ValidationException;
 use App\Exceptions\PaymentMethods\TransactionNotFoundException;
+use App\Models\Order;
 use App\Models\PaymentMethod\PayPalFriendsFamily;
 use App\Models\Transaction;
 use Lorisleiva\Actions\Concerns\AsAction;
@@ -40,6 +41,10 @@ class PayTransaction
         $transaction->partialTransactions()->save($partialTransaction);
         if ($transactionAmount === $transaction->amount) {
             $transaction->state = Transaction::STATE_PAID;
+            if ($transaction->order !== null) {
+                $transaction->order->status = Order::STATUS_PAID;
+                $transaction->order->save();
+            }
         }
         $transaction->save();
     }
