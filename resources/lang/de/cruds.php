@@ -238,6 +238,7 @@ return [
             'event_ticket_code_helper' => 'The event ticket code that is being used for the ticket. Not the reference! We split these to avoid people trying to mess with us.',
             'status'                   => 'Status',
             'status_helper'            => 'Order status and transaction state are different. A transaction is asynchronous!',
+            'qty'                      => 'QTY'
         ],
     ],
     'payment' => [

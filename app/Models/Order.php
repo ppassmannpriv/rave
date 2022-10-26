@@ -79,6 +79,16 @@ class Order extends Model
         return $this->hasMany(OrderItem::Class, 'order_id', 'id');
     }
 
+    public function quantityItems(): int
+    {
+        $qty = 0;
+        foreach($this->orderItems as $orderItem) {
+            $qty += $orderItem->qty;
+        }
+
+        return $qty;
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

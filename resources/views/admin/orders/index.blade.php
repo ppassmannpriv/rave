@@ -32,13 +32,10 @@
                         {{ trans('cruds.user.fields.email') }}
                     </th>
                     <th>
-                        {{ trans('cruds.payment.fields.provider') }}
+                        {{ trans('cruds.order.fields.qty') }}
                     </th>
                     <th>
-                        {{ trans('cruds.payment.fields.count') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.payment.fields.state') }}
+                        {{ trans('cruds.order.fields.status') }}
                     </th>
                     <th>
                         &nbsp;
@@ -66,8 +63,6 @@
                     </td>
                     <td>
                     </td>
-                    <td>
-                    </td>
                 </tr>
                 </thead>
                 <tbody>
@@ -86,12 +81,10 @@
                         {{ $order->user->email ?? '' }}
                     </td>
                     <td>
-                        {{ $order->orderItems->count ?? '?' }}
+                        {{ $order->quantityItems() ?? '?' }}
                     </td>
                     <td>
                         {{ $order->status ?? '' }}
-                    </td>
-                    <td>
                     </td>
                     <td>
                         @can('order_show')
