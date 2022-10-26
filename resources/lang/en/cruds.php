@@ -211,6 +211,8 @@ return [
             'deleted_at_helper' => ' ',
             'event'             => 'Event',
             'event_at_helper'   => ' ',
+            'order_item'        => 'Order item',
+            'order_item_helper' => ' '
         ],
     ],
     'order' => [
