@@ -30,7 +30,7 @@ class UpdatePaymentRequest extends FormRequest
                 'string',
                 'min:6',
                 'required',
-                'unique:payments,reference,' . request()->route('payment')->id,
+                'unique:transactions,reference,' . request()->route('payment'),
             ],
         ];
     }

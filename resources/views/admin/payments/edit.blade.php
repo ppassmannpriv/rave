@@ -14,7 +14,7 @@
             <label class="required">{{ trans('cruds.payment.fields.provider') }}</label>
             @foreach(App\Models\Payment::PROVIDER_RADIO as $key => $label)
             <div class="form-check {{ $errors->has('provider') ? 'is-invalid' : '' }}">
-                <input class="form-check-input" type="radio" id="provider_{{ $key }}" name="provider" value="{{ $key }}" {{ old('provider', $payment->provider) === (string) $key ? 'checked' : '' }} required>
+                <input class="form-check-input" type="radio" id="provider_{{ $key }}" name="provider" value="{{ $key }}" {{ old('provider', $payment->payment_method_id) === $key ? 'checked' : '' }} required>
                 <label class="form-check-label" for="provider_{{ $key }}">{{ $label }}</label>
             </div>
             @endforeach
@@ -68,7 +68,6 @@
         </form>
     </div>
 </div>
-
 
 
 @endsection

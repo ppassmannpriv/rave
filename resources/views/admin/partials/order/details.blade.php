@@ -27,6 +27,14 @@
         </tr>
         <tr>
             <th>
+                {{ trans('cruds.order.fields.payment') }} {{ trans('cruds.order.fields.status') }}
+            </th>
+            <td>
+                {{ $order->transaction->state ?? '' }}
+            </td>
+        </tr>
+        <tr>
+            <th>
                 {{ trans('cruds.order.fields.status') }}
             </th>
             <td>

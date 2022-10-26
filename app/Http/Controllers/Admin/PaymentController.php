@@ -45,7 +45,13 @@ class PaymentController extends Controller
 
     public function update(UpdatePaymentRequest $request, Transaction $transaction)
     {
-        $transaction->update($request->all());
+        $transactionData = [
+            'amount' => $request->get('amount'),
+            'state' => $request->get('state'),
+            'reference' => $request->get('reference'),
+            'payment_method_id' => $request->get('provider'),
+        ];
+        $transaction->find(request()->route('payment'))?->update($transactionData);
 
         return redirect()->route('admin.payments.index');
     }

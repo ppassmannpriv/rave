@@ -40,15 +40,15 @@ class Payment extends Model
     use HasFactory;
 
     public const PROVIDER_RADIO = [
-        'paypal_friends_family' => 'PayPalFriendsFamily for Friends & Family',
+        1 => 'PayPal for Friends & Family',
     ];
 
     public const STATE_SELECT = [
-        'init'       => 'Initialized',
-        'processing' => 'Processing',
-        'paid'       => 'Paid',
-        'cancelled'  => 'Cancelled',
-        'timed_out'  => 'Timed out',
+        'initialized' => 'Initialized',
+        'processing'  => 'Processing',
+        'paid'        => 'Paid',
+        'cancelled'   => 'Cancelled',
+        'timed_out'   => 'Timed out',
     ];
 
     public $table = 'payments';
@@ -60,7 +60,7 @@ class Payment extends Model
     ];
 
     protected $fillable = [
-        'provider',
+        'payment_method_id',
         'amount',
         'state',
         'reference',
