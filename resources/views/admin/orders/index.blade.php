@@ -35,7 +35,7 @@
                         {{ trans('cruds.payment.fields.provider') }}
                     </th>
                     <th>
-                        {{ trans('cruds.payment.fields.amount') }}
+                        {{ trans('cruds.payment.fields.count') }}
                     </th>
                     <th>
                         {{ trans('cruds.payment.fields.state') }}
@@ -86,7 +86,7 @@
                         {{ $order->user->email ?? '' }}
                     </td>
                     <td>
-                        {{ $order->payment->amount ?? '' }}
+                        {{ $order->orderItems->count ?? '?' }}
                     </td>
                     <td>
                         {{ $order->status ?? '' }}
