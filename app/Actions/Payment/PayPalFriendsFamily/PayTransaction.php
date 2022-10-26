@@ -33,7 +33,9 @@ class PayTransaction
                 'amount' => $transactionAmount ?? null,
             ]));
         }
-
+	if ($transaction === null) {
+		return;
+	}
         $partialTransaction = Transaction\PartialTransaction::create([
             'amount' => $transactionAmount,
             'raw' => json_encode($transactionData)
