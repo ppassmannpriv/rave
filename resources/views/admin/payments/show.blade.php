@@ -55,6 +55,16 @@
                         {{ $payment->reference }}
                     </td>
                 </tr>
+                <tr>
+                    <th>
+                        {{ trans('cruds.orders.title') }}
+                    </th>
+                    <td>
+                        <a href="{{ route('admin.orders.show', $payment->order->id) }}">
+                            {{ $payment->order->id }}
+                        </a>
+                    </td>
+                </tr>
                 </tbody>
             </table>
             <fieldset>

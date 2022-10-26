@@ -46,6 +46,11 @@ class Transaction extends Model
         'updated_at',
     ];
 
+    public function order(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Order::class, 'order_id', 'id');
+    }
+
     public function paymentMethod(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(PaymentMethod::class, 'payment_method_id', 'id');
