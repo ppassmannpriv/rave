@@ -112,6 +112,9 @@
                 <a class="btn btn-default" href="{{ route('admin.payments.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
+                <a class="btn btn-primary" href="{{ route('admin.payments.edit', $payment->id) }}">
+                    {{ trans('global.edit') }}
+                </a>
             </div>
         </div>
     </div>
