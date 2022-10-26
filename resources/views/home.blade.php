@@ -23,7 +23,7 @@
         <div class="col-lg-4">
             @include('admin.partials.dashboard.nextEventStats')
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             @include('admin.partials.dashboard.orderWidget')
         </div>
     </div>
