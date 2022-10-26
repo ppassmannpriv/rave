@@ -15,6 +15,7 @@
             </div>
             @include('admin.partials.order.details')
             @include('admin.partials.order.orderItems')
+            @include('admin.partials.order.transactionDetails')
             <div class="form-group">
                 <a class="btn btn-default" href="{{ route('admin.orders.index') }}">
                     {{ trans('global.back_to_list') }}
