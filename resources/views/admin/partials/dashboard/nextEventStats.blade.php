@@ -4,11 +4,11 @@
     </div>
 
     <div class="card-body">
-        <h4>{{ $event->name }}</h4>
+        <strong>{{ $event->name }}</strong>
         <p>
             Start: <strong>{{ $event->start }}</strong><br />
             End: <strong>{{ $event->end }}</strong><br />
-            Location: <strong>{{ $event->location }}</strong>
+            Location: <strong>{{ $event->location }}</strong><br />
             Tickets sold: <strong>{{ $event->eventTicketsSold() }}</strong>
         </p>
     </div>
