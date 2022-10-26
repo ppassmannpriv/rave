@@ -9,7 +9,9 @@
                     {{ trans('cruds.order.fields.payment') }}
                 </th>
                 <td>
-                    {{ $order->transaction->reference ?? '' }}
+                <a href="{{ route('admin.payments.show', $order->transaction->id) }}">
+                        {{ $order->transaction->reference ?? '' }}
+                    </a>
                 </td>
             </tr>
             <tr>
@@ -33,7 +35,7 @@
                     {{ trans('cruds.payment.fields.provider') }}
                 </th>
                 <td>
-                    {{ $order->transaction->provider ?? '' }}
+                    {{ $order->transaction->paymentMethod->name ?? '' }}
                 </td>
             </tr>
         </tbody>
