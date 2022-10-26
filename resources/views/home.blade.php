@@ -20,6 +20,9 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-8">
+            @include('admin.partials.dashboard.orderWidget')
+        </div>
     </div>
 </div>
 @endsection
