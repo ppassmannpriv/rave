@@ -33,6 +33,7 @@ class PayPalFriendsFamilyScanReport extends Command
      */
     public function handle()
     {
+	$this->info('Scanning files');
         $files = Storage::files(PayPalFriendsFamily::REPORT_DIR);
         foreach ($files as $file) {
             if (Storage::exists($file) === false) {
@@ -55,7 +56,8 @@ class PayPalFriendsFamilyScanReport extends Command
             }
 
             Storage::move($file, str_replace(PayPalFriendsFamily::REPORT_DIR, PayPalFriendsFamily::REPORT_DIR . '/processed', $file));
-        }
+	}
+	$this->info('Done.');
 
         return 0;
     }
