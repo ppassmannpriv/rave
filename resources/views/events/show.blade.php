@@ -9,8 +9,8 @@
                 </div>
 
                 <div class="card-body">
-                    <span>Start: {{ date('d-m-Y', strtotime($event->start)) }}</span><br />
-                    <span>End: {{ date('d-m-Y', strtotime($event->end)) }}</span><br />
+                    <span>Start: {{ date('d-m-Y H:i', strtotime($event->start)) }}</span><br />
+                    <span>End: {{ date('d-m-Y H:i', strtotime($event->end)) }}</span><br />
                     <span>{{ $event->location }}</span>
                     {!! $event->description !!}
                     <h4 class="mt-4 border-top pt-4">Tickets</h4>

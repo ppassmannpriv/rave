@@ -36,11 +36,11 @@ class PaymentController extends Controller
         return redirect()->route('admin.payments.index');
     }
 
-    public function edit(Transaction $transaction)
+    public function edit(Transaction $payment)
     {
         abort_if(Gate::denies('payment_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.payments.edit', compact('transaction'));
+        return view('admin.payments.edit', compact('payment'));
     }
 
     public function update(UpdatePaymentRequest $request, Transaction $transaction)
