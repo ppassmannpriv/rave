@@ -103,6 +103,11 @@ Route::group([], function () {
 
 Route::get('/site-error', 'Site\SiteController@error')->name('site.error');
 
+Route::get('/' . env('CRON_ROUTE') , function(){
+    Artisan::call('schedule:run');
+    return 'OK';
+});
+
 // Handle 404 and other errors
 Route::fallback(function() {
     return redirect('/site-error')->with('warning', 'Sorry, this route is not available.');
