@@ -15,6 +15,7 @@ use App\Models\Order\OrderItem;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property string $status
  * @property int|null $user_id
  * @property int|null $transaction_id
  * @property-read \App\Models\Transaction|null $transaction
@@ -42,6 +43,7 @@ class Order extends Model
 
     public const STATUS_INITIALIZED = 'initialized';
     public const STATUS_PROCESSING = 'processing';
+    public const STATUS_REFUNDED = 'refunded';
     public const STATUS_PAID = 'paid';
     public const STATUS_CLOSED = 'closed';
     public const STATUS_CANCELLED = 'cancelled';
@@ -92,5 +94,14 @@ class Order extends Model
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function isCancellable()
+    {
+        return !in_array($this->status, [
+            static::STATUS_CLOSED,
+            static::STATUS_CANCELLED,
+            static::STATUS_PAID
+        ]);
     }
 }

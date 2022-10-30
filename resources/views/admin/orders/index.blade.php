@@ -93,6 +93,14 @@
                         </a>
                         @endcan
 
+                        @if ($order->isCancellable())
+                        @can('order_cancel')
+                        <a class="btn btn-xs btn-warning" href="{{ route('admin.orders.cancel', $order->id) }}">
+                            {{ trans('global.cancel') }}
+                        </a>
+                        @endcan
+                        @endif
+
                         @can('order_edit')
                         <a class="btn btn-xs btn-info" href="{{ route('admin.orders.edit', $order->id) }}">
                             {{ trans('global.edit') }}
