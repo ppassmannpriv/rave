@@ -10,7 +10,7 @@
             End: <strong>{{ $event->end }}</strong><br />
             Location: <strong>{{ $event->location }}</strong><br />
             Tickets sold: <strong>{{ $event->eventTicketsSold() }}</strong><br />
-            Estimated income: <strong>{{ $event->eventTicketsSoldPrice() }}</strong>
+            Estimated income: <strong>@money($event->eventTicketsSoldPrice())</strong>
         </p>
     </div>
 </div>
