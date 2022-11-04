@@ -96,6 +96,18 @@ class Event extends Model implements HasMedia
         return $qty;
     }
 
+    public function eventTicketsSoldPrice(): float
+    {
+        $price = 0;
+        foreach ($this->eventTickets as $eventTicket) {
+            foreach ($eventTicket->eventTicketCodes as $eventTicketCode) {
+                if ($eventTicketCode->orderItem !== null) {
+                    $price += $eventTicket->price;
+                }
+            }
+        }
+    }
+
     public function getStartAttribute($value)
     {
         return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;

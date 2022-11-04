@@ -9,7 +9,8 @@
             Start: <strong>{{ $event->start }}</strong><br />
             End: <strong>{{ $event->end }}</strong><br />
             Location: <strong>{{ $event->location }}</strong><br />
-            Tickets sold: <strong>{{ $event->eventTicketsSold() }}</strong>
+            Tickets sold: <strong>{{ $event->eventTicketsSold() }}</strong><br />
+            Estimated income: <strong>{{ $event->eventTicketsSoldPrice() }}</strong>
         </p>
     </div>
 </div>
