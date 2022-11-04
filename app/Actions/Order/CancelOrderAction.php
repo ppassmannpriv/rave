@@ -26,5 +26,17 @@ class CancelOrderAction
         $order->status = Order::STATUS_CANCELLED;
         $order->save();
         Log::info('Order state changed to ' . Order::STATUS_CANCELLED);
+
+        foreach ($order->orderItems as $orderItem) {
+            $eventTicket = $orderItem->eventTicket;
+            $eventTicket->stock += $orderItem->qty;
+            $eventTicket->save();
+            Log::info('Set Event Ticket (' . $eventTicket->id . ') stock back to: ' . $eventTicket->stock);
+            foreach ($orderItem->eventTicketCodes as $eventTicketCode) {
+                $eventTicketCode->orderItem()->disassociate();
+                $eventTicketCode->save();
+                Log::info('Cleared Event Ticket Code: ' . $eventTicketCode->code);
+            }
+        }
     }
 }

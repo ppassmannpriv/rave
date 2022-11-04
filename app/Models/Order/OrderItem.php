@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\EventTicket|null $eventTicket
  * @property-read \App\Models\Order|null $order
  * @property-read \App\Models\CartItem|null $cartItem
- * @property-read \App\Models\EventTicketCode|null $eventTicketCode
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventTicketCode[]|null $eventTicketCodes
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
