@@ -106,6 +106,8 @@ class Event extends Model implements HasMedia
                 }
             }
         }
+
+        return $price;
     }
 
     public function getStartAttribute($value)
