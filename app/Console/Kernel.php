@@ -24,6 +24,11 @@ class Kernel extends ConsoleKernel
             ->everyTenMinutes()
             ->emailOutputOnFailure([env('SYSADMIN')])
             ->appendOutputTo('storage/logs/order-successful.log');
+
+        $schedule->command('orders:payment-check')
+            ->everyFiveMinutes()
+            ->emailOutputOnFailure([env('SYSADMIN')])
+            ->appendOutputTo('storage/logs/payment-reminders.log');
     }
 
     /**
