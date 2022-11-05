@@ -38,6 +38,14 @@
                     {{ $order->transaction->paymentMethod->name ?? '' }}
                 </td>
             </tr>
+            <tr>
+                <th>
+                    {{ trans('cruds.payment.fields.comment') }}
+                </th>
+                <td>
+                    {{ $order->transaction->comment ?? '' }}
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>

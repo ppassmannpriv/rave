@@ -57,7 +57,7 @@
                 </tr>
                 <tr>
                     <th>
-                        {{ trans('cruds.orders.title') }}
+                        {{ trans('cruds.order.title_singular') }}
                     </th>
                     <td>
                         <a href="{{ route('admin.orders.show', $payment->order->id) }}">
