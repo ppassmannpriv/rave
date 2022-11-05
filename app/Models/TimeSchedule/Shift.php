@@ -65,26 +65,37 @@ class Shift extends Model {
 
     /**
      * @param array $data
-     * @return static[]
+     * @return array
+     * @throws \Throwable
      */
     public static function createRepeating(array $data): array
     {
+        $errorBag = [];
+        $models = [];
         $repeatCounter = $data['repeat'];
         unset($data['repeat']);
-        $iter = 0;
-        $models = [static::create($data)];
-        for ($i = 1; $i < $repeatCounter; $i++) {
-            $iterationData = $data;
 
-            $iterationStart = Carbon::createFromFormat(static::DATETIME_FORMAT, $data['start']);
-            $iterationEnd = Carbon::createFromFormat(static::DATETIME_FORMAT, $data['end']);
+        $iterationStart = Carbon::createFromFormat(static::DATETIME_FORMAT, $data['start']);
+        $iterationEnd = Carbon::createFromFormat(static::DATETIME_FORMAT, $data['end']);
+        $duration = $iterationStart->diff($iterationEnd);
 
-            $duration = $iterationStart->diff($iterationEnd);
+        if ($duration->s < 1) {
+            throw new \InvalidArgumentException('Duration is below 1 second!');
+        }
+        try {
+            for ($i = 0; $i < $repeatCounter; $i++) {
+                $iterationData = $data;
+                $iterationData['start'] = $iterationStart->addHours($i < 1 ? 0 : $duration->h)->format(static::DATETIME_FORMAT);
+                $iterationData['end'] = $iterationEnd->addHours($i < 1 ? 0 : $duration->h)->format(static::DATETIME_FORMAT);
 
-            $iterationData['start'] = $iterationStart->addHours($duration->h * $i)->format(static::DATETIME_FORMAT);
-            $iterationData['end'] = $iterationEnd->addHours($duration->h * $i)->format(static::DATETIME_FORMAT);
+                $models[] = static::create($iterationData);
+            }
+        } catch (\Throwable $throwable) {
+            $errorBag[] = $throwable;
+        }
 
-            $models[] = static::create($iterationData);
+        if ($errorBag !== []) {
+            throw $errorBag[0];
         }
 
         return $models;
