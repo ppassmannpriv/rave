@@ -17,9 +17,12 @@ class UpdateTimeScheduleShiftRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => [
+            'name' => [
                 'string',
                 'required',
+            ],
+            'description' => [
+                'string',
             ],
             'start' => [
                 'required',
@@ -29,13 +32,10 @@ class UpdateTimeScheduleShiftRequest extends FormRequest
                 'required',
                 'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
             ],
-            'active' => [
+            'crew_only' => [
                 'boolean',
                 'required',
             ],
-            'event_id' => [
-                'integer'
-            ]
         ];
     }
 }

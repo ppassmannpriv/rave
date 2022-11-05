@@ -65,6 +65,6 @@
         </div>
     </div>
 </div>
-@includeIf('admin.timeSchedules.shifts.list', ['timeScheduleShifts' => $timeSchedule->shifts])
+@includeIf('admin.timeSchedules.shifts.partials.list', ['timeSchedule' => $timeSchedule, 'timeScheduleShifts' => $timeSchedule->shifts])
 
 @endsection

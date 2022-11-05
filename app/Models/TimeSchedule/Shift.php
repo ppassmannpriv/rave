@@ -36,6 +36,7 @@ class Shift extends Model {
     protected $fillable = [
         'start',
         'end',
+        'name',
         'time_schedule_id',
         'description',
         'crew_only',
@@ -45,7 +46,7 @@ class Shift extends Model {
 
     public function timeSchedule(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(TimeSchedule::class, 'event_id', 'id');
+        return $this->belongsTo(TimeSchedule::class, 'time_schedule_id', 'id');
     }
 
     public function isCrewOnly(): bool

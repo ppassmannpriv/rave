@@ -20,32 +20,34 @@ class TimeScheduleShiftController
         return view('admin.timeSchedules.shifts.index', compact('timeScheduleShifts'));
     }
 
-    public function create()
+    public function create(TimeSchedule $timeSchedule)
     {
         abort_if(Gate::denies('time_schedule_shift_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.timeSchedules.shifts.create');
+        return view('admin.timeSchedules.shifts.create', compact('timeSchedule'));
     }
 
-    public function store(StoreTimeScheduleShiftRequest $request)
+    public function store(StoreTimeScheduleShiftRequest $request, TimeSchedule $timeSchedule)
     {
-        TimeSchedule\Shift::create($request->all());
+        $data = [...$request->all(), 'time_schedule_id' => $timeSchedule->id];
 
-        return redirect()->route('admin.time-schedule-shifts.index');
+        TimeSchedule\Shift::create($data);
+
+        return redirect()->route('admin.time-schedules.show', [$timeSchedule->id]);
     }
 
-    public function edit(TimeSchedule\Shift $timeScheduleShift)
+    public function edit(TimeSchedule $timeSchedule, TimeSchedule\Shift $timeScheduleShift)
     {
         abort_if(Gate::denies('time_schedule_shift_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.timeSchedules.edit', compact('timeScheduleShift'));
+        return view('admin.timeSchedules.shifts.edit', compact('timeScheduleShift', 'timeSchedule'));
     }
 
-    public function update(UpdateTimeScheduleShiftRequest $request, TimeSchedule\Shift $timeScheduleShift)
+    public function update(TimeSchedule $timeSchedule, UpdateTimeScheduleShiftRequest $request, TimeSchedule\Shift $timeScheduleShift)
     {
         $timeScheduleShift->update($request->all());
 
-        return redirect()->route('admin.time-schedule-shifts.index');
+        return redirect()->route('admin.time-schedules.show', [$timeSchedule->id]);
     }
 
     public function show(TimeSchedule\Shift $timeScheduleShift)

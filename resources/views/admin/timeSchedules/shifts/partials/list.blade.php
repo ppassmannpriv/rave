@@ -1,7 +1,7 @@
-@can('time_schedule_shifts_create')
+@can('time_schedule_shift_create')
 <div style="margin-bottom: 10px;" class="row">
     <div class="col-lg-12">
-        <a class="btn btn-success" href="{{ route('admin.time-schedule-shifts.create') }}">
+        <a class="btn btn-success" href="{{ route('admin.time-schedules.time-schedule-shifts.create', [$timeSchedule->id]) }}">
             {{ trans('global.add') }} {{ trans('cruds.time-schedule-shifts.title_singular') }}
         </a>
     </div>
@@ -64,19 +64,19 @@
                     </td>
                     <td>
                         @can('time_schedule_show')
-                        <a class="btn btn-xs btn-primary" href="{{ route('admin.time-schedule-shifts.show', $timeScheduleShift->id) }}">
+                        <a class="btn btn-xs btn-primary" href="{{ route('admin.time-schedules.time-schedule-shifts.show', [$timeScheduleShift->timeSchedule->id, $timeScheduleShift->id]) }}">
                             {{ trans('global.view') }}
                         </a>
                         @endcan
 
                         @can('time_schedule_edit')
-                        <a class="btn btn-xs btn-info" href="{{ route('admin.time-schedule-shifts.edit', $timeScheduleShift->id) }}">
+                        <a class="btn btn-xs btn-info" href="{{ route('admin.time-schedules.time-schedule-shifts.edit', [$timeScheduleShift->timeSchedule->id, $timeScheduleShift->id]) }}">
                             {{ trans('global.edit') }}
                         </a>
                         @endcan
 
                         @can('time_schedule_delete')
-                        <form action="{{ route('admin.time-schedule-shifts.destroy', $timeScheduleShift->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                        <form action="{{ route('admin.time-schedules.time-schedule-shifts.destroy', [$timeScheduleShift->timeSchedule->id, $timeScheduleShift->id]) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">

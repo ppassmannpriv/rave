@@ -28,7 +28,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Time Schedule Shifts
     Route::delete('time-schedule-shifts/destroy', 'TimeScheduleShiftController@massDestroy')->name('time-schedule-shifts.massDestroy');
-    Route::resource('time-schedule-shifts', 'TimeScheduleShiftController');
+    Route::resource('time-schedules.time-schedule-shifts', 'TimeScheduleShiftController');
 
     // Event Tickets
     Route::delete('event-tickets/destroy', 'EventTicketsController@massDestroy')->name('event-tickets.massDestroy');

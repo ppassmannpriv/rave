@@ -333,7 +333,7 @@ return [
             'deleted_at'         => 'Deleted at',
             'deleted_at_helper'  => ' ',
             'crew_only'          => 'Crew only',
-            'active_helper'      => 'This is shift is locked to crew members.',
+            'crew_only_helper'      => 'This is shift is locked to crew members.',
             'event'              => 'Event',
             'event_helper'       => 'Time schedules can be connected to events.'
         ],
