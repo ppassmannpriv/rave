@@ -3,6 +3,7 @@
 namespace App\Models\TimeSchedule;
 
 use App\Models\TimeSchedule;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -22,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  */
 class Shift extends Model {
+    public const DATETIME_FORMAT = 'Y-m-d H:i:s';
+
     public $table = 'time_schedule_shifts';
     public $primaryKey = 'id';
 
@@ -42,6 +45,7 @@ class Shift extends Model {
         'crew_only',
         'created_at',
         'updated_at',
+        'repeat',
     ];
 
     public function timeSchedule(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -57,5 +61,32 @@ class Shift extends Model {
     public function isHelper(): bool
     {
         return !$this->isCrewOnly();
+    }
+
+    /**
+     * @param array $data
+     * @return static[]
+     */
+    public static function createRepeating(array $data): array
+    {
+        $repeatCounter = $data['repeat'];
+        unset($data['repeat']);
+        $iter = 0;
+        $models = [static::create($data)];
+        for ($i = 1; $i < $repeatCounter; $i++) {
+            $iterationData = $data;
+
+            $iterationStart = Carbon::createFromFormat(static::DATETIME_FORMAT, $data['start']);
+            $iterationEnd = Carbon::createFromFormat(static::DATETIME_FORMAT, $data['end']);
+
+            $duration = $iterationStart->diff($iterationEnd);
+
+            $iterationData['start'] = $iterationStart->addHours($duration->h * $i)->format(static::DATETIME_FORMAT);
+            $iterationData['end'] = $iterationEnd->addHours($duration->h * $i)->format(static::DATETIME_FORMAT);
+
+            $models[] = static::create($iterationData);
+        }
+
+        return $models;
     }
 }

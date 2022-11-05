@@ -32,6 +32,10 @@ class StoreTimeScheduleShiftRequest extends FormRequest
                 'required',
                 'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
             ],
+            'repeat' => [
+                'integer',
+                'min:0'
+            ],
             'crew_only' => [
                 'boolean',
                 'required',

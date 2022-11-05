@@ -31,7 +31,7 @@ class TimeScheduleShiftController
     {
         $data = [...$request->all(), 'time_schedule_id' => $timeSchedule->id];
 
-        TimeSchedule\Shift::create($data);
+        TimeSchedule\Shift::createRepeating($data);
 
         return redirect()->route('admin.time-schedules.show', [$timeSchedule->id]);
     }

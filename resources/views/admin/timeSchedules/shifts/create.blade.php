@@ -41,6 +41,16 @@
             <span class="help-block">{{ trans('cruds.time-schedule-shifts.fields.end_helper') }}</span>
         </div>
         <div class="form-group">
+            <label class="required" for="repeat">{{ trans('cruds.time-schedule-shifts.fields.repeat') }}</label>
+            <input class="form-control {{ $errors->has('repeat') ? 'is-invalid' : '' }}" type="number" name="repeat" id="repeat" value="{{ old('repeat', 0) }}"  required>
+            @if($errors->has('repeat'))
+            <div class="invalid-feedback">
+                {{ $errors->first('repeat') }}
+            </div>
+            @endif
+            <span class="help-block">{{ trans('cruds.time-schedule-shifts.fields.repeat_helper') }}</span>
+        </div>
+        <div class="form-group">
             <label class="required">{{ trans('cruds.time-schedule-shifts.fields.crew_only') }}</label>
             @foreach(['1' => trans('global.yes'), '0' => trans('global.no')] as $key => $label)
             <div class="form-check {{ $errors->has('active') ? 'is-invalid' : '' }}">
