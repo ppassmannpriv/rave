@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int|null $event_id
  * @property int $stock
  * @property-read \App\Models\Event|null $event
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventTicketCode[] $eventTicketCodes
  * @method static \Illuminate\Database\Eloquent\Builder|EventTicket newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|EventTicket newQuery()
  * @method static \Illuminate\Database\Query\Builder|EventTicket onlyTrashed()
