@@ -47,4 +47,14 @@ class Shift extends Model {
     {
         return $this->belongsTo(TimeSchedule::class, 'event_id', 'id');
     }
+
+    public function isCrewOnly(): bool
+    {
+        return $this->crew_only;
+    }
+
+    public function isHelper(): bool
+    {
+        return !$this->isCrewOnly();
+    }
 }
