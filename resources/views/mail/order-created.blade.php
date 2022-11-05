@@ -114,18 +114,19 @@
                             <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
                                 <tr>
                                     <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Hello,</p>
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">We are processing your order. Should all payments have been completed, we will send you your ticket codes as soon as possible!</p>
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Hello (#{{ $order->user->name }}),</p>
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">We process your order with the order number (#{{ $order->id }})</p>
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Once your order is successfully completed, we will send you your order codes as soon as possible.</p>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
-                                            <strong>Please read the following payment instructions:</strong>
+                                            <strong>Please read carefully the following payment instructions:</strong>
                                         </p>
                                         <ul style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
                                             <li style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Go to <a href="https://paypal.me/bastiangores/{{ $order->price }}EUR" target="_blank">paypal.me/bastiangores/{{ $order->price }}EUR</a></li>
-                                            <li style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Transfer us the {{ $order->price }} EUR and as message please <strong>ONLY</strong> use {{ $order->transaction->reference }}</li>
-                                            <li style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Once you have completed the payment and we have checked it on our end, we will send you your ticket code.</li>
+                                            <li style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Transfer us {{ $order->price }} EUR and as message please <strong>ONLY</strong> use {{ $order->transaction->reference }}</li>
+                                            <li style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">As message please <strong>ONLY</strong> use {{ $order->transaction->reference }}</li>
                                         </ul>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
-                                            Thank you again and we hope you will have a lot of fun and make great memories with us soon!
+                                            See You On The Dancefloor!
                                         </p>
                                     </td>
                                 </tr>

@@ -11,18 +11,17 @@
 
                 <!-- START CENTERED WHITE CONTAINER -->
                 <table role="presentation" class="main" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; border-radius: 3px; width: 100%;" width="100%">
-
                     <!-- START MAIN CONTENT AREA -->
                     <tr>
                         <td class="wrapper" style="font-family: sans-serif; font-size: 14px; vertical-align: top; box-sizing: border-box; padding: 20px;" valign="top">
                             <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
                                 <tr>
                                     <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Hello,</p>
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">We are cancelling your order (#{{ $order->id }}). Should you have made any payments and not gotten a refund please reach out to us!</p>
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
-                                            Thank you again!
-                                        </p>
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Hello (#{{ $order->user->name }}),</p>
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">We are sorry to inform you that we have to cancel your order (#{{ $order->id }}). </p>
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">We will refund you the amount of @money($order->price) in the next 24 hours. </p>
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">We look forward hearing from you again soon. </p>
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Greetings your Bastian </p>
                                     </td>
                                 </tr>
                             </table>
