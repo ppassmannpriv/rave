@@ -55,12 +55,12 @@ class OrderItem extends Model
 
     public function order()
     {
-        return $this->belongsTo(Order::class, 'id', 'order_id');
+        return $this->belongsTo(Order::class, 'order_id', 'id');
     }
 
     public function cartItem()
     {
-        return $this->hasOne(CartItem::class, 'id', 'cart_item_id');
+        return $this->hasOne(CartItem::class, 'cart_item_id', 'id');
     }
 
     public function eventTicket()
