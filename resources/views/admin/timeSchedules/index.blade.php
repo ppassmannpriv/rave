@@ -82,7 +82,7 @@
                         {{ $timeSchedule->end ?? '' }}
                     </td>
                     <td>
-                        {{ $timeSchedule->active ?? '' }}
+                        {{ $timeSchedule->active === 1 ? trans('global.yes') : trans('global.no') }}
                     </td>
                     <td>
                         @can('time_schedule_show')

@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\MassDestroyEventRequest;
+use App\Http\Requests\MassDestroyTimeScheduleRequest;
 use App\Http\Requests\StoreTimeScheduleRequest;
-use App\Http\Requests\UpdateEventRequest;
+use App\Http\Requests\UpdateTimeScheduleRequest;
 use App\Models\Event;
 use App\Models\TimeSchedule;
 use Gate;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class TimeScheduleController
@@ -42,10 +41,12 @@ class TimeScheduleController
     {
         abort_if(Gate::denies('time_schedule_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.time-schedules.edit', compact('timeSchedule'));
+        $events = Event::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.timeSchedules.edit', compact('timeSchedule', 'events'));
     }
 
-    public function update(UpdateEventRequest $request, TimeSchedule $timeSchedule)
+    public function update(UpdateTimeScheduleRequest $request, TimeSchedule $timeSchedule)
     {
         $timeSchedule->update($request->all());
 
@@ -70,7 +71,7 @@ class TimeScheduleController
         return back();
     }
 
-    public function massDestroy(MassDestroyEventRequest $request)
+    public function massDestroy(MassDestroyTimeScheduleRequest $request)
     {
         abort_if(Gate::denies('time_schedule_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
