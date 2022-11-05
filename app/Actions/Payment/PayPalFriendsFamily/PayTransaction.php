@@ -89,6 +89,9 @@ class PayTransaction
     private function guessTransactionBasedOnNote($transactionData)
     {
         $user = User::where('email', '=', $transactionData[PayPalFriendsFamily::USER_EMAIL_COLUMN])->first();
+        if ($user === null) {
+            return null;
+        }
         $orders = $user->userOrders()->whereIn('status', [Order::STATUS_INITIALIZED, Order::STATUS_PROCESSING])->get();
         $likelyTransaction = null;
         foreach ($orders as $order) {
