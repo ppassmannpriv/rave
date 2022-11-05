@@ -99,6 +99,15 @@
         </ul>
         </li>
         @endcan
+        @can('time_schedule_access')
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link {{ request()->is('admin/time-schedules') || request()->is('admin/time-schedules/*') ? 'c-active' : '' }}" href="{{ route('admin.time-schedules.index') }}">
+                <i class="fa-fw fas fa-clock c-sidebar-nav-icon">
+                </i>
+                {{ trans('cruds.time-schedules.title') }}
+            </a>
+        </li>
+        @endcan
         @can('content_management_access')
         <li class="c-sidebar-nav-dropdown {{ request()->is("admin/content-categories*") ? "c-show" : "" }} {{ request()->is("admin/content-tags*") ? "c-show" : "" }} {{ request()->is("admin/content-pages*") ? "c-show" : "" }}">
         <a class="c-sidebar-nav-dropdown-toggle" href="#">

@@ -22,6 +22,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('events/ckmedia', 'EventController@storeCKEditorImages')->name('events.storeCKEditorImages');
     Route::resource('events', 'EventController');
 
+    // Time Schedules
+    Route::delete('time-schedules/destroy', 'EventController@massDestroy')->name('time-schedules.massDestroy');
+    Route::resource('time-schedules', 'TimeScheduleController');
+
     // Event Tickets
     Route::delete('event-tickets/destroy', 'EventTicketsController@massDestroy')->name('event-tickets.massDestroy');
     Route::resource('event-tickets', 'EventTicketsController');

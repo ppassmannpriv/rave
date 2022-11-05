@@ -289,5 +289,30 @@ return [
             'code' => 'Ticket Code'
         ]
     ],
-    ''
+    'time-schedules' => [
+        'title'          => 'Time Schedules',
+        'title_singular' => 'Time Schedule',
+        'fields'         => [
+            'id'                 => 'ID',
+            'id_helper'          => ' ',
+            'name'               => 'Name',
+            'name_helper'        => 'Name of your time schedule - it is not unique!',
+            'start'              => 'Start',
+            'start_helper'       => 'Start date and time of your time schedule.',
+            'end'                => 'End',
+            'end_helper'         => 'End date and time of your time schedule.',
+            'description'        => 'Description',
+            'description_helper' => 'Description of your time schedule',
+            'created_at'         => 'Created at',
+            'created_at_helper'  => ' ',
+            'updated_at'         => 'Updated at',
+            'updated_at_helper'  => ' ',
+            'deleted_at'         => 'Deleted at',
+            'deleted_at_helper'  => ' ',
+            'active'             => 'Active',
+            'active_helper'      => 'Use this setting to de/activate your schedule.',
+            'event'              => 'Event',
+            'event_helper'       => 'Time schedules can be connected to events.'
+        ],
+    ],
 ];
