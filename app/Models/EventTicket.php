@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property int|null $event_id
  * @property int $stock
+ * @property int $cap
  * @property-read \App\Models\Event|null $event
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventTicketCode[] $eventTicketCodes
  * @method static \Illuminate\Database\Eloquent\Builder|EventTicket newModelQuery()
@@ -121,5 +122,22 @@ class EventTicket extends Model
             throw new \Exception('Sorry, you cannot delete this ticket. It has been ordered.');
         }
         return parent::delete();
+    }
+
+    public function eventTicketSold(): int
+    {
+        $qty = 0;
+        foreach ($this->eventTicketCodes as $eventTicketCode) {
+            if ($eventTicketCode->orderItem !== null) {
+                $qty++;
+            }
+        }
+
+        return $qty;
+    }
+
+    public function isAvailable(): bool
+    {
+        return $this->eventTicketSold() < $this->cap;
     }
 }

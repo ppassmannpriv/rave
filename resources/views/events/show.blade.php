@@ -20,14 +20,20 @@
                             <div class="col-lg-3 col-sm-6 d-flex align-content-center flex-wrap"><span>{{ $eventTicket::TICKET_TYPE_RADIO[$eventTicket->ticket_type] }}</span></div>
                             <div class="col-lg-3 col-sm-6 d-flex align-content-center flex-wrap"><span>@money($eventTicket->price)</span></div>
                             <div class="col-sm-12 d-md-none d-flex flex-wrap mt-3"></div>
-                            <div class="col-lg-6 col-sm-12 d-flex align-content-center flex-wrap">
-                                <form action="/cart/add/" method="POST" class="w-100">
-                                    @csrf
-                                    <input type="hidden" value="{{ $eventTicket->id }}" name="event_ticket_id" />
-                                    <input type="number" min="1" max="4" class="form-control w-50 float-left rounded-0" value="1" name="qty" id="qty-{{ $event->id }}" />
-                                    <input type="submit" value="Buy" class="btn btn-outline-success w-50 float-end rounded-0"/>
-                                </form>
-                            </div>
+                            @if($eventTicket->isAvailable())
+                                <div class="col-lg-6 col-sm-12 d-flex align-content-center flex-wrap">
+                                    <form action="/cart/add/" method="POST" class="w-100">
+                                        @csrf
+                                        <input type="hidden" value="{{ $eventTicket->id }}" name="event_ticket_id" />
+                                        <input type="number" min="1" max="4" class="form-control w-50 float-left rounded-0" value="1" name="qty" id="qty-{{ $event->id }}" />
+                                        <input type="submit" value="Buy" class="btn btn-outline-success w-50 float-end rounded-0"/>
+                                    </form>
+                                </div>
+                            @else
+                                <div class="col-lg-6 col-sm-12 d-flex align-content-center flex-wrap">
+                                    <strong>Sold out</strong>
+                                </div>
+                            @endif
                         </li>
                     @endforeach
                     </ul>

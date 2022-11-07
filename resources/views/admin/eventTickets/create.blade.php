@@ -45,6 +45,16 @@
             <span class="help-block">{{ trans('cruds.eventTicket.fields.stock_helper') }}</span>
         </div>
         <div class="form-group">
+            <label class="required" for="cap">{{ trans('cruds.eventTicket.fields.cap') }}</label>
+            <input class="form-control {{ $errors->has('cap') ? 'is-invalid' : '' }}" type="number" name="cap" id="cap" value="{{ old('cap', '0') }}" step="1" required>
+            @if($errors->has('cap'))
+            <div class="invalid-feedback">
+                {{ $errors->first('cap') }}
+            </div>
+            @endif
+            <span class="help-block">{{ trans('cruds.eventTicket.fields.cap_helper') }}</span>
+        </div>
+        <div class="form-group">
             <label class="required" for="event_id">{{ trans('cruds.eventTicket.fields.event') }}</label>
             <select class="form-control select2 {{ $errors->has('event') ? 'is-invalid' : '' }}" name="event_id" id="event_id" required>
                 @foreach($events as $id => $entry)

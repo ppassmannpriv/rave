@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Exceptions\Cart\SoldOutException;
 use App\Mail\OrderCreatedNotification;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderCreated;
@@ -22,7 +23,11 @@ class CartController extends WebController
     }
 
     public function addToCart(AddToCartRequest $request) {
-        AddTicketToCart::make()->handle(EventTicket::find($request->event_ticket_id), $request->qty);
+        try {
+            AddTicketToCart::make()->handle(EventTicket::find($request->event_ticket_id), $request->qty);
+        } catch (SoldOutException $soldOutException) {
+            return \Redirect::to('/cart')->with($soldOutException->getMessage());
+        }
         return \Redirect::to('/cart');
     }
 
