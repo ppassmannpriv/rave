@@ -138,6 +138,6 @@ class EventTicket extends Model
 
     public function isAvailable(): bool
     {
-        return $this->eventTicketSold() < $this->cap;
+        return $this->eventTicketSold() > $this->cap;
     }
 }

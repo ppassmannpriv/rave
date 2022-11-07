@@ -34,6 +34,13 @@ class CheckStock extends Command
         foreach ($eventTickets as $eventTicket) {
             $soldCodes = $eventTicket->eventTicketCodes()->whereNotNull('order_item_id')->get();
             $this->info($eventTicket->event->name . ' has sold ' . $soldCodes->count() . ' tickets.');
+            $remaining = $eventTicket->cap - $eventTicket->stock;
+            if ($remaining < 0) {
+                $remaining = 0;
+            }
+            $eventTicket->stock = $remaining;
+            $eventTicket->save();
+            $this->info('Correcting stock for ticket. Set it to ' . $eventTicket->stock);
         }
         $this->info('Done.');
 

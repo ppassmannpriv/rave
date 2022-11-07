@@ -36,6 +36,9 @@ class OrderService {
         if ($eventTicket->stock === 0) {
             throw new \Exception('There is not enough stock for this ticket.');
         }
+        if ($eventTicket->isAvailable() === false) {
+            throw new \Exception('This ticket is sold out.');
+        }
         $eventTicket->stock = $eventTicket->stock - 1;
         $eventTicket->save();
 
