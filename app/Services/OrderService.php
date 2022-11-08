@@ -39,7 +39,7 @@ class OrderService {
         if ($eventTicket->isAvailable() === false) {
             throw new \Exception('This ticket is sold out.');
         }
-        $eventTicket->stock = $eventTicket->stock - 1;
+        $eventTicket->stock = $eventTicket->stock - $cartItem->stock;
         $eventTicket->save();
 
         $orderItem = Order\OrderItem::create([
