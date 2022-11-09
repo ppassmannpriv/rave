@@ -47,7 +47,7 @@ class ExportEventTicketCodes extends Command
         $writer = Writer::createFromFileObject(new SplTempFileObject());
         $writer->insertAll($results);
         $fileName = 'event-ticket-codes-' . \Str::slug($event->name) . '.csv';
-        $filePath = storage_path('/app/exports/' . $fileName);
+        $filePath = storage_path('app/exports/' . $fileName);
         $writer->output($filePath);
         \Storage::putFile($filePath, file_get_contents($filePath));
         $this->info('Done.');
