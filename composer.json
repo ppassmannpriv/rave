@@ -12,7 +12,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
-        "league/csv": "^9.8",
+        "league/csv": "^9.0",
         "league/flysystem-aws-s3-v3": "^3.5",
         "lorisleiva/laravel-actions": "^2.4",
         "sentry/sentry-laravel": "^3.0.1",
