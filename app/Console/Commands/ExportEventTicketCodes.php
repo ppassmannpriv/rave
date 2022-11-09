@@ -14,7 +14,7 @@ class ExportEventTicketCodes extends Command
      *
      * @var string
      */
-    protected $signature = 'export:event-ticket-codes {$eventId}';
+    protected $signature = 'export:event-ticket-codes {eventId}';
 
     /**
      * The console command description.
