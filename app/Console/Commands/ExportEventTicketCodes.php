@@ -51,7 +51,8 @@ class ExportEventTicketCodes extends Command
         $writer = Writer::createFromPath($filePath);
         $writer->insertAll($results);
         // $writer->output($fileName);
-        \Storage::putFile($filePath, fopen($filePath, 'r'));
+        $finishedFile = \File::get($filePath);
+        \Storage::put($filePath, $finishedFile);
         $this->info('Done.');
 
         return 0;
