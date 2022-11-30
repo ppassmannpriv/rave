@@ -132,6 +132,6 @@ table.dataTable thead .sorting_desc {
 }
 
 html body.header-fixed {
-    background: url('/img/bg.jpeg');
+    background: url('/img/bg.jpeg?v=20221130');
     background-size: cover;
 }
