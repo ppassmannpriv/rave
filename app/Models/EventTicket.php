@@ -69,6 +69,7 @@ class EventTicket extends Model
         'ticket_type',
         'price',
         'stock',
+        'cap',
         'event_id',
         'from',
         'to',

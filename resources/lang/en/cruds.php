@@ -105,6 +105,8 @@ return [
             'price_helper'       => 'Price of your ticket',
             'stock'              => 'Stock',
             'stock_helper'       => 'Stock of your ticket',
+            'cap'                => 'Cap',
+            'cap_helper'         => 'Absolute cap on sales of your ticket',
             'event'              => 'Event',
             'event_helper'       => 'Select the event this ticket is for.',
             'from'               => 'Available from:',
