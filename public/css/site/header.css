@@ -3,7 +3,8 @@
 }
 #logo {
     font-size: 3.5rem;
-    font-family: '911_porscha_semi-italicSIt', sans-serif;
+    font-family: 'EK Modena', sans-serif;
+    font-weight: 900;
 }
 @media (max-width: 768px) {
     #logo {

@@ -1,0 +1,208 @@
+@font-face {
+    font-family: 'EK Modena';
+    src: url('EKModena-HeavyItalic.eot');
+    src: local('EK Modena Heavy Italic'), local('EKModena-HeavyItalic'),
+        url('EKModena-HeavyItalic.eot?#iefix') format('embedded-opentype'),
+        url('EKModena-HeavyItalic.woff2') format('woff2'),
+        url('EKModena-HeavyItalic.woff') format('woff'),
+        url('EKModena-HeavyItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EK Modena Hairline';
+    src: url('EKModena-HairlineItalic.eot');
+    src: local('EK Modena Hairline Italic'), local('EKModena-HairlineItalic'),
+        url('EKModena-HairlineItalic.eot?#iefix') format('embedded-opentype'),
+        url('EKModena-HairlineItalic.woff2') format('woff2'),
+        url('EKModena-HairlineItalic.woff') format('woff'),
+        url('EKModena-HairlineItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EK Modena';
+    src: url('EKModena-LightItalic.eot');
+    src: local('EK Modena Light Italic'), local('EKModena-LightItalic'),
+        url('EKModena-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('EKModena-LightItalic.woff2') format('woff2'),
+        url('EKModena-LightItalic.woff') format('woff'),
+        url('EKModena-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EK Modena Hairline';
+    src: url('EKModena-Hairline.eot');
+    src: local('EK Modena Hairline'), local('EKModena-Hairline'),
+        url('EKModena-Hairline.eot?#iefix') format('embedded-opentype'),
+        url('EKModena-Hairline.woff2') format('woff2'),
+        url('EKModena-Hairline.woff') format('woff'),
+        url('EKModena-Hairline.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EK Modena';
+    src: url('EKModena-Bold.eot');
+    src: local('EK Modena Bold'), local('EKModena-Bold'),
+        url('EKModena-Bold.eot?#iefix') format('embedded-opentype'),
+        url('EKModena-Bold.woff2') format('woff2'),
+        url('EKModena-Bold.woff') format('woff'),
+        url('EKModena-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EK Modena';
+    src: url('EKModena-MediumItalic.eot');
+    src: local('EK Modena Medium Italic'), local('EKModena-MediumItalic'),
+        url('EKModena-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('EKModena-MediumItalic.woff2') format('woff2'),
+        url('EKModena-MediumItalic.woff') format('woff'),
+        url('EKModena-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EK Modena';
+    src: url('EKModena-Heavy.eot');
+    src: local('EK Modena Heavy'), local('EKModena-Heavy'),
+        url('EKModena-Heavy.eot?#iefix') format('embedded-opentype'),
+        url('EKModena-Heavy.woff2') format('woff2'),
+        url('EKModena-Heavy.woff') format('woff'),
+        url('EKModena-Heavy.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EK Modena';
+    src: url('EKModena-Italic.eot');
+    src: local('EK Modena Italic'), local('EKModena-Italic'),
+        url('EKModena-Italic.eot?#iefix') format('embedded-opentype'),
+        url('EKModena-Italic.woff2') format('woff2'),
+        url('EKModena-Italic.woff') format('woff'),
+        url('EKModena-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EK Modena';
+    src: url('EKModena-Light.eot');
+    src: local('EK Modena Light'), local('EKModena-Light'),
+        url('EKModena-Light.eot?#iefix') format('embedded-opentype'),
+        url('EKModena-Light.woff2') format('woff2'),
+        url('EKModena-Light.woff') format('woff'),
+        url('EKModena-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EK Modena';
+    src: url('EKModena-BoldItalic.eot');
+    src: local('EK Modena Bold Italic'), local('EKModena-BoldItalic'),
+        url('EKModena-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('EKModena-BoldItalic.woff2') format('woff2'),
+        url('EKModena-BoldItalic.woff') format('woff'),
+        url('EKModena-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EK Modena';
+    src: url('EKModena-ThinItalic.eot');
+    src: local('EK Modena Thin Italic'), local('EKModena-ThinItalic'),
+        url('EKModena-ThinItalic.eot?#iefix') format('embedded-opentype'),
+        url('EKModena-ThinItalic.woff2') format('woff2'),
+        url('EKModena-ThinItalic.woff') format('woff'),
+        url('EKModena-ThinItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EK Modena Ultra';
+    src: url('EKModena-Ultra.eot');
+    src: local('EK Modena Ultra'), local('EKModena-Ultra'),
+        url('EKModena-Ultra.eot?#iefix') format('embedded-opentype'),
+        url('EKModena-Ultra.woff2') format('woff2'),
+        url('EKModena-Ultra.woff') format('woff'),
+        url('EKModena-Ultra.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EK Modena';
+    src: url('EKModena-Thin.eot');
+    src: local('EK Modena Thin'), local('EKModena-Thin'),
+        url('EKModena-Thin.eot?#iefix') format('embedded-opentype'),
+        url('EKModena-Thin.woff2') format('woff2'),
+        url('EKModena-Thin.woff') format('woff'),
+        url('EKModena-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EK Modena Ultra';
+    src: url('EKModena-UltraItalic.eot');
+    src: local('EK Modena Ultra Italic'), local('EKModena-UltraItalic'),
+        url('EKModena-UltraItalic.eot?#iefix') format('embedded-opentype'),
+        url('EKModena-UltraItalic.woff2') format('woff2'),
+        url('EKModena-UltraItalic.woff') format('woff'),
+        url('EKModena-UltraItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EK Modena';
+    src: url('EKModena-Medium.eot');
+    src: local('EK Modena Medium'), local('EKModena-Medium'),
+        url('EKModena-Medium.eot?#iefix') format('embedded-opentype'),
+        url('EKModena-Medium.woff2') format('woff2'),
+        url('EKModena-Medium.woff') format('woff'),
+        url('EKModena-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EK Modena';
+    src: url('EKModena-Regular.eot');
+    src: local('EK Modena'), local('EKModena-Regular'),
+        url('EKModena-Regular.eot?#iefix') format('embedded-opentype'),
+        url('EKModena-Regular.woff2') format('woff2'),
+        url('EKModena-Regular.woff') format('woff'),
+        url('EKModena-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
