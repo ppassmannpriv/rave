@@ -33,13 +33,13 @@ class OrderService {
         $cartItem = CartItem::find($cartData['cart_item']);
 
         $eventTicket = $cartItem->eventTicket;
-        if ($eventTicket->stock === 0) {
+        if ($eventTicket->stock === 0 || $eventTicket->stock < $cartItem->qty) {
             throw new \Exception('There is not enough stock for this ticket.');
         }
         if ($eventTicket->isAvailable() === false) {
             throw new \Exception('This ticket is sold out.');
         }
-        $eventTicket->stock = $eventTicket->stock - $cartItem->stock;
+        $eventTicket->stock = $eventTicket->stock - $cartItem->qty;
         $eventTicket->save();
 
         $orderItem = Order\OrderItem::create([

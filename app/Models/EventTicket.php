@@ -139,11 +139,13 @@ class EventTicket extends Model
 
     public function isAvailable(): bool
     {
-	$now = Carbon::now();
-	$to = new Carbon($this->to);
-	if ($now->isBefore($to) === false) {
-	    return false;
-	}
-        return $this->eventTicketSold() < $this->cap;
+        $now = Carbon::now();
+        $to = new Carbon($this->to);
+
+        if ($now->isBefore($to) === false) {
+            return false;
+        }
+
+        return $this->stock > 0;
     }
 }

@@ -251,13 +251,57 @@ class PermissionsTableSeeder extends Seeder
                 'title' => 'profile_password_edit',
             ],
             [
+                'id'    => 61,
+                'title' => 'order_cancel'
+            ],
+            [
                 'id'    => 1000,
                 'title' => 'customer_site'
             ],
             [
                 'id'    => 1001,
                 'title' => 'customer_registered'
-            ]
+            ],
+            [
+                'id'    => 2001,
+                'time_schedule_shift_access'
+            ],
+            [
+                'id'    => 2002,
+                'time_schedule_shift_show'
+            ],
+            [
+                'id'    => 2003,
+                'time_schedule_shift_create'
+            ],
+            [
+                'id'    => 2004,
+                'time_schedule_shift_edit'
+            ],
+            [
+                'id'    => 2005,
+                'time_schedule_shift_delete'
+            ],
+            [
+                'id'    => 2101,
+                'time_schedule_access'
+            ],
+            [
+                'id'    => 2102,
+                'time_schedule_show'
+            ],
+            [
+                'id'    => 2103,
+                'time_schedule_create'
+            ],
+            [
+                'id'    => 2104,
+                'time_schedule_edit'
+            ],
+            [
+                'id'    => 2105,
+                'time_schedule_delete'
+            ],
         ];
 
         Permission::insert($permissions);

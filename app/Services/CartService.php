@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\Cart;
+use App\Exceptions\Cart\SoldOutException;
 use App\Models\CartItem;
 use Illuminate\Support\Collection;
 use Illuminate\Session\SessionManager;
@@ -54,6 +55,12 @@ class CartService implements Cart {
 
     public function add($eventTicket, $qty): \App\Models\Cart
     {
+        if ($eventTicket->stock < 1) {
+            throw new SoldOutException('Ticket is sold out!');
+        }
+        if ($eventTicket->stock < $qty) {
+            throw new \Exception('Not enough tickets in stock!');
+        }
         $cart = $this->getCart();
         if ($cart->cartItems->count() > 0) {
             $cartItem = $cart->cartItems()->where('event_ticket_id', '=', $eventTicket->id)->first();
