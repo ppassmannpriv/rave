@@ -87,7 +87,7 @@ class Event extends Model implements HasMedia
         $qty = 0;
         foreach ($this->eventTickets as $eventTicket) {
             foreach ($eventTicket->eventTicketCodes as $eventTicketCode) {
-                if ($eventTicketCode->orderItem !== null) {
+                if ($eventTicketCode->isSold()) {
                     $qty++;
                 }
             }
@@ -101,7 +101,7 @@ class Event extends Model implements HasMedia
         $price = 0;
         foreach ($this->eventTickets as $eventTicket) {
             foreach ($eventTicket->eventTicketCodes as $eventTicketCode) {
-                if ($eventTicketCode->orderItem !== null) {
+                if ($eventTicketCode->isSold()) {
                     $price += $eventTicket->price;
                 }
             }

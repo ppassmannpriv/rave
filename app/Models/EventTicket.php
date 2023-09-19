@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Events\EventTicketCreatedEvent;
+use App\Events\EventTicketUpdatedEvent;
 use App\Models\Order\OrderItem;
 use \DateTimeInterface;
 use Carbon\Carbon;
@@ -80,6 +81,7 @@ class EventTicket extends Model
 
     protected $dispatchesEvents = [
         'created' => EventTicketCreatedEvent::class,
+        'updated' => EventTicketUpdatedEvent::class,
     ];
 
     public function event()

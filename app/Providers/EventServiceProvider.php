@@ -8,7 +8,9 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use App\Events\EventTicketCreatedEvent;
+use App\Events\EventTicketUpdatedEvent;
 use App\Listeners\EventTicketCreatedListener;
+use App\Listeners\EventTicketUpdatedListener;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         EventTicketCreatedEvent::class => [
             EventTicketCreatedListener::class,
+        ],
+        EventTicketUpdatedEvent::class => [
+            EventTicketUpdatedListener::class,
         ],
         OrderEventTicketGenerationEvent::class => [
             OrderEventTicketGenerationListener::class

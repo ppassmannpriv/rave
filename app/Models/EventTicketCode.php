@@ -77,4 +77,12 @@ class EventTicketCode extends Model
         }
         return parent::delete();
     }
+
+    public function isSold()
+    {
+        return in_array($this->orderItem?->order?->status, [
+            Order::STATUS_PAID,
+            Order::STATUS_CLOSED
+        ]);
+    }
 }
