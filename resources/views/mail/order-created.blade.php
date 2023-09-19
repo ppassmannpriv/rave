@@ -120,8 +120,8 @@
                                             <strong>Please read the following payment instructions:</strong>
                                         </p>
                                         <ul style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
-                                            <li style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Go to <a href="https://paypal.me/bastiangores/{{ $order->price }}EUR" target="_blank">paypal.me/bastiangores/{{ $order->price }}EUR</a></li>
-                                            <li style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Transfer us the {{ $order->price }} EUR and as message please <strong>ONLY</strong> use {{ $order->transaction->reference }}</li>
+                                            <li style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Go to <a href="https://paypal.me/{{ config('rave.paypal_ff_handle') }}/{{ $order->price }}{{ config('rave.currency') }}" target="_blank">paypal.me/{{ config('rave.paypal_ff_handle') }}/{{ $order->price }}{{ config('rave.currency') }}</a></li>
+                                            <li style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Transfer us the {{ $order->price }} {{ config('rave.currency') }} and as message please <strong>ONLY</strong> use {{ $order->transaction->reference }}</li>
                                             <li style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Once you have completed the payment and we have checked it on our end, we will send you your ticket code.</li>
                                         </ul>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">

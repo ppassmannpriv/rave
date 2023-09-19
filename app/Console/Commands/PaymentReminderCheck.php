@@ -32,6 +32,9 @@ class PaymentReminderCheck extends Command
      */
     public function handle(): int
     {
+        $this->info('Skipped. See command for outstanding todo!');
+        return 0;
+        // @TODO: We need to cache reminders for at least 24h so it only sends once every 24h not every 5 minutes for each user!
         $this->info('Looking for outstanding payments.');
         $orderTrunk = Order::where('status', '=', Order::STATUS_INITIALIZED)
             ->where('created_at', '<=', Carbon::now()->subDays(5)->toDateTimeString())
