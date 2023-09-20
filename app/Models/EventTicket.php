@@ -150,4 +150,9 @@ class EventTicket extends Model
 
         return $this->stock > 0;
     }
+
+    public function getType()
+    {
+        return self::TICKET_TYPE_RADIO[$this->ticket_type];
+    }
 }

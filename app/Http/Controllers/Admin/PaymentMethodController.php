@@ -30,7 +30,7 @@ class PaymentMethodController extends Controller
     public function uploadCsv(UploadCsvPaymentRequest $request)
     {
         abort_if(Gate::denies('payment_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $move = Storage::disk('s3')->put(PaymentMethod\PayPalFriendsFamily::REPORT_DIR . '/' . PaymentMethod\PayPalFriendsFamily::REPORT_FILE_NAME . '_' . date('Y-m-d-h_i_s') . '.csv', file_get_contents($request->file('csv')));
+        $move = Storage::disk('local')->put(PaymentMethod\PayPalFriendsFamily::REPORT_DIR . '/' . PaymentMethod\PayPalFriendsFamily::REPORT_FILE_NAME . '_' . date('Y-m-d-h_i_s') . '.csv', file_get_contents($request->file('csv')));
 
         return \Redirect::to('/admin/paymentMethods/index');
     }

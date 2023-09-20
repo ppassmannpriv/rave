@@ -4,13 +4,24 @@
     </div>
 
     <div class="card-body">
-        <strong>{{ $event->name }}</strong>
-        <p>
-            Start: <strong>{{ $event->start }}</strong><br />
-            End: <strong>{{ $event->end }}</strong><br />
-            Location: <strong>{{ $event->location }}</strong><br />
-            Tickets sold: <strong>{{ $event->eventTicketsSold() }}</strong><br />
-            Estimated income: <strong>@money($event->eventTicketsSoldPrice())</strong>
-        </p>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr><th colspan=2><h4 class="text-center">{{ $event->name }}</h4></th></tr>
+            </thead>
+            <tbody>
+            <tr><td>Start</td><td><strong>{{ $event->start }}</strong></td></tr>
+            <tr><td>End</td><td><strong>{{ $event->end }}</strong></td></tr>
+            <tr><td>Location</td><td><strong>{{ $event->location }}</strong></td></tr>
+            @foreach ($event->eventTickets as $eventTicket)
+                <tr><td colspan=2></td></tr>
+                <tr><td>Ticket type</td><td><strong>{{ $eventTicket->getType() }}</strong></td></tr>
+                <tr><td>Sale from</td><td><strong>{{ $eventTicket->from }}</strong></td></tr>
+                <tr><td>Sale to</td><td><strong>{{ $eventTicket->to }}</strong></td></tr>
+            @endforeach
+            <tr><td colspan=2></td></tr>
+            <tr><td>Tickets sold</td><td><strong>{{ $event->eventTicketsSold() }}</strong></td></tr>
+            <tr><td>Estimated income</td><td><strong>@money($event->eventTicketsSoldPrice())</strong></td></tr>
+            </tbody>
+        </table>
     </div>
 </div>

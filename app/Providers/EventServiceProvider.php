@@ -9,8 +9,10 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use App\Events\EventTicketCreatedEvent;
 use App\Events\EventTicketUpdatedEvent;
+use App\Events\OrderSavedEvent;
 use App\Listeners\EventTicketCreatedListener;
 use App\Listeners\EventTicketUpdatedListener;
+use App\Listeners\OrderPaidListener;
 
 class EventServiceProvider extends ServiceProvider
 {

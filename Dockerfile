@@ -18,6 +18,11 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     libzip-dev \
+    libwebp-dev \
+    libjpeg-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev libxpm-dev \
+    libfreetype6-dev \
     zip \
     unzip
 
@@ -37,7 +42,7 @@ RUN apt-get update
 RUN apt-get install nodejs npm -y
 
 RUN apt-get update \
-    && apt-get install -y gnupg gosu curl ca-certificates zip unzip sqlite3 libcap2-bin libpng-dev \
+    && apt-get install -y gnupg gosu curl ca-certificates zip unzip sqlite3 libcap2-bin \
     && apt-get -y autoremove \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -45,8 +50,11 @@ RUN apt-get update \
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp
+RUN docker-php-ext-install -j "$(nproc)" gd
+
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd mysqli pdo
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath mysqli pdo
 RUN docker-php-ext-install zip
 RUN pecl install redis && docker-php-ext-enable redis
 

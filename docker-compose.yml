@@ -74,11 +74,14 @@ services:
         ports:
             - '${FORWARD_MINIO_PORT:-9000}:9000'
             - '${FORWARD_MINIO_CONSOLE_PORT:-8900}:8900'
+            #- '9443:433'
         environment:
             MINIO_ROOT_USER: ${MINIO_USER}
             MINIO_ROOT_PASSWORD: ${MINIO_PASSWORD}
         volumes:
             - 'rave-minio:/data/minio'
+            #- ./deployment/certbot/conf/live/s3.schleuse.eu/fullchain.pem:/root/.minio/certs/public.crt:ro
+            #- ./deployment/certbot/conf/live/s3.schleuse.eu/privkey.pem:/root/.minio/certs/private.key:ro
         networks:
             - rave
         command: minio server /data/minio --console-address ":8900"
@@ -86,21 +89,21 @@ services:
             test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
             retries: 3
             timeout: 5s
-    meilisearch:
-        image: 'getmeili/meilisearch:latest'
-        container_name: rave-meilisearch
-        ports:
-            - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
-        volumes:
-            - 'rave-meilisearch:/meili_data'
-        networks:
-            - rave
-        environment:
-            MEILI_MASTER_KEY: "${MEILISEARCH_KEY}"
-        healthcheck:
-            test: [ "CMD", "wget", "--no-verbose", "--spider",  "http://localhost:7700/health" ]
-            retries: 3
-            timeout: 5s
+    #meilisearch:
+    #    image: 'getmeili/meilisearch:latest'
+    #    container_name: rave-meilisearch
+    #    ports:
+    #        - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
+    #    volumes:
+    #        - 'rave-meilisearch:/meili_data'
+    #    networks:
+    #        - rave
+    #    environment:
+    #        MEILI_MASTER_KEY: "${MEILISEARCH_KEY}"
+    #    healthcheck:
+    #        test: [ "CMD", "wget", "--no-verbose", "--spider",  "http://localhost:7700/health" ]
+    #        retries: 3
+    #        timeout: 5s
 
 networks:
     rave:
@@ -110,7 +113,7 @@ volumes:
         driver: local
     rave-redis:
         driver: local
-    rave-meilisearch:
-        driver: local
+    #rave-meilisearch:
+    #    driver: local
     rave-minio:
         driver: local
