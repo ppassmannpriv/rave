@@ -11,6 +11,9 @@
         @method('PUT')
         @csrf
         <div class="form-group">
+            <span>{{ trans('cruds.order.title_singular') }} {{ trans('cruds.order.fields.id') }}: {{ $payment->order->id }} - {{ $payment->order->user->name }}</span>
+        </div>
+        <div class="form-group">
             <label class="required">{{ trans('cruds.payment.fields.provider') }}</label>
             @foreach(App\Models\Payment::PROVIDER_RADIO as $key => $label)
             <div class="form-check {{ $errors->has('provider') ? 'is-invalid' : '' }}">

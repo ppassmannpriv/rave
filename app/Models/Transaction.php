@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Transaction\PartialTransaction;
 use Illuminate\Database\Eloquent\Model;
+use App\Events\TransactionSavedEvent;
 
 /**
  * App\Models\Transaction
@@ -45,6 +46,10 @@ class Transaction extends Model
         'state',
         'created_at',
         'updated_at',
+    ];
+
+    protected $dispatchesEvents = [
+        'saved' => TransactionSavedEvent::class,
     ];
 
     public function order(): \Illuminate\Database\Eloquent\Relations\BelongsTo

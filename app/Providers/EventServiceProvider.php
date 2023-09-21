@@ -9,10 +9,11 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use App\Events\EventTicketCreatedEvent;
 use App\Events\EventTicketUpdatedEvent;
+use App\Events\TransactionSavedEvent;
 use App\Events\OrderSavedEvent;
 use App\Listeners\EventTicketCreatedListener;
 use App\Listeners\EventTicketUpdatedListener;
-use App\Listeners\OrderPaidListener;
+use App\Listeners\TransactionPaidListener;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrderEventTicketGenerationEvent::class => [
             OrderEventTicketGenerationListener::class
+        ],
+        TransactionSavedEvent::class => [
+            TransactionPaidListener::class
         ],
     ];
 

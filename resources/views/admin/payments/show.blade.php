@@ -57,11 +57,21 @@
                 </tr>
                 <tr>
                     <th>
-                        {{ trans('cruds.order.title_singular') }}
+                        {{ trans('cruds.order.title_singular') }} {{ trans('cruds.order.fields.id') }}
                     </th>
                     <td>
                         <a href="{{ route('admin.orders.show', $payment->order->id) }}">
-                            {{ $payment->order->id }}
+                            {{ $payment->order->id }} <i>(Go to order)</i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        {{ trans('cruds.user.fields.name') }}
+                    </th>
+                    <td>
+                        <a href="{{ route('admin.users.show', $payment->order->user->id) }}">
+                            {{ $payment->order->user->name }} <i>(Go to order)</i>
                         </a>
                     </td>
                 </tr>
