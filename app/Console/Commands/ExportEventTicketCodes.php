@@ -35,7 +35,7 @@ class ExportEventTicketCodes extends Command
         $results = [];
         foreach ($event?->eventTickets as $eventTicket) {
             foreach ($eventTicket->eventTicketCodes()->whereNotNull('order_item_id')->get() as $eventTicketCode) {
-                $user = $eventTicketCode->orderItem->order->user;
+                $user = $eventTicketCode->orderItem?->order?->user;
                 $results[] = [
                     'Code' => $eventTicketCode->code,
                     'Ticket Type' => $eventTicket->ticket_type,
