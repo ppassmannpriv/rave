@@ -4,6 +4,7 @@
     </div>
 
     <div class="card-body">
+        @foreach($events as $event)
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr><th colspan=2><h4 class="text-center">{{ $event->name }}</h4></th></tr>
@@ -23,5 +24,6 @@
             <tr><td>Estimated income</td><td><strong>@money($event->eventTicketsSoldPrice())</strong></td></tr>
             </tbody>
         </table>
+        @endforeach
     </div>
 </div>
