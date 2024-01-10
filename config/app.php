@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
+use Barryvdh\Omnipay\Facade as OmnipayFacade;
 
 return [
 
@@ -192,7 +193,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // ...
+        'Omnipay' => OmnipayFacade::class,
     ])->toArray(),
 
 ];
