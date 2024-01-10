@@ -9,9 +9,11 @@
                     {{ trans('cruds.order.fields.payment') }}
                 </th>
                 <td>
-                    <a href="{{ route('admin.payments.show', $order->transaction->id) }}">
-                        {{ $order->transaction->reference ?? '' }}
+                    @if ($order?->transaction?->id)
+                    <a href="{{ route('admin.payments.show', $order?->transaction?->id) }}">
+                        {{ $order?->transaction?->reference ?? '' }}
                     </a>
+                    @endif
                 </td>
             </tr>
             <tr>

@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Models\Order\OrderItem;
+use App\Models\Order;
 
 /**
  * App\Models\Event
@@ -80,6 +82,21 @@ class Event extends Model implements HasMedia
     public function eventTickets()
     {
         return $this->hasMany(EventTicket::class, 'event_id', 'id');
+    }
+
+    public function eventTicketsReserved(): int
+    {
+        $qty = 0;
+        foreach ($this->eventTickets as $eventTicket) {
+            $orderItems = OrderItem::where('event_ticket_id', '=', $eventTicket->id)->get();
+            foreach ($orderItems as $orderItem) {
+                if ($orderItem?->order?->status === Order::STATUS_INITIALIZED) {
+                    $qty += $orderItem->qty;
+                }
+            }
+        }
+
+        return $qty;
     }
 
     public function eventTicketsSold(): int

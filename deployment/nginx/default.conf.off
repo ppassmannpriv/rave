@@ -2,7 +2,7 @@ server {
     listen 80;
     listen [::]:80;
 
-    server_name schleuse.eu;
+    server_name schleuse.eu schleuse.keybumps.eu;
     server_tokens off;
 
     location /.well-known/acme-challenge/ {

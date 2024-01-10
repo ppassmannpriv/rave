@@ -63,6 +63,14 @@
                         {!! $event->description !!}
                     </td>
                 </tr>
+                <tr>
+                    <th>
+                        Tickets sold
+                    </th>
+                    <td>
+                        {!! $event->eventTicketsSold() !!}
+                    </td>
+                </tr>
                 </tbody>
             </table>
             <div class="form-group">
