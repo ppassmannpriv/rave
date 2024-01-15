@@ -51,6 +51,8 @@ class EventTicket extends Model
 
     public const TICKET_TYPE_RADIO = [
         'early_bird' => 'Early Bird',
+        'phase_1'    => 'Phase I',
+        'phase_2'    => 'Phase II',
         'regular'    => 'Regular',
         'guest_list' => 'Guest List',
         'vip'        => 'VIP',
