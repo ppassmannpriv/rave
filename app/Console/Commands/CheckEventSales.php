@@ -37,24 +37,27 @@ class CheckEventSales extends Command
         $events = Event::all()->filter(fn ($event) => !$event->isOver());
         $messages = [];
         foreach ($events as $event) {
-            $messages[] = sprintf("### %s ### \nReserved: %d\nSold: %d\nEstimated income: %s",
+            $messages[] = sprintf("%s\nReserved: %d\nSold: %d\nEstimated income: %s",
                 $event->name,
                 $event->eventTicketsReserved(),
                 $event->eventTicketsSold(),
                 env('CURRENCY_SYMBOL') . number_format($event->eventTicketsSoldPrice(), 2),
             );
         }
+        $message = null;
         if (count($messages) > 0) {
             $message = "Ticket update for " . Carbon::now()->toRfc822String() . "\n\n";
             $message .= implode("\n\n", $messages);
         }
 
-        $this->info($message);
-        try {
-            $twilioService->sendSMS('+4917622874956', $message);
-        } catch (\Throwable $throwable) {
-            Log::error($throwable->getMessage(), ['error' => $throwable]);
-            $this->error($throwable->getMessage());
+        if ($message !== null) {
+            $this->info($message);
+            try {
+                $twilioService->sendSMS('+4917622874956', $message);
+            } catch (\Throwable $throwable) {
+                Log::error($throwable->getMessage(), ['error' => $throwable]);
+                $this->error($throwable->getMessage());
+            }
         }
 
         $this->info('Done.');

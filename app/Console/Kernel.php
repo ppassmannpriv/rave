@@ -34,6 +34,11 @@ class Kernel extends ConsoleKernel
             ->hourly()
             ->emailOutputOnFailure([env('SYSADMIN')])
             ->appendOutputTo('storage/logs/clean-up-orphaned-event-ticket-codes.log');
+
+        $schedule->command('event:check-sales')
+            ->everySixHours()
+            ->emailOutputOnFailure([env('SYSADMIN')])
+            ->appendOutputTo('storage/logs/check-sales.log');
     }
 
     /**
