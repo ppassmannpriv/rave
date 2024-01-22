@@ -38,6 +38,7 @@ class CartController extends WebController
 
     public function orderCart(OrderCartRequest $request) {
         $order = CreateOrderFromCart::make()->handle($request->all());
+        // handle payment here
         session()->put('lastOrder', $order);
         Mail::to($order->user)->send(new OrderCreated($order));
         Mail::to(env('MAIL_FROM_ADDRESS'))->send(new OrderCreatedNotification($order));

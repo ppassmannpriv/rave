@@ -41,6 +41,7 @@ class Payment extends Model
 
     public const PROVIDER_RADIO = [
         1 => 'PayPal for Friends & Family',
+        2 => 'PayPal Express',
     ];
 
     public const STATE_SELECT = [
@@ -64,6 +65,9 @@ class Payment extends Model
         'amount',
         'state',
         'reference',
+        'payment_id',
+        'payer_id',
+        'payer_email',
         'created_at',
         'updated_at',
         'deleted_at',

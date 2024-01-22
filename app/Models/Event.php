@@ -151,4 +151,11 @@ class Event extends Model implements HasMedia
     {
         return $date->format('Y-m-d H:i:s');
     }
+
+    public function isOver(): bool
+    {
+        $now = Carbon::now();
+        $end = new Carbon($this->end);
+        return !$now->isBefore($end);
+    }
 }

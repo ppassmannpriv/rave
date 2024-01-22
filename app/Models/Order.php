@@ -78,7 +78,7 @@ class Order extends Model
 
     public function orderItems()
     {
-        return $this->hasMany(OrderItem::Class, 'order_id', 'id');
+        return $this->hasMany(OrderItem::class, 'order_id', 'id');
     }
 
     public function quantityItems(): int
@@ -103,5 +103,25 @@ class Order extends Model
             static::STATUS_CANCELLED,
             static::STATUS_PAID
         ]);
+    }
+
+    public function toPayPalExpressArray(): array
+    {
+        $items = [];
+        foreach ($this->orderItems as $orderItem) {
+            $items[] = [
+                'name' => $orderItem->eventTicket->getType(),
+                'price' => $orderItem->row_price,
+                'description' => $orderItem->eventTicket->event->name,
+                'quantity' => $orderItem->qty,
+            ];
+        }
+        return [
+            'amount' => $this->price,
+            'currency' => config('paypal.currency'),
+            'returnUrl' => 'https://schleuse.eu/payment/return',
+            'cancelUrl' => 'https://schleuse.eu/payment/cancel',
+            'transacionId' => $this->transaction->id,
+        ];
     }
 }
