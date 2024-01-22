@@ -14,9 +14,13 @@ use App\Events\TransactionSavedEvent;
  * @property int|null $order_id
  * @property string $reference
  * @property string $state
+ * @property string|null $token
+ * @property string|null $payer_id
+ * @property string|null $payer_email
  * @property float $amount
  * @property string|null $comment
  * @property-read \App\Models\PaymentMethod|null $paymentMethod
+ * @property-read \App\Models\Order|null $order
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @mixin \Eloquent
@@ -28,6 +32,7 @@ class Transaction extends Model
     public const STATE_PAID = 'paid';
     public const STATE_SUCCESS = 'successful';
     public const STATE_CANCEL = 'cancel';
+    public const STATE_PROCESSING = 'processing';
     public const REFERENCE_LENGTH = 10;
 
     public $table = 'transactions';
@@ -44,6 +49,10 @@ class Transaction extends Model
         'reference',
         'amount',
         'state',
+        'token',
+        'payer_id',
+        'payer_email',
+        'comment',
         'created_at',
         'updated_at',
     ];

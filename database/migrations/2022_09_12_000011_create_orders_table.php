@@ -8,10 +8,12 @@ class CreateOrdersTable extends Migration
 {
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (Schema::hasTable('orders') === false) {
+            Schema::create('orders', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 }

@@ -8,11 +8,13 @@ class CreateRoleUserPivotTable extends Migration
 {
     public function up()
     {
-        Schema::create('role_user', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id', 'user_id_fk_7304794')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('role_id');
-            $table->foreign('role_id', 'role_id_fk_7304794')->references('id')->on('roles')->onDelete('cascade');
-        });
+        if (Schema::hasTable('role_user') === false) {
+            Schema::create('role_user', function (Blueprint $table) {
+                $table->unsignedBigInteger('user_id');
+                $table->foreign('user_id', 'user_id_fk_7304794')->references('id')->on('users')->onDelete('cascade');
+                $table->unsignedBigInteger('role_id');
+                $table->foreign('role_id', 'role_id_fk_7304794')->references('id')->on('roles')->onDelete('cascade');
+            });
+        }
     }
 }

@@ -8,12 +8,14 @@ class CreateContentCategoriesTable extends Migration
 {
     public function up()
     {
-        Schema::create('content_categories', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name')->nullable();
-            $table->string('slug')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (Schema::hasTable('content_categories') === false) {
+            Schema::create('content_categories', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('name')->nullable();
+                $table->string('slug')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 }

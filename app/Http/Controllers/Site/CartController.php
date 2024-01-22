@@ -38,10 +38,14 @@ class CartController extends WebController
 
     public function orderCart(OrderCartRequest $request) {
         $order = CreateOrderFromCart::make()->handle($request->all());
-        // handle payment here
+        $transaction = $order->transaction;
+        $paymentMethod = $transaction->paymentMethod->model();
+
         session()->put('lastOrder', $order);
-        Mail::to($order->user)->send(new OrderCreated($order));
+        Mail::to($order->user)->send(new OrderCreated($order, $paymentMethod::ALIAS));
         Mail::to(env('MAIL_FROM_ADDRESS'))->send(new OrderCreatedNotification($order));
+        return $paymentMethod->handle($transaction);
+
         return \Redirect::to('/cart/success');
     }
 

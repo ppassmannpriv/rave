@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('content_pages', function (Blueprint $table) {
-            $table->string('path')->unique();
-            $table->boolean('enabled')->default(0);
-            $table->boolean('index')->default(0);
-
-        });
+        if (Schema::hasColumns('content_pages', ['path', 'enabled', 'index']) === false) {
+            Schema::table('content_pages', function (Blueprint $table) {
+                $table->string('path')->unique();
+                $table->boolean('enabled')->default(0);
+                $table->boolean('index')->default(0);
+            });
+        }
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\PaymentMethod\PayPalFriendsFamily;
+use App\Models\PaymentMethod\PayPalExpress;
 
 class PaymentMethod extends Model
 {
@@ -13,6 +14,7 @@ class PaymentMethod extends Model
     public const ALIAS = null;
     public const CLASSMAP = [
         PayPalFriendsFamily::ALIAS => PayPalFriendsFamily::class,
+        PayPalExpress::ALIAS => PayPalExpress::class,
     ];
 
     public $table = 'payment_methods';

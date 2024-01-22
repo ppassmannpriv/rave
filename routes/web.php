@@ -87,11 +87,10 @@ Route::get('/cart/remove/{id}', '\App\Http\Controllers\Site\CartController@remov
 Route::post('/cart/order', '\App\Http\Controllers\Site\CartController@orderCart')->name('cart.order');
 Route::get('/cart/success', '\App\Http\Controllers\Site\CartController@success')->name('cart.success');
 
-Route::get('/dev1234', '\App\Http\Controllers\Site\DevController@index')->name('dev.index');
-Route::post('/payment/init', '\App\Http\Controllers\Site\DevController@initPayment')->name('payment.init');
-Route::get('/payment/cancel', '\App\Http\Controllers\Site\DevController@cancelPayment')->name('payment.cancel');
-Route::get('/payment/return', '\App\Http\Controllers\Site\DevController@returnPayment')->name('payment.return');
-Route::get('/payment/error', '\App\Http\Controllers\Site\DevController@errorPayment')->name('payment.error');
+Route::post('/payment/init', '\App\Http\Controllers\Site\PaymentController@initPayment')->name('payment.init');
+Route::get('/payment/cancel', '\App\Http\Controllers\Site\PaymentController@cancelPayment')->name('payment.cancel');
+Route::get('/payment/return', '\App\Http\Controllers\Site\PaymentController@returnPayment')->name('payment.return');
+Route::get('/payment/error', '\App\Http\Controllers\Site\PaymentController@errorPayment')->name('payment.error');
 
 use App\Contracts\Navigation;
 

@@ -8,11 +8,13 @@ class CreatePermissionsTable extends Migration
 {
     public function up()
     {
-        Schema::create('permissions', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('title')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (Schema::hasTable('permissions') === false) {
+            Schema::create('permissions', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('title')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 }

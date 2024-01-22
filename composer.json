@@ -21,6 +21,7 @@
         "spatie/laravel-medialibrary": "^10.0.7",
         "symfony/http-client": "^6.1",
         "symfony/mailgun-mailer": "^6.1",
+        "twilio/sdk": "^7.13",
         "yajra/laravel-datatables-oracle": "^10.8.0"
     },
     "require-dev": {

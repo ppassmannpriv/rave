@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use App\Services\TwilioService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +18,9 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->isLocal()) {
             $this->app->register(IdeHelperServiceProvider::class);
         }
+        $this->app->bind(TwilioService::class, function ($app) {
+            return new TwilioService();
+        });
     }
 
     /**

@@ -8,14 +8,16 @@ class CreatePaymentsTable extends Migration
 {
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('provider');
-            $table->decimal('amount', 15, 2);
-            $table->string('state');
-            $table->string('reference')->unique();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (Schema::hasTable('payments') === false) {
+            Schema::create('payments', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('provider');
+                $table->decimal('amount', 15, 2);
+                $table->string('state');
+                $table->string('reference')->unique();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 }

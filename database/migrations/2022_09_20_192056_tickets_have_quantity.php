@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('event_tickets', function (Blueprint $table) {
-            $table->integer('stock')->default(100);
-        });
+        if (Schema::hasColumn('event_tickets', 'stock') === false) {
+            Schema::table('event_tickets', function (Blueprint $table) {
+                $table->integer('stock')->default(100);
+            });
+        }
     }
 
     /**

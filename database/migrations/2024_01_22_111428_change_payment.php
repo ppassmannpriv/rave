@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('payments', function (Blueprint $table) {
-            $table->string('payment_id')->nullable();
+        Schema::table('transactions', function (Blueprint $table) {
+            $table->string('token')->nullable();
             $table->string('payer_id')->nullable();
             $table->string('payer_email')->nullable();
         });
@@ -27,8 +27,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('payments', function (Blueprint $table) {
-            $table->dropColumn('payment_id');
+        Schema::table('transactions', function (Blueprint $table) {
+            $table->dropColumn('token');
             $table->dropColumn('payer_id');
             $table->dropColumn('payer_email');
         });

@@ -119,9 +119,10 @@ class Order extends Model
         return [
             'amount' => $this->price,
             'currency' => config('paypal.currency'),
-            'returnUrl' => 'https://schleuse.eu/payment/return',
-            'cancelUrl' => 'https://schleuse.eu/payment/cancel',
-            'transacionId' => $this->transaction->id,
+            'items' => $items,
+            'returnUrl' => url('payment/return'),
+            'cancelUrl' => url('payment/cancel'),
+            'transacionId' => $this->transaction->reference,
         ];
     }
 }
