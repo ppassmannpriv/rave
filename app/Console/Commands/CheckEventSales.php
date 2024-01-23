@@ -53,7 +53,7 @@ class CheckEventSales extends Command
         if ($message !== null) {
             $this->info($message);
             try {
-                $twilioService->sendSMS('+4917622874956', $message);
+                $twilioService->sendSMS(env('TWILIO_TARGET_NUMBER'), $message);
             } catch (\Throwable $throwable) {
                 Log::error($throwable->getMessage(), ['error' => $throwable]);
                 $this->error($throwable->getMessage());

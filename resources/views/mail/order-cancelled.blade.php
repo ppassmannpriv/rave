@@ -20,7 +20,7 @@
                                     <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Hello,</p>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">We are cancelling your order (#{{ $order->id }}). Should you have made any payments and not gotten a refund please reach out to us!</p>
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">The tickets sold out before you made your payment. There will be tickets available at the door! Do come early so you can get in and party with us!</p>
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">The tickets might have sold out before you made your payment. In any case there will be tickets available at the door! Do come early so you can get in and party with us!</p>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
                                             Thank you again!
                                         </p>
