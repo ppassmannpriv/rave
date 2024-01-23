@@ -36,7 +36,7 @@ class Kernel extends ConsoleKernel
             ->appendOutputTo('storage/logs/clean-up-orphaned-event-ticket-codes.log');
 
         $schedule->command('event:check-sales')
-            ->everySixHours()
+            ->twiceDailyAt('8', '19', '0')
             ->emailOutputOnFailure([env('SYSADMIN')])
             ->appendOutputTo('storage/logs/check-sales.log');
     }
