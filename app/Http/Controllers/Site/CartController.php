@@ -45,8 +45,6 @@ class CartController extends WebController
         Mail::to($order->user)->send(new OrderCreated($order, $paymentMethod::ALIAS));
         Mail::to(env('MAIL_FROM_ADDRESS'))->send(new OrderCreatedNotification($order));
         return $paymentMethod->handle($transaction);
-
-        return \Redirect::to('/cart/success');
     }
 
     public function success() {
