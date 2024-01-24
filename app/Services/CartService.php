@@ -66,7 +66,7 @@ class CartService implements Cart {
         if ($cartItem !== null) {
             $cartItem = $cart->cartItems()->where('event_ticket_id', '=', $eventTicket->id)->first();
             $cartItem->qty += $qty;
-            $cartItem->row_price = $eventTicket->price * $qty;
+            $cartItem->row_price = $eventTicket->price * $cartItem->qty;
             $cartItem->single_price = $eventTicket->price;
 
             $cart->cartItems()->save($cartItem);
