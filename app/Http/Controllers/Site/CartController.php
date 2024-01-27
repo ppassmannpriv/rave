@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Exceptions\Cart\SoldOutException;
 use App\Mail\OrderCreatedNotification;
+use App\Models\PaymentMethod\PayPalExpress;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderCreated;
 use App\Actions\Cart\AddTicketToCart;
@@ -42,8 +43,11 @@ class CartController extends WebController
         $paymentMethod = $transaction->paymentMethod->model();
 
         session()->put('lastOrder', $order);
-        Mail::to($order->user)->send(new OrderCreated($order, $paymentMethod::ALIAS));
-        Mail::to(env('MAIL_FROM_ADDRESS'))->send(new OrderCreatedNotification($order));
+        if ($paymentMethod::ALIAS === PaymentMethod\PayPalFriendsFamily::ALIAS) {
+            Mail::to($order->user)->send(new OrderCreated($order, $paymentMethod::ALIAS));
+            Mail::to(env('MAIL_FROM_ADDRESS'))->send(new OrderCreatedNotification($order));
+        }
+
         return $paymentMethod->handle($transaction);
     }
 
