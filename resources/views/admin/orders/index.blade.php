@@ -19,7 +19,7 @@
             <table class=" table table-bordered table-striped table-hover datatable datatable-Order">
                 <thead>
                 <tr>
-                    <th width="10">
+                    <th width="11">
 
                     </th>
                     <th>
@@ -38,6 +38,9 @@
                         {{ trans('cruds.order.fields.status') }}
                     </th>
                     <th>
+                        {{ trans('cruds.order.fields.created_at') }}
+                    </th>
+                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -54,6 +57,8 @@
                             <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
+                    </td>
+                    <td>
                     </td>
                     <td>
                     </td>
@@ -85,6 +90,9 @@
                     </td>
                     <td>
                         {{ $order->status ?? '' }}
+                    </td>
+                    <td>
+                        {{ $order->created_at ?? '' }}
                     </td>
                     <td>
                         @can('order_show')
