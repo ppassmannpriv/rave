@@ -27,10 +27,12 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('transactions', function (Blueprint $table) {
-            $table->dropColumn('token');
-            $table->dropColumn('payer_id');
-            $table->dropColumn('payer_email');
-        });
+        if (Schema::hasColumns('transactions', ['token', 'payer_id', 'payer_email'])) {
+            Schema::table('transactions', function (Blueprint $table) {
+                $table->dropColumn('token');
+                $table->dropColumn('payer_id');
+                $table->dropColumn('payer_email');
+            });
+        }
     }
 };
