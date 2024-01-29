@@ -14,19 +14,19 @@
                         <fieldset>
                             <legend>Cart</legend>
                             @if($cart->cartItems->count() > 0)
-                                <ul class="list-group container-fluid p-0 border" id="cart-list">
+                                <ul class="list-group container-fluid p-0 border border-bottom-0" id="cart-list">
                                     @foreach($cart->cartItems as $cartItem)
-                                    <li class="list-group-item d-flex">
+                                    <li class="list-group-item d-flex row border-bottom">
                                         <input type="hidden" name="cart_item[]" value="{{ $cartItem->id }}" />
-                                        <span class="d-flex name col-sm-6">{{ $cartItem->eventTicket?->event?->name }}</span>
+                                        <span class="d-flex name col col-md-6">{{ $cartItem->eventTicket?->event?->name }}</span>
                                         @if($cartItem->type === 'FEE')
-                                            <span class="d-flex type col-sm-2 text-right">Transaction Fee</span>
+                                            <span class="d-flex type col col-md-2 text-right">Transaction Fee</span>
                                         @else
-                                            <span class="d-flex type col-sm-2 text-right">{{ $cartItem->eventTicket ? $cartItem->eventTicket::TICKET_TYPE_RADIO[$cartItem->eventTicket?->ticket_type] : null }}</span>
+                                            <span class="d-flex type col col-md-2 text-right">{{ $cartItem->eventTicket ? $cartItem->eventTicket::TICKET_TYPE_RADIO[$cartItem->eventTicket?->ticket_type] : null }}</span>
                                         @endif
-                                        <span class="d-flex qty col-sm-1 text-right">x {{ $cartItem->qty }}</span>
-                                        <span class="d-flex price col-sm-2 text-right">@money($cartItem->row_price)</span>
-                                        <a class="d-flex remove col-sm-1 text-right" href="{!! route('cart.remove', ['id' => $cartItem->id]) !!}">Remove</a>
+                                        <span class="d-flex qty col col-md-1 text-right">x {{ $cartItem->qty }}</span>
+                                        <span class="d-flex price col col-md-2 text-right">@money($cartItem->row_price)</span>
+                                        <a class="d-flex remove col col-md-1 text-right" href="{!! route('cart.remove', ['id' => $cartItem->id]) !!}">Remove</a>
                                     </li>
                                     @endforeach
                                 </ul>
