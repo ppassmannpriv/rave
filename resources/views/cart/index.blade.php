@@ -26,7 +26,9 @@
                                         @endif
                                         <span class="d-flex qty col col-md-1 col-sm-12 text-right">x {{ $cartItem->qty }}</span>
                                         <span class="d-flex price col col-md-2 col-sm-12 text-right">@money($cartItem->row_price)</span>
-                                        <a class="d-flex remove col col-md-1 text-right" href="{!! route('cart.remove', ['id' => $cartItem->id]) !!}">Remove</a>
+                                        @if($cartItem->type !== 'FEE')
+                                            <a class="d-flex remove col col-md-1 text-right" href="{!! route('cart.remove', ['id' => $cartItem->id]) !!}">Remove</a>
+                                        @endif
                                     </li>
                                     @endforeach
                                 </ul>
