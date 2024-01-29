@@ -132,7 +132,7 @@ table.dataTable thead .sorting_desc {
 }
 
 html body.header-fixed {
-    background: url('/img/bg.jpeg?v=20240129');
+    background: url('/img/bg.jpg?v=20240129');
     background-size: cover;
 }
 
