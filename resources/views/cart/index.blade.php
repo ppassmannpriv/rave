@@ -55,8 +55,8 @@
                             </style>
                             <div class="form-group mt-5">
                                 @include('partials.checkout.billing-address')
-                                <div class="d-flex container-fluid p-0 force-sm-block row m-0" style="display: block !important">
-                                    <div class="d-flex col-md-3 col-sm-12 p-0 padding-left-0 force-sm-block" style="display: block !important">
+                                <div class="d-flex container-fluid p-0 row m-0">
+                                    <div class="d-flex col-md-3 col-sm-12 p-0">
                                         @include('partials.checkout.payment-method')
                                     </div>
                                     <ul id="totals" class="list-group container-fluid p-0 border col-md-3 col-sm-12 padding-left-0 force-sm-block justify-content-center" style="display: block !important">
