@@ -133,7 +133,7 @@ table.dataTable thead .sorting_desc {
 
 html body.header-fixed {
     background: url('/img/bg.jpg?v=20240129');
-    background-size: cover;
+    background-size: contain;
 }
 
 .payment-method-description img {
