@@ -1,7 +1,14 @@
-.card,
 .card-header,
 .card-body {
     background: #000;
+}
+
+.card {
+    background: transparent;
+}
+
+.card-header {
+    mix-blend-mode: multiply;
 }
 
 .card-header h2 {

@@ -5,7 +5,7 @@
     /* background: linear-gradient(90deg, rgba(255,0,159,1) 0%, rgba(255,145,0,1) 50%, rgba(162,0,255,1) 100%); */
     animation-name: bar;
     animation-duration: 12s;
-    animation-direction: alternate;
+    animation-direction: normal;
     animation-iteration-count: infinite;
 }
 
@@ -19,4 +19,24 @@
 @keyframes bar {
     from {margin-left: 0;}
     to {margin-left: -900%;}
+}
+
+html body.header-fixed {
+    background-position-x: 0px;
+    animation-name: backgroundPosX;
+    animation-duration: 40s;
+    animation-direction: normal;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes backgroundPosX {
+    from {
+        background-position-x: 0px;
+        background-position-y: 0px;
+    }
+    to {
+        background-position-x: 978px;
+        background-position-y: -1382px;
+    }
 }

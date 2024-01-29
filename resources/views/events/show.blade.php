@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
 <div class="content">
-    <div class="row">
-        <div class="col-lg-7 col-xs-12">
+    <div class="row m-0">
+        <div class="col-lg-7 col-xs-12 p-0">
             <div class="card">
                 <div class="card-header">
                     <h2 class="h4 m-0">{{ $event->name }}</h2>
