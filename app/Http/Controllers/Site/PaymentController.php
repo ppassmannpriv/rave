@@ -39,13 +39,17 @@ class PaymentController extends WebController
             \Sentry\captureException($throwable);
             return redirect('/cart')->with('message', 'An error occured! Please try again or contact an administrator!');
         }
+    }
 
+    public function errorPayment(Request $request)
+    {
+        return view('cart.error');
     }
 
     public function cancelPayment(Request $request)
     {
         $transaction = Transaction::where('token', $request->input('token'))->first();
-        $order = $transaction->order;
+        $order = $transaction?->order;
         AbortOrderAction::make()->handle($order);
 
         return redirect('/cart')->with('message', 'Order aborted due to payment cancellation.');

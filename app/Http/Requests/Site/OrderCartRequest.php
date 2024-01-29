@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Site;
 
 use App\Models\ContentCategory;
+use App\Models\User;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,11 +21,17 @@ class OrderCartRequest extends FormRequest
     public function rules()
     {
         return [
-            'cart_item'   => 'required|integer|exists:cart_items,id',
+            'cart_item'   => 'required|array|exists:cart_items,id',
             'firstname' => 'required|string',
             'lastname' => 'required|string',
+            'street' => 'required|string',
+            'postcode' => 'required|string',
+            'city' => 'required|string',
+            'country' => 'required|in:' . implode(',', User::ALLOWED_COUNTRIES),
             'email' => 'required|email',
-            'payment_method' => 'required|string|exists:payment_methods,alias'
+            'payment_method' => 'required|string|exists:payment_methods,alias',
+            'general-terms-and-conditions' => 'required',
+            'data-protection-and-revocation' => 'required',
         ];
     }
 }

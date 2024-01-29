@@ -21,6 +21,7 @@
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Hello {{ $order->user->name }},</p>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Your order is all paid! Here are your ticket codes!</p>
                                         @foreach($order->orderItems as $orderItem)
+                                            @if ($orderItem->cartItem->type === 'TICKET')
                                             <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; padding: 5px 10px; margin-bottom: 1px; background: #f5f5f5;">
                                                 <strong>{{ $orderItem->eventTicket->event->name }}</strong><br />
                                                 Location: {{ $orderItem->eventTicket->event->location }}<br />
@@ -31,9 +32,25 @@
                                                     @foreach($orderItem->eventTicketCodes as $eventTicketCode)
                                                         <strong style="font-size: 18px;">{{ $eventTicketCode->code }}</strong><br />
                                                     @endforeach
-                                                </span>
+                                                </span><br />
+                                                <strong>Price: @money($orderItem->row_price)</strong>
                                             </p>
+                                            @elseif($orderItem->cartItem->type === 'FEE')
+                                                <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; padding: 5px 10px; margin-bottom: 1px; background: #f5f5f5;">
+                                                    <strong>Transaction Fee</strong><br /><br />
+                                                    <strong>Price: @money($orderItem->row_price)</strong>
+                                                </p>
+                                            @elseif($orderItem->cartItem->type === 'VIRTUAL')
+                                                <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; padding: 5px 10px; margin-bottom: 1px; background: #f5f5f5;">
+                                                    <strong>Virtual goods</strong><br /><br />
+                                                    <strong>Price: @money($orderItem->row_price)</strong>
+                                                </p>
+                                            @endif
                                         @endforeach
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; padding: 5px 10px; margin-bottom: 1px; background: #f5f5f5;">
+                                            <strong>Totals</strong><br /><br />
+                                            <strong>Total price: @money($order->price)</strong>
+                                        </p>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-top: 15px; margin-bottom: 15px;">
                                             Thank you again! We hope you will have a lot of fun and make great memories with us soon!
                                         </p>

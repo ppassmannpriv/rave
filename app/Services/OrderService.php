@@ -2,14 +2,12 @@
 
 namespace App\Services;
 
+use App\Actions\User\UpdateOrCreateUserAction;
 use App\Events\OrderEventTicketGenerationEvent;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\PaymentMethod;
 use App\Models\Transaction;
-use App\Models\User;
-use Illuminate\Support\Collection;
-use Illuminate\Session\SessionManager;
 use Illuminate\Support\Str;
 
 /**
@@ -21,44 +19,43 @@ class OrderService {
      */
     public function makeFromCart(array $cartData): Order
     {
-        $user = User::where('email', '=', $cartData['email'])->first();
-        if ($user === null) {
-            $user = User::create([
-                'name'           => $cartData['firstname'] . ' ' . $cartData['lastname'],
-                'email'          => $cartData['email'],
-                'password'       => bcrypt(Str::random(10)),
-                'remember_token' => null,
-            ]);
-        }
-        $cartItem = CartItem::find($cartData['cart_item']);
-
-        $eventTicket = $cartItem->eventTicket;
-        if ($eventTicket->stock === 0 || $eventTicket->stock < $cartItem->qty) {
-            throw new \Exception('There is not enough stock for this ticket.');
-        }
-        if ($eventTicket->isAvailable() === false) {
-            throw new \Exception('This ticket is sold out.');
-        }
-        $eventTicket->stock = $eventTicket->stock - $cartItem->qty;
-        $eventTicket->save();
-
-        $orderItem = Order\OrderItem::create([
-            'qty' => $cartItem->qty,
-            'single_price' => $cartItem->single_price,
-            'row_price' => $cartItem->row_price,
-            'cart_item_id' => $cartItem->id,
-            'event_ticket_id' => $eventTicket->id
-        ]);
-
+        $user = UpdateOrCreateUserAction::make()->handle($cartData);
+        $cartItems = CartItem::whereIn('id', $cartData['cart_item'])->get();
         $order = Order::create([
             'user_id' => $user->id,
-            'price' => $orderItem->row_price,
+            'price' => 0,
         ]);
-        $order->orderItems()->save($orderItem);
+        $orderPrice = 0;
+
+        foreach ($cartItems as $cartItem) {
+            $eventTicket = $cartItem->eventTicket;
+            if ($cartItem->type === 'TICKET' && ($eventTicket->stock === 0 || $eventTicket->stock < $cartItem->qty)) {
+                throw new \Exception('There is not enough stock for this ticket.');
+            }
+            if ($cartItem->type === 'TICKET' && ($eventTicket->isAvailable() === false)) {
+                throw new \Exception('This ticket is sold out.');
+            }
+            if ($cartItem->type === 'TICKET') {
+                $eventTicket->stock = $eventTicket->stock - $cartItem->qty;
+                $eventTicket->save();
+            }
+
+            $orderItem = Order\OrderItem::create([
+                'qty' => $cartItem->qty,
+                'single_price' => $cartItem->single_price,
+                'row_price' => $cartItem->row_price,
+                'cart_item_id' => $cartItem->id,
+                'event_ticket_id' => $eventTicket?->id,
+                'type' => $cartItem->type,
+            ]);
+            $orderPrice += $orderItem->row_price;
+            $order->orderItems()->save($orderItem);
+        }
+        $order->price = $orderPrice;
         $transaction = $this->createTransaction($order, $cartData);
         $order->transaction()->associate($transaction);
-        OrderEventTicketGenerationEvent::dispatch($order);
         $order->save();
+        OrderEventTicketGenerationEvent::dispatch($order);
 
         return $order;
     }

@@ -2,13 +2,9 @@
 
 namespace App\Actions\Payment\PayPalExpress;
 
-use App\Exceptions\PaymentMethods\PayPalFriendsFamily\ReferenceValidationException;
-use App\Exceptions\PaymentMethods\PayPalFriendsFamily\ValidationException;
-use App\Exceptions\PaymentMethods\TransactionNotFoundException;
-use App\Models\Order;
-use App\Models\PaymentMethod\PayPalFriendsFamily;
+
 use App\Models\Transaction;
-use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Omnipay\Common\Message\ResponseInterface;
 
@@ -18,15 +14,32 @@ class InitTransaction extends PayPalExpressBase
 
     public function handle(Transaction $transaction)
     {
-        $payPalData = $transaction->order->toPayPalExpressArray();
-        /**
-         * @var ResponseInterface $response
-         */
-        $response = $this->gateway->purchase($payPalData)->send();
-        $transaction->token = $response->getData()['TOKEN'];
-        $transaction->state = Transaction::STATE_PROCESSING;
-        $transaction->save();
+        try {
+            $payPalData = $transaction->order->toPayPalExpressArray();
 
-        $response->redirect();
+            /**
+             * @var ResponseInterface $response
+             */
+            $response = $this->gateway->purchase($payPalData)->send();
+
+            if ($response->isSuccessful()) {
+                $transaction->token = $response->getData()['TOKEN'];
+                $transaction->state = Transaction::STATE_PROCESSING;
+                $transaction->save();
+            }
+            if ($response->isRedirect()) {
+                $transaction->token = $response->getData()['TOKEN'];
+                $transaction->state = Transaction::STATE_PROCESSING;
+                $transaction->save();
+                $response->redirect();
+            }
+            Log::error($response->getMessage(), ['response' => $response]);
+            return redirect('/site/error')->with('error', $response->getMessage());
+
+        } catch (\Throwable $throwable) {
+            Log::error($throwable->getMessage(), ['exception' => $throwable]);
+            return redirect('/site/error')->with('error', $throwable->getMessage());
+
+        }
     }
 }

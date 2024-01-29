@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Exceptions\Cart\SoldOutException;
 use App\Mail\OrderCreatedNotification;
 use App\Models\PaymentMethod\PayPalExpress;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderCreated;
 use App\Actions\Cart\AddTicketToCart;
@@ -38,6 +39,7 @@ class CartController extends WebController
     }
 
     public function orderCart(OrderCartRequest $request) {
+        session('cart', $request->all());
         $order = CreateOrderFromCart::make()->handle($request->all());
         $transaction = $order->transaction;
         $paymentMethod = $transaction->paymentMethod->model();

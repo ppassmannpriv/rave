@@ -18,6 +18,7 @@ use App\Models\Order\OrderItem;
  * @property string $status
  * @property int|null $user_id
  * @property int|null $transaction_id
+ * @property float $price
  * @property-read \App\Models\Transaction|null $transaction
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order\OrderItem[] $orderItems
  * @property-read \App\Models\User|null $user
@@ -108,14 +109,45 @@ class Order extends Model
     public function toPayPalExpressArray(): array
     {
         $items = [];
+
+        /**
+         * @var ?Cart $cart
+         */
+        $cart = null;
         foreach ($this->orderItems as $orderItem) {
+            if ($cart === null) {
+                $cart = $orderItem->cartItem->cart;
+            }
+
+            $name = null;
+            $description = null;
+            switch ($orderItem->cartItem) {
+                case 'FEE':
+                    $name = 'Transaction fee';
+                    $description = 'Transaction fees for ticketing, e-mail and PayPal.';
+                    break;
+                case 'TICKET':
+                    $name = $orderItem->eventTicket->getType();
+                    $description = $orderItem->eventTicket->event->name;
+                    break;
+                case 'VIRTUAL':
+                    $name = 'Virtual goods';
+                    $description = 'Non-physical assets.';
+                    break;
+                case 'SHIPPING':
+                    $name = 'Shipping cost';
+                    $description = 'Packaging, handling and posting of your orders.';
+                    break;
+            }
+
             $items[] = [
-                'name' => $orderItem->eventTicket->getType(),
-                'price' => $orderItem->row_price,
-                'description' => $orderItem->eventTicket->event->name,
+                'name' => $name,
+                'price' => $orderItem->single_price,
+                'description' => $description,
                 'quantity' => $orderItem->qty,
             ];
         }
+
         return [
             'amount' => $this->price,
             'currency' => config('paypal.currency'),

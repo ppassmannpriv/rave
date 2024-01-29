@@ -20,6 +20,8 @@ use Illuminate\Database\Eloquent\Model;
 class Cart extends Model
 {
     use HasFactory;
+    private const PAYPAL_PERCENTAGE = 0.0249;
+    private const PAYPAL_FIXED_COST = 0.35;
 
     public $table = 'carts';
     public $primaryKey = 'id';
@@ -44,5 +46,21 @@ class Cart extends Model
     public function cartItems(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(CartItem::class);
+    }
+
+    public function getSubTotal(): float
+    {
+        return $this->cartItems->where('type', '!=', 'FEE')->sum('row_price');
+    }
+
+    public function getPayPalCost(): float
+    {
+        $subTotal = $this->getSubTotal();
+        return round(($subTotal * self::PAYPAL_PERCENTAGE) + self::PAYPAL_FIXED_COST, 2);
+    }
+
+    public function getTotal(): float
+    {
+        return $this->getSubTotal() + $this->getPayPalCost();
     }
 }

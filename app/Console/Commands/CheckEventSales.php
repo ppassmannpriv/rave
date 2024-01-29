@@ -41,7 +41,7 @@ class CheckEventSales extends Command
                 $this->removeEmoji($event->name),
                 $event->eventTicketsReserved(),
                 $event->eventTicketsSold(),
-                env('CURRENCY_SYMBOL') . number_format($event->eventTicketsSoldPrice(), 2),
+                round($event->eventTicketsSoldPrice()),
             );
         }
         $message = null;

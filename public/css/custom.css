@@ -135,3 +135,16 @@ html body.header-fixed {
     background: url('/img/bg.jpeg?v=20231201');
     background-size: cover;
 }
+
+.payment-method-description img {
+    margin: 15px 0;
+}
+
+@media (max-width: 600px) {
+    .orderItems .list-group-item > div {
+        border-right: 0;
+    }
+    .orderItems .list-group-item > div.price {
+        border-right: 1px solid;
+    }
+}

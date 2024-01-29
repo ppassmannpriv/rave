@@ -55,6 +55,29 @@ class User extends Authenticatable
     use Notifiable;
     use HasFactory;
 
+    public const ALLOWED_COUNTRIES = [
+        'AT',
+        'BE',
+        'HR',
+        'CY',
+        'EE',
+        'FI',
+        'FR',
+        'DE',
+        'GR',
+        'IE',
+        'IT',
+        'LV',
+        'LT',
+        'LU',
+        'MT',
+        'NL',
+        'PT',
+        'SK',
+        'SI',
+        'ES',
+    ];
+
     public $table = 'users';
 
     protected $hidden = [
@@ -75,6 +98,10 @@ class User extends Authenticatable
         'email_verified_at',
         'password',
         'remember_token',
+        'street',
+        'postcode',
+        'city',
+        'country',
         'created_at',
         'updated_at',
         'deleted_at',

@@ -48,6 +48,7 @@ class OrderItem extends Model
         'row_price',
         'cart_item_id',
         'event_ticket_id',
+        'type',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -60,7 +61,7 @@ class OrderItem extends Model
 
     public function cartItem()
     {
-        return $this->hasOne(CartItem::class, 'cart_item_id', 'id');
+        return $this->hasOne(CartItem::class, 'id', 'cart_item_id');
     }
 
     public function eventTicket()
