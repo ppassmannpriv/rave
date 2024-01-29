@@ -1,8 +1,8 @@
 @extends('layouts.checkout')
 @section('content')
 <div class="content">
-    <div class="row">
-        <div class="col-lg-12">
+    <div class="row m-0">
+        <div class="col-lg-12 p-0">
             <div class="card rounded-0">
                 <div class="card-header">
                     <h2 class="h4 m-0">Checkout</h2>
@@ -45,12 +45,6 @@
                                         float: left;
                                         clear: both;
                                     }
-                                    .checkout .col-xs-12 {
-                                        width: 100vw !important;
-                                    }
-                                    .checkout .padding-left-0 {
-                                        padding-left: 0 !important;
-                                    }
                                 }
                             </style>
                             <div class="form-group mt-5">
@@ -59,7 +53,7 @@
                                     <div class="d-flex col-md-3 col-sm-12 p-0">
                                         @include('partials.checkout.payment-method')
                                     </div>
-                                    <ul id="totals" class="list-group container-fluid p-0 border col-md-3 col-sm-12 padding-left-0 force-sm-block justify-content-center" style="display: block !important">
+                                    <ul id="totals" class="list-group container-fluid p-0 border col-md-3 col-sm-12 padding-left-0 justify-content-center" style="display: block !important">
                                         <li class="list-group-item d-flex">
                                             <span class="d-flex price col-sm-8 text-left">Subtotal</span>
                                             <strong class="d-flex price col-sm-4 text-right">@money($cart->getSubTotal())</strong>
