@@ -212,6 +212,15 @@
             </a>
         </li>
         @endcan
+        @can('metrics')
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link {{ request()->is('metrics/index') || request()->is('metrics/*') ? 'c-active' : '' }}" href="{{ route('admin.metrics.index') }}">
+                    <i class="fa-fw fas fa-clock c-sidebar-nav-icon">
+                    </i>
+                   Metrics
+                </a>
+            </li>
+        @endcan
         <li class="c-sidebar-nav-item">
             <a href="#" class="c-sidebar-nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                 <i class="c-sidebar-nav-icon fas fa-fw fa-sign-out-alt">

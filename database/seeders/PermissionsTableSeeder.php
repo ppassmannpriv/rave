@@ -302,6 +302,10 @@ class PermissionsTableSeeder extends Seeder
                 'id'    => 2105,
                 'time_schedule_delete'
             ],
+            [
+                'id'    => 2200,
+                'metrics'
+            ],
         ];
 
         Permission::insert($permissions);

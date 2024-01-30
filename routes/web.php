@@ -65,6 +65,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('paymentMethods/upload', 'PaymentMethodController@uploadCsv')->name('paymentMethods.uploadCsv');
 
     Route::get('tasks/schedule/index', 'TaskScheduleController@index')->name('tasks.schedule.index');
+
+    Route::get('metrics/index', 'MetricsController@index')->name('metrics.index');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password

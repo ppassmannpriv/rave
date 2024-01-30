@@ -340,4 +340,11 @@ return [
             'event_helper'       => 'Time schedules can be connected to events.'
         ],
     ],
+    'metrics' => [
+        'title'          => 'Metrics',
+        'title_singular' => 'Metric',
+        'fields'         => [
+
+        ],
+    ],
 ];
