@@ -40,6 +40,36 @@
             <span class="help-block">{{ trans('cruds.user.fields.password_helper') }}</span>
         </div>
         <div class="form-group">
+            <label class="required" for="street">{{ trans('cruds.user.fields.street') }}</label>
+            <input class="form-control {{ $errors->has('street') ? 'is-invalid' : '' }}" type="text" name="street" id="street" value="{{ old('street', '') }}" required>
+            @if($errors->has('street'))
+                <div class="invalid-feedback">
+                    {{ $errors->first('street') }}
+                </div>
+            @endif
+            <span class="help-block">{{ trans('cruds.user.fields.street_helper') }}</span>
+        </div>
+        <div class="form-group">
+            <label class="required" for="postcode">{{ trans('cruds.user.fields.postcode') }}</label>
+            <input class="form-control {{ $errors->has('postcode') ? 'is-invalid' : '' }}" type="text" name="postcode" id="postcode" value="{{ old('postcode', '') }}" required>
+            @if($errors->has('postcode'))
+                <div class="invalid-feedback">
+                    {{ $errors->first('postcode') }}
+                </div>
+            @endif
+            <span class="help-block">{{ trans('cruds.user.fields.postcode_helper') }}</span>
+        </div>
+        <div class="form-group">
+            <label class="required" for="city">{{ trans('cruds.user.fields.city') }}</label>
+            <input class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" type="text" name="city" id="city" value="{{ old('city', '') }}" required>
+            @if($errors->has('city'))
+                <div class="invalid-feedback">
+                    {{ $errors->first('city') }}
+                </div>
+            @endif
+            <span class="help-block">{{ trans('cruds.user.fields.city_helper') }}</span>
+        </div>
+        <div class="form-group">
             <label class="required" for="roles">{{ trans('cruds.user.fields.roles') }}</label>
             <div style="padding-bottom: 4px">
                 <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>

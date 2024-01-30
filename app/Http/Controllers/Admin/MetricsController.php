@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Event;
 use App\Models\Order;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
