@@ -12,7 +12,7 @@ class MetricsController
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $orders = Order::where('deleted_at', '=', null)
-            ->whereDate('created_at', '>=', Carbon::now()->subHours(24))
+            ->whereDate('created_at', '>=', Carbon::now()->subHours(48))
             ->orderBy('created_at')
             ->get();
 
@@ -22,7 +22,7 @@ class MetricsController
 
         $now = Carbon::now();
         $groupedByHoursLabels = [$now->format('d/m/Y H')];
-        for ($h = 0; $h < 24; $h++) {
+        for ($h = 0; $h < 48; $h++) {
             $groupedByHoursLabels[] = $now->subHour()->format('d/m/Y H');
         }
         $groupedByHoursLabels = array_reverse($groupedByHoursLabels);
