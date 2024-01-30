@@ -1,7 +1,7 @@
-@import url('./site/layout.css');
-@import url('./site/colors.css');
-@import url('./site/bar-fx.css');
+@import url('./site/layout.css?v=20240130');
+@import url('./site/colors.css?v=20240130');
+@import url('./site/bar-fx.css?v=20240130');
 @import url('./site/header.css');
 @import url('./site/navigation.css');
-@import url('./site/card.css');
+@import url('./site/card.css?v=20240130');
 @import url('./site/cart/minicart.css');
