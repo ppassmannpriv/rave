@@ -155,6 +155,7 @@ class Order extends Model
             'returnUrl' => url('payment/return'),
             'cancelUrl' => url('payment/cancel'),
             'transacionId' => $this->transaction->reference,
+            'noShipping' => 1,
         ];
     }
 }

@@ -28,6 +28,9 @@ class CancelOrderAction
         Log::info('Order state changed to ' . Order::STATUS_CANCELLED);
 
         foreach ($order->orderItems as $orderItem) {
+            if ($orderItem->cartItem->type !== 'TICKET') {
+                continue;
+            }
             $eventTicket = $orderItem->eventTicket;
             $eventTicket->stock += $orderItem->qty;
             $eventTicket->save();
