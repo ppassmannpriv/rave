@@ -90,8 +90,10 @@ class Event extends Model implements HasMedia
         foreach ($this->eventTickets as $eventTicket) {
             $orderItems = OrderItem::where('event_ticket_id', '=', $eventTicket->id)->get();
             foreach ($orderItems as $orderItem) {
-                if ($orderItem?->order?->status === Order::STATUS_INITIALIZED) {
-                    $qty += $orderItem->qty;
+                if ($orderItem?->cartItem?->type === 'TICKET') {
+                    if ($orderItem?->order?->status === Order::STATUS_INITIALIZED) {
+                        $qty += $orderItem->qty;
+                    }
                 }
             }
         }

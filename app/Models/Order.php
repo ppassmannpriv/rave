@@ -86,6 +86,9 @@ class Order extends Model
     {
         $qty = 0;
         foreach($this->orderItems as $orderItem) {
+            if ($orderItem->cartItem?->type === 'FEE') {
+                continue;
+            }
             $qty += $orderItem->qty;
         }
 
