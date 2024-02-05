@@ -35,7 +35,7 @@
                         {{ trans('cruds.order.fields.qty') }}
                     </th>
                     <th>
-                        {{ trans('cruds.paymentMethods.fields.title_singular') }}
+                        {{ trans('cruds.paymentMethods.title_singular') }}
                     </th>
                     <th>
                         {{ trans('cruds.order.fields.status') }}
