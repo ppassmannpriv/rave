@@ -56,6 +56,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('orders/destroy', 'OrderController@massDestroy')->name('orders.massDestroy');
     Route::resource('orders', 'OrderController');
     Route::get('orders/{id}/cancel', 'OrderController@cancel')->name('orders.cancel');
+    Route::get('orders/{id}/abort', 'OrderController@abort')->name('orders.abort');
 
     // Payment
     Route::delete('payments/destroy', 'PaymentController@massDestroy')->name('payments.massDestroy');

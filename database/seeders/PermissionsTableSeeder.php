@@ -255,6 +255,10 @@ class PermissionsTableSeeder extends Seeder
                 'title' => 'order_cancel'
             ],
             [
+                'id'    => 62,
+                'title' => 'order_abort'
+            ],
+            [
                 'id'    => 1000,
                 'title' => 'customer_site'
             ],

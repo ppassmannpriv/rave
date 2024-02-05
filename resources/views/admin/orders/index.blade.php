@@ -109,6 +109,14 @@
                         @endcan
                         @endif
 
+                        @if ($order->isCancellable())
+                        @can('order_abort')
+                            <a class="btn btn-xs btn-warning" href="{{ route('admin.orders.abort', $order->id) }}">
+                                {{ trans('global.abort') }}
+                            </a>
+                        @endcan
+                        @endif
+
                         @can('order_edit')
                         <a class="btn btn-xs btn-info" href="{{ route('admin.orders.edit', $order->id) }}">
                             {{ trans('global.edit') }}

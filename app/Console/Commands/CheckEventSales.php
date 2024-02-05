@@ -37,7 +37,7 @@ class CheckEventSales extends Command
         $events = Event::all()->filter(fn ($event) => !$event->isOver());
         $messages = [];
         foreach ($events as $event) {
-            $messages[] = sprintf("%s\nReserved: %d\nSold: %d\nIncome: %s",
+            $messages[] = sprintf("%s\nRSVP: %d\nSold: %d\nCash: %s",
                 $this->removeEmoji($event->name),
                 $event->eventTicketsReserved(),
                 $event->eventTicketsSold(),
@@ -46,7 +46,7 @@ class CheckEventSales extends Command
         }
         $message = null;
         if (count($messages) > 0) {
-            $message = "Ticket update " . Carbon::now()->format('d-m-Y H:i') . "\n\n";
+            $message = "Tickets " . Carbon::now()->format('d-m-Y H:i') . "\n\n";
             $message .= implode("\n\n", $messages);
         }
 

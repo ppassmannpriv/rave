@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\Order\AbortOrderAction;
 use App\Actions\Order\CancelOrderAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyOrderRequest;
@@ -107,6 +108,16 @@ class OrderController extends Controller
         $order = Order::find($orderId);
         abort_if(!$order->isCancellable(), Response::HTTP_BAD_REQUEST, '400 Bad Request');
         CancelOrderAction::make()->handle($order);
+
+        return redirect()->route('admin.orders.index');
+    }
+
+    public function abort(int $orderId): \Illuminate\Http\RedirectResponse
+    {
+        abort_if(Gate::denies('order_abort'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $order = Order::find($orderId);
+        abort_if(!$order->isCancellable(), Response::HTTP_BAD_REQUEST, '400 Bad Request');
+        AbortOrderAction::make()->handle($order);
 
         return redirect()->route('admin.orders.index');
     }
