@@ -35,6 +35,9 @@
                         {{ trans('cruds.order.fields.qty') }}
                     </th>
                     <th>
+                        {{ trans('cruds.paymentMethods.fields.title_singular') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.order.fields.status') }}
                     </th>
                     <th>
@@ -68,6 +71,8 @@
                     </td>
                     <td>
                     </td>
+                    <td>
+                    </td>
                 </tr>
                 </thead>
                 <tbody>
@@ -87,6 +92,9 @@
                     </td>
                     <td>
                         {{ $order->quantityItems() ?? '?' }}
+                    </td>
+                    <td>
+                        {{ $order?->transaction?->paymentMethod?->name ?? '' }}
                     </td>
                     <td>
                         {{ $order->status ?? '' }}
