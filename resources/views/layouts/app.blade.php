@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,500;0,800;1,800&display=swap" rel="stylesheet">
-    <link href="{{ asset('css/custom.css') }}?v=20240130" rel="stylesheet" />
+    <link href="{{ asset('css/custom.css') }}?v=20240214" rel="stylesheet" />
     <link href="{{ asset('css/site.css') }}?v=20240130" rel="stylesheet" />
     @yield('styles')
     <script src="https://kit.fontawesome.com/cbac56de10.js" crossorigin="anonymous"></script>
