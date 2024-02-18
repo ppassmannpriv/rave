@@ -42,6 +42,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|EventTicket whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|EventTicket withTrashed()
  * @method static \Illuminate\Database\Query\Builder|EventTicket withoutTrashed()
+ * @property-read int|null $event_ticket_codes_count
+ * @method static \Illuminate\Database\Eloquent\Builder|EventTicket whereCap($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventTicket whereStock($value)
  * @mixin \Eloquent
  */
 class EventTicket extends Model

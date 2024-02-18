@@ -35,6 +35,11 @@ use App\Models\Order\OrderItem;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|Order withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Order withoutTrashed()
+ * @property int|null $payment_id
+ * @property-read int|null $order_items_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Order wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereTransactionId($value)
  * @mixin \Eloquent
  */
 class Order extends Model

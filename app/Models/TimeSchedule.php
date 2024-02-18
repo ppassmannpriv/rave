@@ -19,6 +19,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $end
  * @property-read ?\App\Models\Event $event
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TimeSchedule\Shift[] $shifts
+ * @property-read int|null $shifts_count
+ * @method static \Illuminate\Database\Eloquent\Builder|TimeSchedule newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TimeSchedule newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TimeSchedule query()
+ * @method static \Illuminate\Database\Eloquent\Builder|TimeSchedule whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TimeSchedule whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TimeSchedule whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TimeSchedule whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TimeSchedule whereEnd($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TimeSchedule whereEventId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TimeSchedule whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TimeSchedule whereStart($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TimeSchedule whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class TimeSchedule extends Model {

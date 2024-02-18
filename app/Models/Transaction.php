@@ -23,6 +23,23 @@ use App\Events\TransactionSavedEvent;
  * @property-read \App\Models\Order|null $order
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, PartialTransaction> $partialTransactions
+ * @property-read int|null $partial_transactions_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereComment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereOrderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction wherePayerEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction wherePayerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction wherePaymentMethodId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereReference($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereState($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Transaction extends Model

@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|EventTicketCode whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|EventTicketCode withTrashed()
  * @method static \Illuminate\Database\Query\Builder|EventTicketCode withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|EventTicketCode whereEventTicketId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventTicketCode whereOrderItemId($value)
  * @mixin \Eloquent
  */
 class EventTicketCode extends Model

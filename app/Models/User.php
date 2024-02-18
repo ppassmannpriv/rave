@@ -47,6 +47,14 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
+ * @property string $street
+ * @property string $postcode
+ * @property string $city
+ * @property string $country
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePostcode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereStreet($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable

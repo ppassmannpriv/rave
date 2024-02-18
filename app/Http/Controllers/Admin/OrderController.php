@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\Bookkeeping\GetIncomePerPaymentMethod;
 use App\Actions\Order\AbortOrderAction;
 use App\Actions\Order\CancelOrderAction;
 use App\Http\Controllers\Controller;

@@ -44,6 +44,7 @@ use App\Models\Order;
  * @method static \Illuminate\Database\Eloquent\Builder|Event whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Event withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Event withoutTrashed()
+ * @property-read int|null $event_tickets_count
  * @mixin \Eloquent
  */
 class Event extends Model implements HasMedia

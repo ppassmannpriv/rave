@@ -18,6 +18,20 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\EventTicket|null $eventTicket
  * @property-read \App\Models\Cart|null $cart
+ * @property int|null $event_ticket_id
+ * @property int $cart_id
+ * @method static \Illuminate\Database\Eloquent\Builder|CartItem newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CartItem newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CartItem query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereCartId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereEventTicketId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereQty($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereRowPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereSinglePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class CartItem extends Model

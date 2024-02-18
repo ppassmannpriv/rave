@@ -44,6 +44,9 @@ use App\Contracts\Navigation;
  * @method static \Illuminate\Database\Eloquent\Builder|ContentPage whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|ContentPage withTrashed()
  * @method static \Illuminate\Database\Query\Builder|ContentPage withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ContentPage whereEnabled($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ContentPage whereIndex($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ContentPage wherePath($value)
  * @mixin \Eloquent
  */
 class ContentPage extends Model implements HasMedia
