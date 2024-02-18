@@ -353,4 +353,11 @@ return [
 
         ],
     ],
+    'bookkeeping' => [
+        'title'          => 'Bookkeeping',
+        'title_singular' => 'Bookkeeping',
+        'fields'         => [
+
+        ],
+    ],
 ];
