@@ -7,14 +7,14 @@
     </div>
 
     @foreach($bookkeeping as $eventStats)
-        <div class="card">
+        <div class="card col col-3">
             <div class="card-header">
                 {{ $eventStats['event']->name }}
             </div>
 
             <div class="card-body">
                 @foreach($eventStats['incomeSums'] as $paymentMethodName => $incomeSum)
-                    <p>{{ $paymentMethodName }}: @money($incomeSum)</p>
+                    <p>{{ $paymentMethodName }}: <strong>@money($incomeSum)</strong></p>
                 @endforeach
             </div>
         </div>
