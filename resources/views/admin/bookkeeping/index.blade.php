@@ -7,7 +7,7 @@
     </div>
     <div class="container-fluid row">
         @foreach($bookkeeping as $i => $eventStats)
-            <div class="card col-sm-12 col-md-5 @if($i % 2)ml-5@endif">
+            <div class="card col-sm-12 col-md-5 @if($i % 2) ml-5 @endif">
                 <div class="card-header">
                     {{ $eventStats['event']->name }}
                 </div>
