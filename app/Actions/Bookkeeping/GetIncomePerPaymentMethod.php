@@ -19,7 +19,10 @@ class GetIncomePerPaymentMethod
         $groupedBy = $orders->groupBy('transaction.paymentMethod.name');
         $sums = [];
         foreach ($groupedBy as $paymentMethodName => $orders) {
-            $sums[$paymentMethodName] = $orders->sum('price');
+            $sum = $orders->sum('price');
+            if ($sum > 0) {
+                $sums[$paymentMethodName] = $orders->sum('price');
+            }
         }
 
         return $sums;
