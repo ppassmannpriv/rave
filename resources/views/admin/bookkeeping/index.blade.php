@@ -7,7 +7,7 @@
     </div>
     <div class="container-fluid row">
         @foreach($bookkeeping as $i => $eventStats)
-            <div class="card col col-6">
+            <div class="card col col-5">
                 <div class="card-header">
                     {{ $eventStats['event']->name }}
                 </div>
