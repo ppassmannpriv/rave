@@ -221,6 +221,15 @@
                 </a>
             </li>
         @endcan
+        @can('payment_access')
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link {{ request()->is('bookkeeping/index') || request()->is('bookkeeping/*') ? 'c-active' : '' }}" href="{{ route('admin.bookkeeping.index') }}">
+                    <i class="fa-fw fas fa-money-bill c-sidebar-nav-icon">
+                    </i>
+                    Bookkeeping
+                </a>
+            </li>
+        @endcan
         <li class="c-sidebar-nav-item">
             <a href="#" class="c-sidebar-nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                 <i class="c-sidebar-nav-icon fas fa-fw fa-sign-out-alt">

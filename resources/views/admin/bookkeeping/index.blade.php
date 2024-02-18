@@ -5,27 +5,21 @@
             <h1 class="h4 m-0">{{ trans('cruds.bookkeeping.title_singular') }} {{ trans('global.list') }}</h1>
         </div>
     </div>
+    <div class="container-fluid row">
+        @foreach($bookkeeping as $i => $eventStats)
+            <div class="card col col-6">
+                <div class="card-header">
+                    {{ $eventStats['event']->name }}
+                </div>
 
-    @foreach($bookkeeping as $i => $eventStats)
-        @if($i % 2)
-            <div class="container-fluid row">
-        @endif
-        <div class="card col col-6">
-            <div class="card-header">
-                {{ $eventStats['event']->name }}
+                <div class="card-body">
+                    @foreach($eventStats['incomeSums'] as $paymentMethodName => $incomeSum)
+                        <p>{{ $paymentMethodName }}: <strong>@money($incomeSum)</strong></p>
+                    @endforeach
+                </div>
             </div>
-
-            <div class="card-body">
-                @foreach($eventStats['incomeSums'] as $paymentMethodName => $incomeSum)
-                    <p>{{ $paymentMethodName }}: <strong>@money($incomeSum)</strong></p>
-                @endforeach
-            </div>
-        </div>
-        @if($i % 2)
-            </div>
-        @endif
-    @endforeach
-
+        @endforeach
+    </div>
 
 @endsection
 @section('scripts')
