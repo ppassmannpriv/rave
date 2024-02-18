@@ -6,8 +6,11 @@
         </div>
     </div>
 
-    @foreach($bookkeeping as $eventStats)
-        <div class="card col col-3">
+    @foreach($bookkeeping as $i => $eventStats)
+        @if($i % 2)
+            <div class="container-fluid row">
+        @endif
+        <div class="card col col-6">
             <div class="card-header">
                 {{ $eventStats['event']->name }}
             </div>
@@ -18,6 +21,9 @@
                 @endforeach
             </div>
         </div>
+        @if($i % 2)
+            </div>
+        @endif
     @endforeach
 
 
