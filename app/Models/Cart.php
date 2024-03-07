@@ -31,7 +31,7 @@ class Cart extends Model
 {
     use HasFactory;
     private const PAYPAL_PERCENTAGE = 0.0249;
-    private const PAYPAL_FIXED_COST = 0.35;
+    private const PAYPAL_FIXED_COST = 0.70;
 
     public $table = 'carts';
     public $primaryKey = 'id';
