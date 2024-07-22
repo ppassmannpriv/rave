@@ -56,12 +56,13 @@ class ExportOrderTotals extends Command
             }
         }
         $this->info('Fetched ' . count($orders) . ' orders.');
-        $fileName = 'event-ticket-codes-' . \Str::slug($event->name) . '.csv';
+        $fileName = 'order-totals-' . \Str::slug($event->name) . '.csv';
         $filePath = storage_path('app/exports/' . $fileName);
         touch($filePath);
         $writer = Writer::createFromPath($filePath);
         $writer->insertAll($orders);
         // $writer->output($fileName);
+        $this->info('Writing to file ' . $fileName);
         $finishedFile = \File::get($filePath);
         \Storage::put($filePath, $finishedFile);
         $this->info('Done.');
