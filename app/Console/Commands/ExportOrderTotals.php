@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Event;
 use App\Models\Order;
+use App\Models\PaymentMethod\PayPalExpress;
 use League\Csv\Writer;
 use Illuminate\Console\Command;
 use SplTempFileObject;
@@ -40,13 +41,21 @@ class ExportOrderTotals extends Command
                  * @var ?Order $order
                  */
                 $order = $eventTicketCode->orderItem?->order ?? null;
-                if ($order !== null && $order === Order::STATUS_CLOSED) {
-                    $orders[$order->id] = $order;
+                if ($order !== null
+                    && $order?->status === Order::STATUS_CLOSED
+                    && $order?->transaction?->paymentMethod->alias === PayPalExpress::ALIAS
+                ) {
+                    $orders[$order->id] = [
+                        'id' => $order->id,
+                        'total' => $order->price,
+                        'created_at' => $order->created_at,
+                        'user' => $order->user?->name,
+                        'email' => $order->user?->email,
+                    ];
                 }
             }
         }
         $this->info('Fetched ' . count($orders) . ' orders.');
-        $orders = $this->formatOrders($orders);
         $fileName = 'event-ticket-codes-' . \Str::slug($event->name) . '.csv';
         $filePath = storage_path('app/exports/' . $fileName);
         touch($filePath);
@@ -58,17 +67,5 @@ class ExportOrderTotals extends Command
         $this->info('Done.');
 
         return 0;
-    }
-
-    private function formatOrders(array $orders): array
-    {
-        $csvOrders = array_map(fn(Order $order) => [
-            'id' => $order->id,
-            'total' => $order->price,
-            'created_at' => $order->created_at,
-            'user' => $order->user?->name,
-            'email' => $order->user?->email,
-        ], $orders);
-        return $csvOrders;
     }
 }
