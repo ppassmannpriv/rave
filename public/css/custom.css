@@ -132,7 +132,8 @@ table.dataTable thead .sorting_desc {
 }
 
 html body.header-fixed {
-    background: url('/img/bg.jpg?v=20240214');
+    background: url('/img/s1art.png?v=20240511');
+    background-size: 15%;
 }
 
 .payment-method-description img {
