@@ -65,12 +65,13 @@ class Cart extends Model
 
     public function getPayPalCost(): float
     {
+        return round(0.0);
         $subTotal = $this->getSubTotal();
         return round(($subTotal * self::PAYPAL_PERCENTAGE) + self::PAYPAL_FIXED_COST, 2);
     }
 
     public function getTotal(): float
     {
-        return $this->getSubTotal() + $this->getPayPalCost();
+        return $this->getSubTotal();// + $this->getPayPalCost();
     }
 }
