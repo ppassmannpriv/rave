@@ -90,6 +90,7 @@ class CartService implements Cart {
     // @TODO: this is horrible and should really be consolidated to one action to take care of this. Think about shipping cost too!
     private function updateFeeCartItem()
     {
+        return;
         $cart = $this->getCart();
 
         if ($cart->cartItems->where('type', '!=', 'FEE')->count() > 0) {
