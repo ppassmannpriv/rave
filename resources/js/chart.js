@@ -1,1 +1,0 @@
-window.chartjs = require('chartjs');
