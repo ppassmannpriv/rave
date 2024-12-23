@@ -2,10 +2,8 @@
 
 namespace App\Listeners;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use App\Events\EventTicketUpdatedEvent;
 use App\Actions\EventTicket\CreateCodesForStockUpdateOnEventAction;
+use App\Events\EventTicketUpdatedEvent;
 
 class EventTicketUpdatedListener
 {

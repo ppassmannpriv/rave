@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Actions\Cart\CreateOrderFromCart;
 use App\Actions\Order\AbortOrderAction;
 use App\Actions\Payment\PayPalExpress\FinalizeTransaction;
+use App\Http\Requests\Site\OrderCartRequest;
 use App\Http\Requests\Site\Payment\PaymentProviderReturnRequest;
 use App\Models\Transaction;
-use App\Actions\Cart\CreateOrderFromCart;
-use App\Http\Requests\Site\OrderCartRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Omnipay\Common\Message\ResponseInterface;
 use Sentry\ErrorHandler;
 

@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Site;
 
-use App\Exceptions\Cart\SoldOutException;
-use App\Mail\OrderCreatedNotification;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\OrderCreated;
 use App\Actions\Cart\AddTicketToCart;
 use App\Actions\Cart\CreateOrderFromCart;
 use App\Actions\Cart\RemoveTicketFromCart;
+use App\Exceptions\Cart\SoldOutException;
 use App\Http\Requests\Site\AddToCartRequest;
-use App\Http\Requests\Site\RemoveFromCartRequest;
 use App\Http\Requests\Site\OrderCartRequest;
+use App\Http\Requests\Site\RemoveFromCartRequest;
+use App\Mail\OrderCreated;
+use App\Mail\OrderCreatedNotification;
 use App\Models\EventTicket;
 use App\Models\PaymentMethod;
 use App\Services\CartService;
+use Illuminate\Support\Facades\Mail;
 
 class CartController extends WebController
 {

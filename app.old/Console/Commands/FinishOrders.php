@@ -6,7 +6,6 @@ use App\Actions\Order\FinishOrderEmailUserAction;
 use App\Models\Order;
 use App\Models\Transaction;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 
 class FinishOrders extends Command
 {

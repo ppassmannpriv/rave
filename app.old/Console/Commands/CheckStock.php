@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Actions\EventTicketCode\CleanUpOrphans;
 use App\Models\EventTicket;
 use Illuminate\Console\Command;
 
