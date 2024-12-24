@@ -6,6 +6,33 @@ use Database\Factories\Event\EventTicketFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property int $event_id
+ * @property int $price
+ * @property string $ticket_type
+ * @property string $from
+ * @property string $to
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @method static \Database\Factories\Event\EventTicketFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|EventTicket newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|EventTicket newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|EventTicket query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|EventTicket whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|EventTicket whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|EventTicket whereEventId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|EventTicket whereFrom($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|EventTicket whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|EventTicket wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|EventTicket whereTicketType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|EventTicket whereTo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|EventTicket whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class EventTicket extends Model
 {
     /** @use HasFactory<EventTicketFactory> */
