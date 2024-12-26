@@ -5,10 +5,7 @@ namespace App\Actions\Cart;
 use App\Exceptions\Cart\SoldOutException;
 use App\Models\Cart;
 use App\Models\Product;
-use App\Services\CartService;
 use Lorisleiva\Actions\Concerns\AsAction;
-use \App;
-
 
 class AddToCart
 {
@@ -28,5 +25,6 @@ class AddToCart
             'type' => $product->type,
         ]);
         $cartItem->save();
+        $cart->refresh();
     }
 }

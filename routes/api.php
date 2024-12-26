@@ -16,7 +16,8 @@ Route::middleware([
     Route::resources([
         'cart' => CartController::class,
     ], ['except' => ['create', 'destroy']]);
-    Route::put('cart/addToCart/product/{productId}/qty/{qty}', [CartController::class, 'addToCart']);
+    Route::post('cart/addToCart', [CartController::class, 'addToCart']);
+    Route::delete('cart/removeFromCart', [CartController::class, 'removeFromCart']);
     Route::resources([
         'product' => ProductController::class,
     ], ['except' => ['create', 'destroy']]);

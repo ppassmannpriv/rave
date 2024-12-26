@@ -11,9 +11,9 @@ class RemoveFromCart
 {
     use AsAction;
 
-    public function handle(Cart $cart, Product $product, int $qty = 1): void
+    public function handle(Cart $cart, Product $product): void
     {
-        // @TODO: This needs validation to not delete fees automatically!
-        $cart->cartItems()->where('product_id', $product->id)->delete();
+        $cartItem = $cart->cartItems()->where('product_id', $product->id)->delete();
+        $cart->refresh();
     }
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Cart\AddToCart;
+use App\Actions\Cart\RemoveFromCart;
 use App\Cart\CartManager;
 use App\Http\Requests\Cart\StoreCartItemRequest;
+use App\Http\Requests\Cart\UpdateCartItemRequest;
 use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\UpdateCartRequest;
 use App\Models\Cart;
@@ -67,11 +69,20 @@ class CartController extends Controller
         //
     }
 
-    public function addToCart(Cart $cart, string $productId, int $qty)
+    public function addToCart(StoreCartItemRequest $request)
     {
         $cart = $this->cartManager->getOrCreateCart();
-        $product = Product::findOrFail($productId);
-        AddToCart::run($cart, $product, $qty);
+        $product = Product::findOrFail($request->get('product_id'));
+        AddToCart::run($cart, $product, $request->get('qty'));
+
+        return response($cart);
+    }
+
+    public function removeFromCart(UpdateCartItemRequest $request)
+    {
+        $cart = $this->cartManager->getOrCreateCart();
+        $product = Product::findOrFail($request->get('product_id'));
+        RemoveFromCart::run($cart, $product);
 
         return response($cart);
     }

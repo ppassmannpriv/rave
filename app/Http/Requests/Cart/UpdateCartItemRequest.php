@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Cart;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCartItemRequest extends FormRequest
@@ -11,18 +12,19 @@ class UpdateCartItemRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return !false;
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            //
+            'product_id' => 'required|integer|exists:products,id|exists:cart_items,product_id',
+            'qty' => 'integer|min:1',
         ];
     }
 }
