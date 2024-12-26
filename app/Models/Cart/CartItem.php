@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $qty
@@ -37,4 +37,6 @@ class CartItem extends Model
 {
     /** @use HasFactory<CartItemFactory> */
     use HasFactory;
+
+    protected $fillable = ['cart_id', 'product_id', 'qty', 'single_price', 'total_price', 'type'];
 }

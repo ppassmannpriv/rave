@@ -2,26 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Cart\AddToCart;
+use App\Cart\CartManager;
+use App\Http\Requests\Cart\StoreCartItemRequest;
 use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\UpdateCartRequest;
 use App\Models\Cart;
+use App\Models\Product;
+use Illuminate\Support\Facades\Request;
 
 class CartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct(private CartManager $cartManager)
     {
-        //
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      */
-    public function create()
+    public function index(Request $request)
     {
-        //
+        $cart = $this->cartManager->getOrCreateCart();
+
+        return response($cart);
     }
 
     /**
@@ -62,5 +65,14 @@ class CartController extends Controller
     public function destroy(Cart $cart)
     {
         //
+    }
+
+    public function addToCart(Cart $cart, string $productId, int $qty)
+    {
+        $cart = $this->cartManager->getOrCreateCart();
+        $product = Product::findOrFail($productId);
+        AddToCart::run($cart, $product, $qty);
+
+        return response($cart);
     }
 }

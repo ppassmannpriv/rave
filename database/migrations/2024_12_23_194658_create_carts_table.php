@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id()->primary();
             $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->string('session_id', 255);
+            $table->string('session_id', 255)->unique();
             $table->boolean('active')->default(false);
             $table->timestamps();
 

@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Event;
+use App\Models\Event\EventTicket;
 use Illuminate\Database\Seeder;
 
 class EventTicketSeeder extends Seeder
@@ -12,6 +13,6 @@ class EventTicketSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+            EventTicket::factory()->count(10)->create();
     }
 }

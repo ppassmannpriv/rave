@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name
@@ -50,5 +50,11 @@ class Product extends Model
         self::TRANSACTION_FEE_TYPE
     ];
     public const string DEFAULT_PRODUCT_TYPE = self::EVENT_TICKET_PRODUCT_TYPE;
+
+    public function isAvailable(): bool
+    {
+        // @TODO: Stock logic is for another day
+        return true;
+    }
 
 }

@@ -4,30 +4,47 @@ namespace App\Cart;
 
 use App\Models\Cart;
 use App\Actions\Cart\AddToCart;
+use App\Actions\Cart\RemoveFromCart;
 use App\Models\Product;
 use Illuminate\Session\SessionManager;
+use Illuminate\Support\Facades\Auth;
 
 class CartManager
 {
-    const MINIMUM_QUANTITY = 1;
+    private const int MINIMUM_QUANTITY = 1;
     private ?Cart $cart = null;
 
-    public function __construct(private SessionManager $session)
-    {}
+    public function __construct(private readonly SessionManager $session)
+    {
+        $this->cart = $this->getOrCreateCart();
+    }
 
     public function getOrCreateCart(): Cart
     {
-        if ($this->cart === null) {
-            $this->cart = new Cart();
-        }
+        // @TODO: Needs auth somehow - this cannot stay this way!
+        $this->session->save();
+        $sessionId = $this->session->getId();
+
+        /**
+         * @var Cart $cart
+         */
+        $cart = Cart::with('cartItems')->firstOrCreate(['session_id' => $sessionId]);
+        $cart->active = true;
+        $cart->update(['active']);
+
+        return $cart;
+    }
+
+    public function add(Product $product, int $quantity = self::MINIMUM_QUANTITY): Cart
+    {
+        AddToCart::run($this->cart, $product, $quantity);
+
         return $this->cart;
     }
 
-    public function add(Product $product, int $quantity = 1): Cart
+    public function remove(Product $product, int $quantity = self::MINIMUM_QUANTITY): Cart
     {
-        $cart = $this->getOrCreateCart();
-        AddToCart::class;
-
-        return $cart;
+        RemoveFromCart::run($this->cart, $product, $quantity);
+        return $this->cart;
     }
 }

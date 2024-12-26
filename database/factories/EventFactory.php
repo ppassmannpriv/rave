@@ -18,12 +18,12 @@ class EventFactory extends Factory
      */
     public function definition(): array
     {
-        $start = $this->faker->dateTime();
+        $start = $this->faker->dateTimeBetween('-1 month', 'now');
         return [
             'name' => $this->faker->word(),
             'description' => $this->faker->paragraphs(2, true),
             'start' => $start,
-            'end' => $start->add(new DateInterval('P' . $this->faker->numberBetween(8, 16) . 'H')),
+            'end' => $this->faker->dateTimeBetween($start, '+12hours'),
             'location' => $this->faker->address(),
         ];
     }

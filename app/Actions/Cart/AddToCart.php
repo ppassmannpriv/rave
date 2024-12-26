@@ -3,8 +3,8 @@
 namespace App\Actions\Cart;
 
 use App\Exceptions\Cart\SoldOutException;
-use App\Models\EventTicket;
-use App\Models\Merchandise;
+use App\Models\Cart;
+use App\Models\Product;
 use App\Services\CartService;
 use Lorisleiva\Actions\Concerns\AsAction;
 use \App;
@@ -14,15 +14,19 @@ class AddToCart
 {
     use AsAction;
 
-    public function handle(EventTicket|Merchandise $eventTicket, int $qty = 1): void
+    public function handle(Cart $cart, Product $product, int $qty = 1): void
     {
-        $cartService = App::make(CartService::class);
-        if ($cartService === null) {
-            throw new \Exception('Cart Service could not be loaded!');
-        }
-        if ($eventTicket->isAvailable() === false) {
+        if ($product->isAvailable() === false) {
             throw new SoldOutException('Item is sold out.');
         }
-        $cartService->add($eventTicket, $qty);
+        $cartItem = $cart->cartItems()->where('product_id', $product->id)->firstOrNew([
+            'product_id' => $product->id,
+            'cart_id' => $cart->id,
+            'single_price' => $product->price,
+            'qty' => $qty,
+            'total_price' => $product->price * $qty,
+            'type' => $product->type,
+        ]);
+        $cartItem->save();
     }
 }
