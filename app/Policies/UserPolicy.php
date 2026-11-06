@@ -12,8 +12,6 @@ class UserPolicy
 
     public function update(User $user, User $user_model): Response
     {
-        dd(1);
-
         return $user->id === $user_model->id ? Response::allow() : Response::deny();
     }
 

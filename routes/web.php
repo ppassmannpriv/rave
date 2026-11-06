@@ -92,8 +92,8 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'User', 'middl
     Route::get('/', 'UserController@index')->name('index');
     Route::get('/edit', 'UserController@edit')->name('edit');
 
-    Route::post('/password', 'Account\PasswordController@update')->name('password.update')->middleware('can:update,user');
-    Route::post('/profile', 'Account\PasswordController@updateProfile')->name('profile.update')->middleware('can:update,user');
+    Route::post('/password', 'Account\PasswordController@update')->name('password.update');
+    Route::post('/profile', 'Account\PasswordController@updateProfile')->name('profile.update');
     Route::post('/profile/destroy', 'Account\PasswordController@destroy')->name('password.destroyProfile');
 });
 
