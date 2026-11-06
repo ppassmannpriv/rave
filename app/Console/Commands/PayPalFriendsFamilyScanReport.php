@@ -33,7 +33,7 @@ class PayPalFriendsFamilyScanReport extends Command
      */
     public function handle()
     {
-	    $this->info('Scanning files');
+	$this->info('Scanning files');
         $files = Storage::files(PayPalFriendsFamily::REPORT_DIR);
         foreach ($files as $file) {
             if (Storage::exists($file) === false) {
@@ -41,6 +41,15 @@ class PayPalFriendsFamilyScanReport extends Command
             }
             $csv = Reader::createFromString(Storage::get($file));
             $csv->setHeaderOffset(0);
+            $missingColumns = array_diff(PayPalFriendsFamily::requiredColumns(), $csv->getHeader());
+            if ($missingColumns !== []) {
+                $message = 'Report ' . $file . ' is missing required column(s): ' . implode(', ', $missingColumns)
+                    . '. Check config/paypal_ff.php. File left in place, nothing processed.';
+                Log::error($message);
+                $this->error($message);
+
+                return 1;
+            }
             foreach ($csv->getRecords($csv->getHeader()) as $record) {
                 try {
                     PayTransaction::make()->handle($record);
@@ -56,8 +65,8 @@ class PayPalFriendsFamilyScanReport extends Command
             }
 
             Storage::move($file, str_replace(PayPalFriendsFamily::REPORT_DIR, PayPalFriendsFamily::REPORT_DIR . '/processed', $file));
-	    }
-	    $this->info('Done.');
+	}
+	$this->info('Done.');
 
         return 0;
     }

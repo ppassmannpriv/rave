@@ -16,7 +16,14 @@ class SiteController extends WebController
     public function page(Request $request)
     {
         $pathInfo = \Str::replaceFirst('/', '', $request->getPathInfo());
-        $contentPage = ContentPage::where('path', '=', $pathInfo)->first();
+        $contentPage = ContentPage::where('path', '=', $pathInfo)
+            ->where('enabled', '=', true)
+            ->whereNot('index', '=', true)
+            ->first();
+        if ($contentPage === null) {
+            // Same behavior as the Route::fallback() handler in routes/web.php
+            return redirect('/site-error')->with('warning', 'Sorry, this route is not available.');
+        }
         return $this->respond('site.index', ['contentPage' => $contentPage, 'siteType' => 'cms']);
     }
 

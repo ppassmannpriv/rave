@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Casts\MoneyCast;
 use App\Models\Transaction\PartialTransaction;
 use Illuminate\Database\Eloquent\Model;
-use App\Events\TransactionSavedEvent;
 
 /**
  * App\Models\Transaction
@@ -14,32 +14,11 @@ use App\Events\TransactionSavedEvent;
  * @property int|null $order_id
  * @property string $reference
  * @property string $state
- * @property string|null $token
- * @property string|null $payer_id
- * @property string|null $payer_email
  * @property float $amount
  * @property string|null $comment
  * @property-read \App\Models\PaymentMethod|null $paymentMethod
- * @property-read \App\Models\Order|null $order
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, PartialTransaction> $partialTransactions
- * @property-read int|null $partial_transactions_count
- * @method static \Illuminate\Database\Eloquent\Builder|Transaction newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Transaction newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Transaction query()
- * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereAmount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereComment($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereOrderId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Transaction wherePayerEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Transaction wherePayerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Transaction wherePaymentMethodId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereReference($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereState($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Transaction extends Model
@@ -49,7 +28,6 @@ class Transaction extends Model
     public const STATE_PAID = 'paid';
     public const STATE_SUCCESS = 'successful';
     public const STATE_CANCEL = 'cancel';
-    public const STATE_PROCESSING = 'processing';
     public const REFERENCE_LENGTH = 10;
 
     public $table = 'transactions';
@@ -64,18 +42,15 @@ class Transaction extends Model
         'payment_method_id',
         'order_id',
         'reference',
+        'external_id',
         'amount',
         'state',
-        'token',
-        'payer_id',
-        'payer_email',
-        'comment',
         'created_at',
         'updated_at',
     ];
 
-    protected $dispatchesEvents = [
-        'saved' => TransactionSavedEvent::class,
+    protected $casts = [
+        'amount' => MoneyCast::class,
     ];
 
     public function order(): \Illuminate\Database\Eloquent\Relations\BelongsTo

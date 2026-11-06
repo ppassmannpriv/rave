@@ -1,12 +1,13 @@
 <?php
 
 return [
-    'paypal_username' => env('PAYPAL_USERNAME', 'example@example.com'),
-    'paypal_password' => env('PAYPAL_PASSWORD', 'example'),
-    'paypal_seller_account_id' => env('PAYPAL_SELLER_ACCOUNT_ID', '1234'),
-    'paypal_brand_name' => env('PAYPAL_BRAND_NAME'),
-    'paypal_signature' => env('PAYPAL_SIGNATURE'),
-    'paypal_is_test' => env('PAYPAL_IS_TEST'),
-    'currency' => env('CURRENCY', 'EUR'),
-    'currency_symbol' => env('CURRENCY_SYMBOL', '€'),
+    'mode' => env('PAYPAL_BUSINESS_MODE', 'sandbox'),
+    'client_id' => env('PAYPAL_BUSINESS_CLIENT_ID'),
+    'client_secret' => env('PAYPAL_BUSINESS_CLIENT_SECRET'),
+    'webhook_id' => env('PAYPAL_BUSINESS_WEBHOOK_ID'),
+    'currency' => env('CURRENCY') ?: 'EUR',
+    'base_urls' => [
+        'sandbox' => 'https://api-m.sandbox.paypal.com',
+        'live' => 'https://api-m.paypal.com',
+    ],
 ];

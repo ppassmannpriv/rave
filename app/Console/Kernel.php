@@ -17,33 +17,31 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('payment_methods:paypal_ff:scan-report')
             ->everyFifteenMinutes()
-            ->sentryMonitor()
-            ->emailOutputOnFailure([env('SYSADMIN')])
+            ->withoutOverlapping(10)
+            ->onOneServer()
+            ->emailOutputOnFailure([config('rave.sysadmin')])
             ->appendOutputTo('storage/logs/paypal_ff_scan-report.log');
 
         $schedule->command('orders:finish')
             ->everyTenMinutes()
-            ->sentryMonitor()
-            ->emailOutputOnFailure([env('SYSADMIN')])
+            ->withoutOverlapping(10)
+            ->onOneServer()
+            ->emailOutputOnFailure([config('rave.sysadmin')])
             ->appendOutputTo('storage/logs/order-successful.log');
 
         $schedule->command('orders:payment-check')
             ->everyFiveMinutes()
-            ->sentryMonitor()
-            ->emailOutputOnFailure([env('SYSADMIN')])
+            ->withoutOverlapping(10)
+            ->onOneServer()
+            ->emailOutputOnFailure([config('rave.sysadmin')])
             ->appendOutputTo('storage/logs/payment-reminders.log');
 
         $schedule->command('event-ticket-codes:clean-up-orphans')
             ->hourly()
-            ->sentryMonitor()
-            ->emailOutputOnFailure([env('SYSADMIN')])
+            ->withoutOverlapping(30)
+            ->onOneServer()
+            ->emailOutputOnFailure([config('rave.sysadmin')])
             ->appendOutputTo('storage/logs/clean-up-orphaned-event-ticket-codes.log');
-
-        $schedule->command('event:check-sales')
-            ->twiceDailyAt('8', '22', '30')
-            ->sentryMonitor()
-            ->emailOutputOnFailure([env('SYSADMIN')])
-            ->appendOutputTo('storage/logs/check-sales.log');
     }
 
     /**

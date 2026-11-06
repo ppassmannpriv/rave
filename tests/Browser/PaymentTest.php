@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -14,7 +15,7 @@ class PaymentTest extends DuskTestCase
 {
     public function testIndex()
     {
-        $admin = App\Models\User::find(1);
+        $admin = User::find(1);
         $this->browse(function (Browser $browser) use ($admin) {
             $browser->loginAs($admin);
             $browser->visit(route('admin.payment.index'));

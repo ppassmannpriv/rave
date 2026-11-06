@@ -10,7 +10,7 @@ class PasswordProtected {
 
     public function handle(Request $request, Closure $next, string $guard = null)
     {
-        $password = env('PASSWORD_PROTECTION');
+        $password = config('rave.password_protection');
 
         if (empty($password) ||
             $this->isNotInProtectedOnlyPath($request)) {

@@ -1,0 +1,118 @@
+# 05 — Roadmap & Work Breakdown
+
+Every workstream below references the [01-known-issues.md](./01-known-issues.md) item(s) it closes. Each is tagged with a **risk tier** and an **executor**:
+
+- 🟢 **Safe / low-effort → `quick` category** (cheapest/fastest model tier) — no payment, order-state, or money-amount code; mechanical, single-or-few-file, success criteria fully specifiable up front. This is the tier to push as much work into as possible for cost savings.
+- 🟡 **Moderate → `unspecified-low` (contained-scope judgment calls) or `deep-low` (infra/logic work needing the agent to reach its own correct design from evidence, e.g. Kamal scaffolding, version-bump fallout)** — touches shared infrastructure (deploy, CI, scheduler) but not the money-matching logic itself; still delegable, but reviewed before merge rather than fire-and-forget.
+- 🔴 **Payment-critical / careful → the lead session directly, never delegated to a fire-and-forget agent of any tier.** This is a floor, not a cost/capability choice: a subtle mistake here loses real money silently, so cheap *and* expensive model tiers are both the wrong mechanism on their own. If a 🔴 item is ever delegated at all, it goes to `deep-high`/`ultrabrain` with every line reviewed by the lead before merge — spending more on the model never substitutes for that review.
+- The one-off architecture validation in this doc's addendum used the **`architect`** category — right tool for a big-picture sanity check, not for recurring execution.
+
+**Cost-saving rule of thumb for this project**: route as much as possible to `quick`; escalate to `unspecified-low`/`deep-low` only when the task genuinely needs more judgment than `quick` reliably gives; never use a bigger model as a substitute for lead review on 🔴 work — that buys false confidence, not safety.
+
+The same tiering applies to the test items in [03-testing-strategy.md](./03-testing-strategy.md): characterization tests on the F&F matcher are 🔴, ordinary CRUD feature tests are 🟢/🟡.
+
+**Execution order across phases** (validated by an independent architecture consultation, 2026-10-16): Phase 1 (safety net) → scheduler cutover → CI/CD → Phase 4 (version ladder) → Phase 3 (standard PayPal), because "payment stays available" decomposes into three things — the reconciliation code works, its trigger fires, and someone notices when either stops — and the cheapest of those (noticing) has to exist before anything else can be changed safely. Full reasoning in [02-payment-system.md](./02-payment-system.md) §4.
+
+## ⚠️ Pre-existing uncommitted work found in the repo (2026-10-16)
+
+While verifying delegated changes, `git status` revealed a large set of modified and untracked files (`app/Http/Controllers/Site/UserController.php`, `app/Policies/`, `resources/views/user/`, changes to `AuthServiceProvider.php`, several migrations, `PermissionsTableSeeder.php`, `Dockerfile`, `.env.example`, and more) that none of this session's work touched. File modification timestamps confirm every one of them is from **2023-03-11/12** — over 3.5 years old, not something this session or any delegated agent created or modified. This looks like an abandoned-in-progress user-account-management/permissions feature that has been sitting uncommitted in the working tree since 2023. Nothing in this session read, altered, or depends on these files, and this has been independently confirmed via timestamps, not assumed.
+
+**This needs your decision, not mine**, before Phase 1.7 (CI) is dispatched: turning on CI against a working tree with ~2 years of unknown-state uncommitted work would likely fail for reasons entirely unrelated to this roadmap, and git has zero history of this work (a disk failure or any destructive git operation would lose it permanently). Recommend: review `git status`/`git diff` yourself, then either commit it (as a WIP branch if it's not finished), discard it if it's abandoned, or tell me to proceed and I'll work around it. I have not touched, staged, or discarded any of it.
+
+## Phase 0 — Already dispatched this session
+
+| # | Workstream | Closes | Tier | Executor | Status |
+|---|---|---|---|---|---|
+| 0.1 | Fix 3 broken/undiscovered test files (missing `use` import, undiscoverable test method names + removed `factory()` helper, CRLF line endings) | KI-06, KI-07, KI-08 | 🟢 | `quick` background task | **2/3 done** (`st_01a14260`): KI-06, KI-08 fixed+verified. KI-07 blocked on a root-owned-file permission issue — see KI-07 STATUS note, needs you to `chown` the file. |
+| 0.2 | Delete 3 stale unused `docker/<version>` folders + fix `CartController`'s broken sold-out flash-message bug | KI-11, KI-05 | 🟢 | `quick` background task | **Done+verified** (`st_01a14261`). Surfaced a follow-up: the cart view has no flash-partial to actually display the now-correctly-set error — added as 0.3 below. |
+| 0.3 | Fix the missing flash-message display on the cart view (`@include`/equivalent for `session('error')`) so the now-correctly-set KI-05 error is actually visible to customers | KI-05 (completion) | 🟢 | **Done+reviewed** 2026-10-17 (agent `st_01a147d2`): `layouts/checkout.blade.php` now includes the existing `partials/common/flash` once, so `/cart` and `/cart/success` show error/warning/success flashes (sold-out message, PayPal warnings). Not rendered in a browser. Follow-up: that partial (part of the older uncommitted work) uses the non-Bootstrap class `alert-error`; `alert-danger` would give the red styling |
+
+## Phase 1 — Safety net (do this before anything else touches payment code)
+
+| # | Workstream | Closes | Tier | Executor | Status |
+|---|---|---|---|---|---|
+| 1.1 | Write characterization tests for the F&F reconciliation matcher using real (scrubbed) PayPal export fixtures — see [03-testing-strategy.md](./03-testing-strategy.md) item 1 for the required case list, including the KI-02/KI-17 pinned-bug tests and the "same file processed twice" idempotency test | — (enables everything) | 🔴 | lead / careful — this is the safety net every later payment change depends on | **Done, 8/8 passing** (`tests/Unit/Actions/Payment/PayPalFriendsFamily/PayTransactionTest.php`). Confirmed KI-02 is sharper than first documented (zero audit trail, not just no state change) and KI-17 is a confirmed type-mismatch under SQLite (the MySQL-specific manifestation still needs CI confirmation). New finding: this sandbox has no Docker/MySQL, and the real migrations aren't SQLite-compatible at all (KI-18) — tests ran against a minimal hand-built schema; re-run against real MySQL once Phase 1.7/CI exists. |
+| 1.2 | Resolve frontend bundler ambiguity: confirm no code path uses Mix/Vite, remove the unused config, vendor or SRI-pin the CDN-loaded libraries in `app.blade.php`, de-duplicate the two Font Awesome versions | KI-14 | 🟢 | background agent | **Mostly done**, independently verified (recomputed SRI hashes byte-for-byte match for 5/7 libraries). 2 remaining, see KI-14 STATUS. |
+| 1.3 | Set `composer.json` `minimum-stability` to `stable`; audit `composer.lock`/`package-lock.json` for any currently-`dev`-pinned packages this would break | KI-13 | 🟢 | background agent | **Done+verified** (JSON validity confirmed, audit found no risky constraints). |
+| 1.4 | Wire `deployment/create-database.sh`'s logic into `deployment/mysql/init-db.sql` (or move/rename correctly) and verify a from-scratch provisioning run actually works | KI-09 | 🟡 | background agent, verified by lead before merge | **Done+verified**, but surfaced a second pre-existing bug in the script itself (invalid `GRANT` wildcard syntax) — not yet fixed, see KI-09 STATUS. |
+| 1.5 | Replace the per-page CMS route registration with one catch-all route that resolves the matching `ContentPage` at request time instead of at boot | KI-15 | 🟢 | background agent — self-contained, no payment-code dependency, but a prerequisite for 1.7/Phase-1-of-deployment below | **Done+verified** (`php -l` clean, enabled/index filtering preserved, catch-all registered last). |
+| 1.6 | Introduce a `Money`/cents-based value object (or at minimum a `decimal:2` cast plus integer-cents arithmetic) for `Transaction.amount`, `EventTicket.price`, `OrderItem` prices; route the `@money` Blade directive through it | KI-16, KI-17 | 🔴 | lead / careful — touches the same fields the F&F matcher compares; ships together with the 1.1 money-comparison fix, not separately | **Infrastructure done, not wired in (deliberately)**: `App\ValueObjects\Money` + `App\Casts\MoneyCast` built and unit-tested (10 tests, 22 assertions, all passing — proving the exact KI-17 and KI-18 scenarios). Not yet applied to any model's `$casts` or the Blade directive, since that changes `PayTransaction::handle`'s behavior and must ship together with the Phase 5.1 fix, not separately, per the continuity rule in 02-payment-system.md §2. |
+| 1.7 | Add GitHub Actions CI: composer install, `pint --test`, `php artisan test --testsuite=Unit,Feature` against a real MySQL 8 service container, Dusk as a separate non-blocking job, an image-build step | KI-12 | 🟡 | background agent, verified by lead (first CI run must actually go green) | **Paused** — see the pre-existing-uncommitted-work note at the top of this doc's changelog; dispatching CI now would surface unrelated pre-existing issues first. |
+
+## Phase 2 — Scheduler cutover + CI/CD (fixes KI-03, KI-09, KI-10, KI-12)
+
+Full design in [04-deployment.md](./04-deployment.md). Summary:
+
+| # | Workstream | Closes | Tier | Executor | Status |
+|---|---|---|---|---|---|
+| 2.1 | Add `withoutOverlapping()`/`onOneServer()` to the reconciliation (and other money-touching) scheduled tasks, backed by Redis cache; add dead-man's-switch pings on success/failure | KI-03 | 🔴 | lead / careful — the single highest-leverage availability fix in the whole system | DONE 2026-10-16: `withoutOverlapping(10)` (30 for the hourly cleanup) + `onOneServer()` on all four scheduled tasks, short lock expiry on purpose so a crashed run cannot block reconciliation for the 24h default; tested in `tests/Unit/Console/KernelScheduleTest.php` |
+| 2.2 | Stand up Kamal 2 targeting the existing VPS: one multi-stage Dockerfile, three roles (`web`/`scheduler`/`worker`) from one image, `kamal-proxy` for TLS+zero-downtime swap, replacing `docker-compose.yml.prod` + the standalone `certbot` container + hardcoded nginx config | KI-10 | 🟡 | background agent to scaffold, lead to verify a real staging deploy | pending (needs the staging server) |
+| 2.3 | Cut the scheduler over per the zero-gap sequence in [04-deployment.md](./04-deployment.md) §2: add `scheduler` container alongside the old pinger route → soak one cycle → make the old route a no-op 200 → soak another cycle → delete the route | KI-03 (completion) | 🔴 | lead / careful, staged over multiple deploys by design, not a single PR | pending (needs the staging server) |
+| 2.4 | Wire `migrate --force --isolated` as a Kamal pre-deploy hook; adopt expand/contract migration discipline for `transactions`/`orders`/`payment_methods` going forward | — (deployment infra) | 🟡 | background agent to scaffold, lead to verify | pending (needs the staging server) |
+| 2.5 | Wire up Sentry (`SENTRY_LARAVEL_DSN` is currently empty) and `spatie/laravel-backup` to MinIO + one offsite copy, both on the same dead-man's-switch monitoring as 2.1 | — (observability) | 🟢 | background agent | pending (needs the staging server) |
+
+## Phase 3 — Test suite buildout (continues Phase 1.1, ordered per [03-testing-strategy.md](./03-testing-strategy.md))
+
+| # | Workstream | Tier | Executor | Status |
+|---|---|---|---|---|
+| 3.1 | Unit tests for the now-extracted pure pieces (reference generation/extraction, amount parsing, match policy) once Phase 1.1's characterization tests make the extraction safe | 🔴 | lead / careful | partly covered (Money, cast, F&F matcher, PayPal client/flow tests exist); the match policy is not extracted into a pure class yet |
+| 3.2 | Feature tests for the admin CSV-upload → scan-report pipeline and the scheduler registration itself | 🔴 | lead / careful | DONE 2026-10-17: `tests/Feature/Payment/PayPalFriendsFamilyReportPipelineTest.php` (upload permission, upload to scan to processed, invalid row, overlapping exports) and `tests/Unit/Console/KernelScheduleTest.php`. Found and fixed a double-count of replayed CSV rows |
+| 3.3 | Feature tests for cart/order lifecycle, including the now-fixed KI-05 sold-out error and the shared `Transaction`/`Order` state-transition code | 🟡 | background agent, reviewed by lead | DONE 2026-10-17: `tests/Feature/Cart/CartOrderLifecycleTest.php` (12 tests: add to cart, KI-05 sold-out error, F&F order creation, unknown method rejected, PayPal admin-only gating, PayPal redirect and API-failure fallback, success page guard). Surfaced KI-22 to KI-25 |
+| 3.4 | Elapsed-time tests (fixed clock, both comparison directions) for order-finishing/reminder/cleanup jobs, ahead of the Laravel 11→12 rung | 🟡 | background agent, reviewed by lead — this one specifically gates Phase 4's rung 4 | DONE 2026-10-17: `PaymentReminderCheckTest` (10 tests) and `CleanUpOrphansTest` (8 tests), fixed clock, both sides of each boundary; surfaced KI-19 to KI-21 |
+| 3.5 | Small Dusk smoke suite: happy-path checkout, sold-out path (retired in favor of Pest 4's browser plugin at Phase 4 rung 5) | 🟡 | background agent, reviewed by lead | pending |
+| 3.6 | Ordinary CRUD feature-test coverage for admin resources (events, content pages/categories/tags, roles/permissions, time schedules) | 🟢 | background agent(s), can fan out one per resource | DONE 2026-10-17 (three agents, re-run by lead): `EventsAndTicketsCrudTest` 30, `ContentCrudTest` 92, `AccessAndSchedulesCrudTest` 42 tests; views not rendered. Surfaced KI-27 to KI-31; fixed KI-26 |
+
+## Phase 4 — Framework/PHP upgrade ladder
+
+_One rung per deploy — never two at once — each gated by: Phase 3's test suite green, then one real reconciliation cycle observed successful in production before the next rung starts. Ladder and package notes below are from the independent architecture consultation; use Laravel Shift or Rector + rector-laravel for the mechanical part of each rung, the value is in deploying one at a time, not in doing the edits by hand._
+
+| Rung | Change | Forced package bumps | What specifically to watch in the payment path |
+|---|---|---|---|
+| 0 | (Done in Phase 0/1) Delete stale `docker/` folders, one Dockerfile, CI on the current PHP 8.0 image | none | baseline |
+| 1 | PHP 8.0 → 8.2 (Laravel 9 supports up to 8.2; skip 8.1 as its own stop) | none in theory, run `composer update -W` | PHP 8.1 deprecates passing `null` into internal string functions (`trim`/`strlen`/`str_replace` on empty CSV cells — directly in the matcher's path); PHP 8.2 deprecates dynamic properties on plain classes (any CSV-row DTO assigning undeclared fields) |
+| 2 | Laravel 9 → 10 | `laravel/ui` 4.x, `lorisleiva/laravel-actions` bump, PHPUnit 10/Collision 7 | `$dates` on models is removed (use `$casts` — do this as part of Phase 1.6's money-casting work, not twice); `dispatchNow()` → `dispatchSync()`; overridden `Kernel`/`Handler`/command method signatures need matching native return types |
+| 3 | Laravel 10 → 11 (PHP 8.2 still) | Sanctum 4, MediaLibrary 11, Yajra 11, `laravel-actions` 2.9.x | Doctrine DBAL removed: any migration using `->change()` must restate every modifier (nullable/default/comment) or they're silently dropped — relevant to every future `transactions`/`orders` migration |
+| 4 | Laravel 11 → 12 | Carbon 3 mandatory | **Most likely rung to silently change payment behavior** — Carbon 3's `diffInHours`/`diffInDays`/etc. return signed floats instead of Carbon 2's absolute integers, which can flip the direction of an "order older than X" check. Phase 3.4's elapsed-time tests are the required precondition for this rung |
+| 5 | PHP 8.2 → 8.3 (Laravel 12) | none | quiet rung; also unlocks Pest 4 per [03-testing-strategy.md](./03-testing-strategy.md) |
+| 6 | Laravel 12 → 13 | Tinker 3, PHPUnit 12/Pest 4, Yajra 13, `laravel-actions` 2.12, MediaLibrary 11.23+, `laravel/ui` 4.6.3+ | Session cookie name format changes (underscore → hyphen) — **logs every user out on deploy unless `SESSION_COOKIE` is set explicitly first**; audit any cached PHP objects against the now-hardened-by-default deserialization |
+| 7 | PHP 8.3 → 8.4 (recommended, not strictly required) | none | implicit-nullable-parameter deprecations in older code; some Laravel 13 patch versions pull Symfony components that hard-require 8.4, so either do this promptly or pin below the affected patch line |
+
+Package notes that apply across the whole ladder: `laravel/ui` is a non-issue (the generated scaffolding lives in your own controllers/views; only the package version resolves). `lorisleiva/laravel-actions` is a single-maintainer package whose supported Laravel range shifts almost every rung — if it ever lags, the two payment action classes are plain classes with one trait and can have that trait removed as a pre-emptive de-risking move. Yajra/MediaLibrary/Sanctum are admin/media-only, never on the payment path, but still need a version bump per rung to keep `composer update` resolvable.
+
+**Blade routing note**: Phase 1.5 (the KI-15 catch-all-route fix) must land before rung 0/1 of this ladder, because `route:cache` baked into the Phase 2 Kamal image build has no DB available at build time — the dynamic per-page route registration would break the build entirely otherwise.
+
+## Phase 5 — Payment system completion (fixes KI-01, KI-02 completion, KI-04)
+
+| # | Workstream | Tier | Executor | Status |
+|---|---|---|---|---|
+| 5.1 | Fix KI-02 (underpayment branch) and KI-17 (money comparison) together in the F&F `PayTransaction::handle`, proven by the Phase 1.1 tests flipping from pinned-bug to pinned-fix | 🔴 | lead / careful | DONE (KI-02 + KI-17 fixed together; Money value object + MoneyCast; PayTransaction tests flipped to pinned-fix) |
+| 5.2 | Make PayPal F&F CSV column names configurable (env/config) instead of hardcoded German strings; add a loud failure when expected columns are entirely missing | 🔴 | lead / careful (same file as the live reconciliation logic) | DONE (config/paypal_ff.php + loud header check in scan command; KI-04) |
+| 5.3 | **Business decision, not just engineering**: confirm with PayPal directly whether the existing F&F-receiving account can also receive standard Business payments, or whether a second, separate PayPal Business account is required (F&F is against PayPal's ToS for commercial sales and risks account limitation) — this affects Phase 5.4's account configuration, so resolve it before building | — | you / business decision | DECIDED 2026-10-16: two separate PayPal accounts (F&F stays as is; new Business account for standard checkout). Opening it is an external prerequisite for 5.5 |
+| 5.4 | Build standard PayPal: thin `Http`-facade client on Orders v2 REST API, server-side redirect flow, webhook receiver with signature verification + idempotent event handling, reusing the existing 10-char reference as PayPal's `custom_id` so the F&F CSV export becomes a backstop for missed webhooks — full design in [02-payment-system.md](./02-payment-system.md) §3. Ship as a new, additive `PaymentMethod` row with `enabled = false` | KI-01 | 🔴 | lead / careful — new payment code, by definition payment-critical | BUILT 2026-10-16, inactive (`active=false`, `admin_only=true`); verified against faked PayPal HTTP only, sandbox run pending Business credentials |
+| 5.5 | Sandbox-test 5.4, then enable for an admin allowlist in production, run one real small-value end-to-end test (confirm the webhook arrives and the reference shows up in a PayPal export too), then flip `enabled = true` for everyone | KI-01 (completion) | 🔴 | lead / careful, explicit go/no-go decision point | IN PROGRESS: sandbox auth, create-order and webhook-verify checked 2026-10-16; remaining: buyer approval + capture, real webhook delivery, admin-only run on staging, one real small payment, go/no-go |
+
+## Phase 6 — Cleanup & polish
+
+| # | Workstream | Tier | Executor |
+|---|---|---|---|
+| 6.1 | Reconcile `CartService`'s session+DB hybrid cart model for correctness under concurrent stock decrement (needs its own focused investigation — flagged here, not yet a confirmed-repro known issue) | 🟡 | background agent to investigate + propose, lead to implement if payment/order-adjacent |
+| 6.2 | General code style pass with `pint` now that CI enforces it | 🟢 | background agent |
+| 6.3 | Remove `tests/Unit/ExampleTest.php` and any other placeholder tests once real coverage supersedes them | 🟢 | background agent |
+| 6.4 | Pin accessory container versions (MySQL, Redis, MinIO, Meilisearch) explicitly; schedule their upgrades independently of the Laravel ladder (Meilisearch specifically needs a dump/restore between its own version bumps) | 🟢 | background agent |
+
+## Dependency notes
+
+- Phase 1 (safety net, including the characterization tests) must exist before Phase 2 (scheduler cutover) and before any Phase 5 payment-logic change — nothing in those phases is safe to do blind.
+- Phase 2 (CI/CD via Kamal) should be in place before Phase 4 (version ladder) starts, so every upgrade rung has image-per-commit builds and one-command rollback as its own safety net.
+- Phase 1.5 (KI-15 catch-all route) must land before Phase 2.2 (Kamal image build bakes in `route:cache`).
+- Phase 3.4 (elapsed-time tests) specifically gates Phase 4 rung 4 (Laravel 11→12 / Carbon 3).
+- Phase 5 (standard PayPal) can start earlier than Phase 4 completes if business pressure demands it — the thin `Http`-facade client works identically on Laravel 9 — but must never start before Phase 1-2 (F&F's safety net and scheduler reliability) are in place.
+
+## Architecture consultation — key findings integrated above
+
+An independent architecture consultation (`claude-fable-5-1`, max effort, 2026-10-16) was run in parallel with drafting this doc set to validate the upgrade sequencing, scheduler design, PayPal implementation choice, deployment target, and testing tool timeline. Its findings materially improved three things already folded into the phases above, rather than left as a separate opinion to reconcile later:
+1. **Deployment target**: changed from a generic "GitHub Actions + docker-compose pull" sketch to the concrete Kamal 2 design in Phase 2 / [04-deployment.md](./04-deployment.md), with a named single-host trade-off and mitigation.
+2. **Testing tooling sequencing**: changed from "adopt Pest now" to "stay on PHPUnit until PHP 8.3, switch at rung 5" — avoids fighting version constraints for zero near-term benefit.
+3. **Upgrade ladder specificity**: the rung-by-rung table in Phase 4 above, with the Carbon 3 sign-flip risk and the session-cookie-format risk at Laravel 13 both being concrete, version-researched hazards that a generic "upgrade incrementally" recommendation would have missed.
+
+It also flagged, and this doc set now reflects: the PayPal Friends & Family ToS/account-separation business risk (Phase 5.3), the reused-reference-as-backstop PayPal design (Phase 5.4), and confirmed the KI-15 route-caching blocker as a real prerequisite for Phase 2's deploy design. One note from its own research for completeness: it does not have direct filesystem access to this repository and grounded its analysis in the detailed description passed to it plus external version/release research (Packagist, GitHub releases, Laravel/Pest/Kamal docs) — all facts specific to *this* codebase (file paths, the KI numbers, the exact bugs) come from this review's own direct reading of the code, not from the consultation.

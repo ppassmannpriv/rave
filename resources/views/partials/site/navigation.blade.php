@@ -33,6 +33,12 @@
                     <span class="sr-only">@schleuse_eins on Instagram</span>
                 </a>
             </div>
+            <div class="d-flex">
+                <a class="gradient-hover social-link" href="/user" title="User Account">
+                    <i class="fa-regular fa-user"></i>
+                    <span class="sr-only">User Account</span>
+                </a>
+            </div>
         </div>
     </div>
     @endif

@@ -11,6 +11,10 @@ class PermissionsTableSeeder extends Seeder
     {
         $permissions = [
             [
+                'id'    => 0,
+                'title' => 'admin_panel_access',
+            ],
+            [
                 'id'    => 1,
                 'title' => 'user_management_access',
             ],
@@ -228,35 +232,31 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 55,
-                'title' => 'payment_create',
+                'title' => 'order_cancel',
             ],
             [
                 'id'    => 56,
-                'title' => 'payment_edit',
+                'title' => 'payment_create',
             ],
             [
                 'id'    => 57,
-                'title' => 'payment_show',
+                'title' => 'payment_edit',
             ],
             [
                 'id'    => 58,
-                'title' => 'payment_delete',
+                'title' => 'payment_show',
             ],
             [
                 'id'    => 59,
-                'title' => 'payment_access',
+                'title' => 'payment_delete',
             ],
             [
                 'id'    => 60,
-                'title' => 'profile_password_edit',
+                'title' => 'payment_access',
             ],
             [
                 'id'    => 61,
-                'title' => 'order_cancel'
-            ],
-            [
-                'id'    => 62,
-                'title' => 'order_abort'
+                'title' => 'profile_password_edit',
             ],
             [
                 'id'    => 1000,
@@ -267,48 +267,48 @@ class PermissionsTableSeeder extends Seeder
                 'title' => 'customer_registered'
             ],
             [
-                'id'    => 2001,
-                'time_schedule_shift_access'
+                'id'    => 1002,
+                'title' => 'customer_registered'
             ],
             [
-                'id'    => 2002,
-                'time_schedule_shift_show'
+                'id'    => 1003,
+                'title' => 'customer_update_account'
             ],
             [
-                'id'    => 2003,
-                'time_schedule_shift_create'
+                'id'    => 1101,
+                'title' => 'time_schedule_show',
             ],
             [
-                'id'    => 2004,
-                'time_schedule_shift_edit'
+                'id'    => 1102,
+                'title' => 'time_schedule_create',
             ],
             [
-                'id'    => 2005,
-                'time_schedule_shift_delete'
+                'id'    => 1103,
+                'title' => 'time_schedule_edit',
             ],
             [
-                'id'    => 2101,
-                'time_schedule_access'
+                'id'    => 1104,
+                'title' => 'time_schedule_delete'
             ],
             [
-                'id'    => 2102,
-                'time_schedule_show'
+                'id'    => 1200,
+                'title' => 'time_schedule_shift_access',
             ],
             [
-                'id'    => 2103,
-                'time_schedule_create'
+                'id'    => 1201,
+                'title' => 'time_schedule_shift_show',
             ],
             [
-                'id'    => 2104,
-                'time_schedule_edit'
+                'id'    => 1202,
+                'title' => 'time_schedule_shift_create',
             ],
             [
-                'id'    => 2105,
-                'time_schedule_delete'
+                'id'    => 1203,
+                'title' => 'time_schedule_shift_edit',
             ],
             [
-                'id'    => 2200,
-                'metrics'
+                'id'    => 1204,
+                'title' => 'time_schedule_shift_delete'
             ],
         ];
 

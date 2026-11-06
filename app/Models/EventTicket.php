@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Events\EventTicketCreatedEvent;
-use App\Events\EventTicketUpdatedEvent;
 use App\Models\Order\OrderItem;
 use \DateTimeInterface;
 use Carbon\Carbon;
@@ -42,9 +41,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|EventTicket whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|EventTicket withTrashed()
  * @method static \Illuminate\Database\Query\Builder|EventTicket withoutTrashed()
- * @property-read int|null $event_ticket_codes_count
- * @method static \Illuminate\Database\Eloquent\Builder|EventTicket whereCap($value)
- * @method static \Illuminate\Database\Eloquent\Builder|EventTicket whereStock($value)
  * @mixin \Eloquent
  */
 class EventTicket extends Model
@@ -54,8 +50,6 @@ class EventTicket extends Model
 
     public const TICKET_TYPE_RADIO = [
         'early_bird' => 'Early Bird',
-        'phase_1'    => 'Phase I',
-        'phase_2'    => 'Phase II',
         'regular'    => 'Regular',
         'guest_list' => 'Guest List',
         'vip'        => 'VIP',
@@ -86,7 +80,6 @@ class EventTicket extends Model
 
     protected $dispatchesEvents = [
         'created' => EventTicketCreatedEvent::class,
-        'updated' => EventTicketUpdatedEvent::class,
     ];
 
     public function event()
@@ -126,7 +119,7 @@ class EventTicket extends Model
 
     public function delete()
     {
-        if (OrderItem::where('cart_item_id', '=', $this->id)->get()->count()) {
+        if (OrderItem::where('event_ticket_id', '=', $this->id)->get()->count()) {
             throw new \Exception('Sorry, you cannot delete this ticket. It has been ordered.');
         }
         return parent::delete();
@@ -134,30 +127,21 @@ class EventTicket extends Model
 
     public function eventTicketSold(): int
     {
-        $qty = 0;
-        foreach ($this->eventTicketCodes as $eventTicketCode) {
-            if ($eventTicketCode->orderItem !== null) {
-                $qty++;
-            }
-        }
+        return $this->eventTicketCodes()->whereNotNull('order_item_id')->count();
+    }
 
-        return $qty;
+    public function hasStockFor(int $qty): bool
+    {
+        return $this->stock >= $qty;
     }
 
     public function isAvailable(): bool
     {
-        $now = Carbon::now();
-        $to = new Carbon($this->to);
-
-        if ($now->isBefore($to) === false) {
-            return false;
-        }
-
-        return $this->stock > 0;
-    }
-
-    public function getType()
-    {
-        return self::TICKET_TYPE_RADIO[$this->ticket_type];
+	$now = Carbon::now();
+	$to = new Carbon($this->to);
+	if ($now->isBefore($to) === false) {
+	    return false;
+	}
+        return $this->stock > 0 && $this->eventTicketSold() < $this->cap;
     }
 }
