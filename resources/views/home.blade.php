@@ -2,7 +2,7 @@
 @section('content')
 <div class="content">
     <div class="row">
-        @if ($events !== null)
+        @if ($event !== null)
             <div class="col-lg-4">
                 @include('admin.partials.dashboard.nextEventStats')
             </div>

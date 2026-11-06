@@ -21,3 +21,9 @@
     <strong>{{ $message }}</strong>
 </div>
 @endif
+
+@if ($message = Session::get('message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ $message }}</strong>
+    </div>
+@endif

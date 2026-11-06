@@ -2,18 +2,13 @@
 
 namespace App\Providers;
 
-use App\Listeners\OrderEventTicketGenerationListener;
+use App\Events\EventTicketCreatedEvent;
 use App\Events\OrderEventTicketGenerationEvent;
+use App\Listeners\EventTicketCreatedListener;
+use App\Listeners\OrderEventTicketGenerationListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use App\Events\EventTicketCreatedEvent;
-use App\Events\EventTicketUpdatedEvent;
-use App\Events\TransactionSavedEvent;
-use App\Events\OrderSavedEvent;
-use App\Listeners\EventTicketCreatedListener;
-use App\Listeners\EventTicketUpdatedListener;
-use App\Listeners\TransactionPaidListener;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -29,14 +24,8 @@ class EventServiceProvider extends ServiceProvider
         EventTicketCreatedEvent::class => [
             EventTicketCreatedListener::class,
         ],
-        EventTicketUpdatedEvent::class => [
-            EventTicketUpdatedListener::class,
-        ],
         OrderEventTicketGenerationEvent::class => [
-            OrderEventTicketGenerationListener::class
-        ],
-        TransactionSavedEvent::class => [
-            TransactionPaidListener::class
+            OrderEventTicketGenerationListener::class,
         ],
     ];
 

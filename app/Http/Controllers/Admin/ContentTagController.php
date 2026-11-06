@@ -8,7 +8,6 @@ use App\Http\Requests\StoreContentTagRequest;
 use App\Http\Requests\UpdateContentTagRequest;
 use App\Models\ContentTag;
 use Gate;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ContentTagController extends Controller

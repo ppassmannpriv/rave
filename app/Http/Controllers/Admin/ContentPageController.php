@@ -45,7 +45,7 @@ class ContentPageController extends Controller
         $contentPage->categories()->sync($request->input('categories', []));
         $contentPage->tags()->sync($request->input('tags', []));
         if ($request->input('featured_image', false)) {
-            $contentPage->addMedia(storage_path('tmp/uploads/' . basename($request->input('featured_image'))))->toMediaCollection('featured_image');
+            $contentPage->addMedia(storage_path('tmp/uploads/'.basename($request->input('featured_image'))))->toMediaCollection('featured_image');
         }
 
         if ($media = $request->input('ck-media', false)) {
@@ -81,7 +81,7 @@ class ContentPageController extends Controller
                 if ($contentPage->featured_image && $request->input('featured_image') !== $contentPage?->featured_image?->file_name) {
                     $contentPage->featured_image->delete();
                 }
-                $contentPage->addMedia(storage_path('tmp/uploads/' . basename($request->input('featured_image'))))->toMediaCollection('featured_image');
+                $contentPage->addMedia(storage_path('tmp/uploads/'.basename($request->input('featured_image'))))->toMediaCollection('featured_image');
             }
         } elseif ($contentPage->featured_image) {
             $contentPage->featured_image->delete();
@@ -120,10 +120,10 @@ class ContentPageController extends Controller
     {
         abort_if(Gate::denies('content_page_create') && Gate::denies('content_page_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $model         = new ContentPage();
-        $model->id     = $request->input('crud_id', 0);
+        $model = new ContentPage();
+        $model->id = $request->input('crud_id', 0);
         $model->exists = true;
-        $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
+        $media = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
 
         return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
     }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Site;
 
-use App\Models\ContentCategory;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +19,7 @@ class AddToCartRequest extends FormRequest
     public function rules()
     {
         return [
-            'event_ticket_id'   => 'required|integer|exists:event_tickets,id',
+            'event_ticket_id' => 'required|integer|exists:event_tickets,id',
             'qty' => 'min:1|max:4|integer',
         ];
     }

@@ -8,7 +8,6 @@ use App\Http\Requests\StoreContentCategoryRequest;
 use App\Http\Requests\UpdateContentCategoryRequest;
 use App\Models\ContentCategory;
 use Gate;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ContentCategoryController extends Controller

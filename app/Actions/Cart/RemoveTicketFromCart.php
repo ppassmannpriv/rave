@@ -2,7 +2,6 @@
 
 namespace App\Actions\Cart;
 
-use App\Models\EventTicket;
 use App\Services\CartService;
 use Lorisleiva\Actions\Concerns\AsAction;
 

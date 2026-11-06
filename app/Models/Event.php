@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
-use \DateTimeInterface;
 use Carbon\Carbon;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use App\Models\Order\OrderItem;
-use App\Models\Order;
 
 /**
  * App\Models\Event
@@ -29,6 +27,7 @@ use App\Models\Order;
  * @property-read int|null $event_event_tickets_count
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|Media[] $media
  * @property-read int|null $media_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Event newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Event newQuery()
  * @method static \Illuminate\Database\Query\Builder|Event onlyTrashed()
@@ -44,7 +43,7 @@ use App\Models\Order;
  * @method static \Illuminate\Database\Eloquent\Builder|Event whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Event withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Event withoutTrashed()
- * @property-read int|null $event_tickets_count
+ *
  * @mixin \Eloquent
  */
 class Event extends Model implements HasMedia
@@ -85,29 +84,12 @@ class Event extends Model implements HasMedia
         return $this->hasMany(EventTicket::class, 'event_id', 'id');
     }
 
-    public function eventTicketsReserved(): int
-    {
-        $qty = 0;
-        foreach ($this->eventTickets as $eventTicket) {
-            $orderItems = OrderItem::where('event_ticket_id', '=', $eventTicket->id)->get();
-            foreach ($orderItems as $orderItem) {
-                if ($orderItem?->cartItem?->type === 'TICKET') {
-                    if ($orderItem?->order?->status === Order::STATUS_INITIALIZED) {
-                        $qty += $orderItem->qty;
-                    }
-                }
-            }
-        }
-
-        return $qty;
-    }
-
     public function eventTicketsSold(): int
     {
         $qty = 0;
         foreach ($this->eventTickets as $eventTicket) {
             foreach ($eventTicket->eventTicketCodes as $eventTicketCode) {
-                if ($eventTicketCode->isSold()) {
+                if ($eventTicketCode->orderItem !== null) {
                     $qty++;
                 }
             }
@@ -121,7 +103,7 @@ class Event extends Model implements HasMedia
         $price = 0;
         foreach ($this->eventTickets as $eventTicket) {
             foreach ($eventTicket->eventTicketCodes as $eventTicketCode) {
-                if ($eventTicketCode->isSold()) {
+                if ($eventTicketCode->orderItem !== null) {
                     $price += $eventTicket->price;
                 }
             }
@@ -132,33 +114,26 @@ class Event extends Model implements HasMedia
 
     public function getStartAttribute($value)
     {
-        return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
+        return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format').' '.config('panel.time_format')) : null;
     }
 
     public function setStartAttribute($value)
     {
-        $this->attributes['start'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
+        $this->attributes['start'] = $value ? Carbon::createFromFormat(config('panel.date_format').' '.config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
     }
 
     public function getEndAttribute($value)
     {
-        return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
+        return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format').' '.config('panel.time_format')) : null;
     }
 
     public function setEndAttribute($value)
     {
-        $this->attributes['end'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
+        $this->attributes['end'] = $value ? Carbon::createFromFormat(config('panel.date_format').' '.config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
     }
 
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
-    }
-
-    public function isOver(): bool
-    {
-        $now = Carbon::now();
-        $end = new Carbon($this->end);
-        return !$now->isBefore($end);
     }
 }

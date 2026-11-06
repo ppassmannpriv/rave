@@ -116,6 +116,9 @@
                                     <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Hello {{ $order->user->name }},</p>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">We are still awaiting your payment! Please send us your payment as soon as possible within the next 24h! After 24h we will cancel your order to free up your ticket for other guests.</p>
+                                        @if($order->transaction->paymentMethod->alias === 'paypal')
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Your PayPal payment was not completed. If you ran into a problem while paying, please contact us and we will help you.</p>
+                                        @else
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
                                             <strong>Please read the following payment instructions:</strong>
                                         </p>
@@ -124,6 +127,7 @@
                                             <li style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Transfer us the {{ $order->price }} EUR and as message please <strong>ONLY</strong> use {{ $order->transaction->reference }}</li>
                                             <li style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">Once you have completed the payment and we have checked it on our end, we will send you your ticket code.</li>
                                         </ul>
+                                        @endif
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
                                             Thank you again and we hope you will have a lot of fun and make great memories with us soon!
                                         </p>

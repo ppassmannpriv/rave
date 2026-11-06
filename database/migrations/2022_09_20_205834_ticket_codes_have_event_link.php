@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        if (Schema::hasColumn('event_ticket_codes', 'event_ticket_id') === false) {
-            Schema::table('event_ticket_codes', function (Blueprint $table) {
-                $table->unsignedBigInteger('event_ticket_id');
-            });
-        }
+        Schema::table('event_ticket_codes', function (Blueprint $table) {
+            $table->unsignedBigInteger('event_ticket_id');
+        });
     }
 
     /**

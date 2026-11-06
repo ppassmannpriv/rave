@@ -2,47 +2,30 @@
 
 namespace App\Models;
 
+use App\Models\PaymentMethod\PayPal;
+use App\Models\PaymentMethod\PayPalFriendsFamily;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\PaymentMethod\PayPalFriendsFamily;
-use App\Models\PaymentMethod\PayPalExpress;
 
-/**
- * App\Models\PaymentMethod
- *
- * @property int $id
- * @property string $alias
- * @property string $name
- * @property string $FQN
- * @property string|null $description
- * @property int $active
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod query()
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod whereActive($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod whereAlias($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod whereFQN($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentMethod whereUpdatedAt($value)
- * @mixin \Eloquent
- */
 class PaymentMethod extends Model
 {
     use HasFactory;
 
     public const ALIAS = null;
+
     public const CLASSMAP = [
         PayPalFriendsFamily::ALIAS => PayPalFriendsFamily::class,
-        PayPalExpress::ALIAS => PayPalExpress::class,
+        PayPal::ALIAS => PayPal::class,
     ];
 
     public $table = 'payment_methods';
+
     public $primaryKey = 'id';
+
+    protected $casts = [
+        'active' => 'boolean',
+        'admin_only' => 'boolean',
+    ];
 
     protected $dates = [
         'created_at',
@@ -53,11 +36,21 @@ class PaymentMethod extends Model
         'name',
         'alias',
         'active',
+        'admin_only',
         'FQN',
         'description',
         'created_at',
         'updated_at',
     ];
+
+    public function scopeSelectableBy($query, ?User $user)
+    {
+        if ($user !== null && $user->is_admin) {
+            return $query->where(fn ($q) => $q->where('active', true)->orWhere('admin_only', true));
+        }
+
+        return $query->where('active', true)->where('admin_only', false);
+    }
 
     public function model()
     {

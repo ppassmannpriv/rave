@@ -2,10 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Models\ContentPage;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Response;
 
 class StoreContentPageRequest extends FormRequest
 {
@@ -24,7 +22,7 @@ class StoreContentPageRequest extends FormRequest
             'path' => [
                 'string',
                 'required',
-                'unique:content_pages,path'
+                'unique:content_pages,path',
             ],
             'categories.*' => [
                 'integer',
@@ -40,7 +38,7 @@ class StoreContentPageRequest extends FormRequest
             ],
             'enabled' => [
                 'boolean',
-                'required'
+                'required',
             ],
             'index' => [
                 'boolean',

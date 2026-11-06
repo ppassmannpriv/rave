@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use \DateTimeInterface;
+use App\Models\Order\OrderItem;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Order\OrderItem;
 
 /**
  * App\Models\Order
@@ -18,10 +18,10 @@ use App\Models\Order\OrderItem;
  * @property string $status
  * @property int|null $user_id
  * @property int|null $transaction_id
- * @property float $price
  * @property-read \App\Models\Transaction|null $transaction
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order\OrderItem[] $orderItems
  * @property-read \App\Models\User|null $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
  * @method static \Illuminate\Database\Query\Builder|Order onlyTrashed()
@@ -35,11 +35,7 @@ use App\Models\Order\OrderItem;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|Order withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Order withoutTrashed()
- * @property int|null $payment_id
- * @property-read int|null $order_items_count
- * @method static \Illuminate\Database\Eloquent\Builder|Order wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereTransactionId($value)
+ *
  * @mixin \Eloquent
  */
 class Order extends Model
@@ -48,10 +44,15 @@ class Order extends Model
     use HasFactory;
 
     public const STATUS_INITIALIZED = 'initialized';
+
     public const STATUS_PROCESSING = 'processing';
+
     public const STATUS_REFUNDED = 'refunded';
+
     public const STATUS_PAID = 'paid';
+
     public const STATUS_CLOSED = 'closed';
+
     public const STATUS_CANCELLED = 'cancelled';
 
     public $table = 'orders';
@@ -90,10 +91,7 @@ class Order extends Model
     public function quantityItems(): int
     {
         $qty = 0;
-        foreach($this->orderItems as $orderItem) {
-            if ($orderItem->cartItem?->type === 'FEE') {
-                continue;
-            }
+        foreach ($this->orderItems as $orderItem) {
             $qty += $orderItem->qty;
         }
 
@@ -107,63 +105,10 @@ class Order extends Model
 
     public function isCancellable()
     {
-        return !in_array($this->status, [
+        return ! in_array($this->status, [
             static::STATUS_CLOSED,
             static::STATUS_CANCELLED,
-            static::STATUS_PAID
+            static::STATUS_PAID,
         ]);
-    }
-
-    public function toPayPalExpressArray(): array
-    {
-        $items = [];
-
-        /**
-         * @var ?Cart $cart
-         */
-        $cart = null;
-        foreach ($this->orderItems as $orderItem) {
-            if ($cart === null) {
-                $cart = $orderItem->cartItem->cart;
-            }
-
-            $name = null;
-            $description = null;
-            switch ($orderItem->cartItem) {
-                case 'FEE':
-                    $name = 'Transaction fee';
-                    $description = 'Transaction fees for ticketing, e-mail and PayPal.';
-                    break;
-                case 'TICKET':
-                    $name = $orderItem->eventTicket->getType();
-                    $description = $orderItem->eventTicket->event->name;
-                    break;
-                case 'VIRTUAL':
-                    $name = 'Virtual goods';
-                    $description = 'Non-physical assets.';
-                    break;
-                case 'SHIPPING':
-                    $name = 'Shipping cost';
-                    $description = 'Packaging, handling and posting of your orders.';
-                    break;
-            }
-
-            $items[] = [
-                'name' => $name,
-                'price' => $orderItem->single_price,
-                'description' => $description,
-                'quantity' => $orderItem->qty,
-            ];
-        }
-
-        return [
-            'amount' => $this->price,
-            'currency' => config('paypal.currency'),
-            'items' => $items,
-            'returnUrl' => url('payment/return'),
-            'cancelUrl' => url('payment/cancel'),
-            'transacionId' => $this->transaction->reference,
-            'noShipping' => 1,
-        ];
     }
 }

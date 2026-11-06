@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use \DateTimeInterface;
+use App\Contracts\Navigation;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use App\Contracts\Navigation;
 
 /**
  * App\Models\ContentPage
@@ -22,8 +22,8 @@ use App\Contracts\Navigation;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property string $path
- * @property boolean $enabled
- * @property boolean $index
+ * @property bool $enabled
+ * @property bool $index
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ContentCategory[] $categories
  * @property-read int|null $categories_count
  * @property-read mixed $featured_image
@@ -31,6 +31,7 @@ use App\Contracts\Navigation;
  * @property-read int|null $media_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ContentTag[] $tags
  * @property-read int|null $tags_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|ContentPage newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ContentPage newQuery()
  * @method static \Illuminate\Database\Query\Builder|ContentPage onlyTrashed()
@@ -44,9 +45,7 @@ use App\Contracts\Navigation;
  * @method static \Illuminate\Database\Eloquent\Builder|ContentPage whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|ContentPage withTrashed()
  * @method static \Illuminate\Database\Query\Builder|ContentPage withoutTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|ContentPage whereEnabled($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ContentPage whereIndex($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ContentPage wherePath($value)
+ *
  * @mixin \Eloquent
  */
 class ContentPage extends Model implements HasMedia
@@ -116,9 +115,9 @@ class ContentPage extends Model implements HasMedia
     {
         $file = $this->getMedia('featured_image')->last();
         if ($file) {
-            $file->url       = $file->getUrl();
+            $file->url = $file->getUrl();
             $file->thumbnail = $file->getUrl('thumb');
-            $file->preview   = $file->getUrl('preview');
+            $file->preview = $file->getUrl('preview');
         }
 
         return $file;

@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Site;
 
-use App\Models\ContentCategory;
-use App\Models\User;
+use App\Contracts\Cart;
+use App\Models\PaymentMethod;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,17 +21,23 @@ class OrderCartRequest extends FormRequest
     public function rules()
     {
         return [
-            'cart_item'   => 'required|array|exists:cart_items,id',
             'firstname' => 'required|string',
             'lastname' => 'required|string',
-            'street' => 'required|string',
-            'postcode' => 'required|string',
-            'city' => 'required|string',
-            'country' => 'required|in:' . implode(',', User::ALLOWED_COUNTRIES),
             'email' => 'required|email',
-            'payment_method' => 'required|string|exists:payment_methods,alias',
-            'general-terms-and-conditions' => 'required',
-            'data-protection-and-revocation' => 'required',
+            'payment_method' => ['required', 'string', function ($attribute, $value, $fail) {
+                if (PaymentMethod::selectableBy(auth()->user())->where('alias', $value)->exists() === false) {
+                    $fail('The selected payment method is not available.');
+                }
+            }],
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if (app(Cart::class)->content()->cartItems()->exists() === false) {
+                $validator->errors()->add('cart', 'There is nothing in your cart.');
+            }
+        });
     }
 }

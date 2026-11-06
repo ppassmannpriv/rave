@@ -8,13 +8,11 @@ class CreateEventTicketCodesTable extends Migration
 {
     public function up()
     {
-        if (Schema::hasTable('event_ticket_codes') === false) {
-            Schema::create('event_ticket_codes', function (Blueprint $table) {
-                $table->bigIncrements('id');
-                $table->string('code')->unique();
-                $table->timestamps();
-                $table->softDeletes();
-            });
-        }
+        Schema::create('event_ticket_codes', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('code')->unique();
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 }

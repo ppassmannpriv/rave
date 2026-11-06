@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'site_title' => config('app.name'),
+    'site_title' => 'SCHLEUSE EINS | Rave',
 ];

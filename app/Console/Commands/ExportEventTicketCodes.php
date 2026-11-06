@@ -3,9 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Models\Event;
-use League\Csv\Writer;
 use Illuminate\Console\Command;
-use SplTempFileObject;
+use League\Csv\Writer;
 
 class ExportEventTicketCodes extends Command
 {
@@ -35,7 +34,7 @@ class ExportEventTicketCodes extends Command
         $results = [];
         foreach ($event?->eventTickets as $eventTicket) {
             foreach ($eventTicket->eventTicketCodes()->whereNotNull('order_item_id')->get() as $eventTicketCode) {
-                $user = $eventTicketCode->orderItem?->order?->user;
+                $user = $eventTicketCode->orderItem->order->user;
                 $results[] = [
                     'Code' => $eventTicketCode->code,
                     'Ticket Type' => $eventTicket->ticket_type,
@@ -43,10 +42,10 @@ class ExportEventTicketCodes extends Command
                 ];
             }
         }
-        $this->info('Fetched ' . count($results) . ' event ticket codes.');
+        $this->info('Fetched '.count($results).' event ticket codes.');
 
-        $fileName = 'event-ticket-codes-' . \Str::slug($event->name) . '.csv';
-        $filePath = storage_path('app/exports/' . $fileName);
+        $fileName = 'event-ticket-codes-'.\Str::slug($event->name).'.csv';
+        $filePath = storage_path('app/exports/'.$fileName);
         touch($filePath);
         $writer = Writer::createFromPath($filePath);
         $writer->insertAll($results);

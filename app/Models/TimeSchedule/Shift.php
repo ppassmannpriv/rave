@@ -20,25 +20,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $start
  * @property \Illuminate\Support\Carbon|null $end
  * @property-read \App\Models\TimeSchedule $timeSchedule
- * @method static \Illuminate\Database\Eloquent\Builder|Shift newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Shift newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Shift query()
- * @method static \Illuminate\Database\Eloquent\Builder|Shift whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shift whereCrewOnly($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shift whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shift whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shift whereEnd($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shift whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shift whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shift whereStart($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shift whereTimeScheduleId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shift whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
-class Shift extends Model {
+class Shift extends Model
+{
     public const DATETIME_FORMAT = 'Y-m-d H:i:s';
 
     public $table = 'time_schedule_shifts';
+
     public $primaryKey = 'id';
 
     protected $dates = [
@@ -46,7 +36,7 @@ class Shift extends Model {
         'updated_at',
         'deleted_at',
         'start',
-        'end'
+        'end',
     ];
 
     protected $fillable = [
@@ -73,12 +63,13 @@ class Shift extends Model {
 
     public function isHelper(): bool
     {
-        return !$this->isCrewOnly();
+        return ! $this->isCrewOnly();
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return array
+     *
      * @throws \Throwable
      */
     public static function createRepeating(array $data): array

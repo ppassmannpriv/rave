@@ -11,304 +11,304 @@ class PermissionsTableSeeder extends Seeder
     {
         $permissions = [
             [
-                'id'    => 1,
+                'id' => 0,
+                'title' => 'admin_panel_access',
+            ],
+            [
+                'id' => 1,
                 'title' => 'user_management_access',
             ],
             [
-                'id'    => 2,
+                'id' => 2,
                 'title' => 'permission_create',
             ],
             [
-                'id'    => 3,
+                'id' => 3,
                 'title' => 'permission_edit',
             ],
             [
-                'id'    => 4,
+                'id' => 4,
                 'title' => 'permission_show',
             ],
             [
-                'id'    => 5,
+                'id' => 5,
                 'title' => 'permission_delete',
             ],
             [
-                'id'    => 6,
+                'id' => 6,
                 'title' => 'permission_access',
             ],
             [
-                'id'    => 7,
+                'id' => 7,
                 'title' => 'role_create',
             ],
             [
-                'id'    => 8,
+                'id' => 8,
                 'title' => 'role_edit',
             ],
             [
-                'id'    => 9,
+                'id' => 9,
                 'title' => 'role_show',
             ],
             [
-                'id'    => 10,
+                'id' => 10,
                 'title' => 'role_delete',
             ],
             [
-                'id'    => 11,
+                'id' => 11,
                 'title' => 'role_access',
             ],
             [
-                'id'    => 12,
+                'id' => 12,
                 'title' => 'user_create',
             ],
             [
-                'id'    => 13,
+                'id' => 13,
                 'title' => 'user_edit',
             ],
             [
-                'id'    => 14,
+                'id' => 14,
                 'title' => 'user_show',
             ],
             [
-                'id'    => 15,
+                'id' => 15,
                 'title' => 'user_delete',
             ],
             [
-                'id'    => 16,
+                'id' => 16,
                 'title' => 'user_access',
             ],
             [
-                'id'    => 17,
+                'id' => 17,
                 'title' => 'event_create',
             ],
             [
-                'id'    => 18,
+                'id' => 18,
                 'title' => 'event_edit',
             ],
             [
-                'id'    => 19,
+                'id' => 19,
                 'title' => 'event_show',
             ],
             [
-                'id'    => 20,
+                'id' => 20,
                 'title' => 'event_delete',
             ],
             [
-                'id'    => 21,
+                'id' => 21,
                 'title' => 'event_access',
             ],
             [
-                'id'    => 22,
+                'id' => 22,
                 'title' => 'ticket_access',
             ],
             [
-                'id'    => 23,
+                'id' => 23,
                 'title' => 'event_ticket_create',
             ],
             [
-                'id'    => 24,
+                'id' => 24,
                 'title' => 'event_ticket_edit',
             ],
             [
-                'id'    => 25,
+                'id' => 25,
                 'title' => 'event_ticket_show',
             ],
             [
-                'id'    => 26,
+                'id' => 26,
                 'title' => 'event_ticket_delete',
             ],
             [
-                'id'    => 27,
+                'id' => 27,
                 'title' => 'event_ticket_access',
             ],
             [
-                'id'    => 28,
+                'id' => 28,
                 'title' => 'content_management_access',
             ],
             [
-                'id'    => 29,
+                'id' => 29,
                 'title' => 'content_category_create',
             ],
             [
-                'id'    => 30,
+                'id' => 30,
                 'title' => 'content_category_edit',
             ],
             [
-                'id'    => 31,
+                'id' => 31,
                 'title' => 'content_category_show',
             ],
             [
-                'id'    => 32,
+                'id' => 32,
                 'title' => 'content_category_delete',
             ],
             [
-                'id'    => 33,
+                'id' => 33,
                 'title' => 'content_category_access',
             ],
             [
-                'id'    => 34,
+                'id' => 34,
                 'title' => 'content_tag_create',
             ],
             [
-                'id'    => 35,
+                'id' => 35,
                 'title' => 'content_tag_edit',
             ],
             [
-                'id'    => 36,
+                'id' => 36,
                 'title' => 'content_tag_show',
             ],
             [
-                'id'    => 37,
+                'id' => 37,
                 'title' => 'content_tag_delete',
             ],
             [
-                'id'    => 38,
+                'id' => 38,
                 'title' => 'content_tag_access',
             ],
             [
-                'id'    => 39,
+                'id' => 39,
                 'title' => 'content_page_create',
             ],
             [
-                'id'    => 40,
+                'id' => 40,
                 'title' => 'content_page_edit',
             ],
             [
-                'id'    => 41,
+                'id' => 41,
                 'title' => 'content_page_show',
             ],
             [
-                'id'    => 42,
+                'id' => 42,
                 'title' => 'content_page_delete',
             ],
             [
-                'id'    => 43,
+                'id' => 43,
                 'title' => 'content_page_access',
             ],
             [
-                'id'    => 44,
+                'id' => 44,
                 'title' => 'sale_access',
             ],
             [
-                'id'    => 45,
+                'id' => 45,
                 'title' => 'event_ticket_code_create',
             ],
             [
-                'id'    => 46,
+                'id' => 46,
                 'title' => 'event_ticket_code_edit',
             ],
             [
-                'id'    => 47,
+                'id' => 47,
                 'title' => 'event_ticket_code_show',
             ],
             [
-                'id'    => 48,
+                'id' => 48,
                 'title' => 'event_ticket_code_delete',
             ],
             [
-                'id'    => 49,
+                'id' => 49,
                 'title' => 'event_ticket_code_access',
             ],
             [
-                'id'    => 50,
+                'id' => 50,
                 'title' => 'order_create',
             ],
             [
-                'id'    => 51,
+                'id' => 51,
                 'title' => 'order_edit',
             ],
             [
-                'id'    => 52,
+                'id' => 52,
                 'title' => 'order_show',
             ],
             [
-                'id'    => 53,
+                'id' => 53,
                 'title' => 'order_delete',
             ],
             [
-                'id'    => 54,
+                'id' => 54,
                 'title' => 'order_access',
             ],
             [
-                'id'    => 55,
+                'id' => 55,
+                'title' => 'order_cancel',
+            ],
+            [
+                'id' => 56,
                 'title' => 'payment_create',
             ],
             [
-                'id'    => 56,
+                'id' => 57,
                 'title' => 'payment_edit',
             ],
             [
-                'id'    => 57,
+                'id' => 58,
                 'title' => 'payment_show',
             ],
             [
-                'id'    => 58,
+                'id' => 59,
                 'title' => 'payment_delete',
             ],
             [
-                'id'    => 59,
+                'id' => 60,
                 'title' => 'payment_access',
             ],
             [
-                'id'    => 60,
+                'id' => 61,
                 'title' => 'profile_password_edit',
             ],
             [
-                'id'    => 61,
-                'title' => 'order_cancel'
+                'id' => 1000,
+                'title' => 'customer_site',
             ],
             [
-                'id'    => 62,
-                'title' => 'order_abort'
+                'id' => 1001,
+                'title' => 'customer_registered',
             ],
             [
-                'id'    => 1000,
-                'title' => 'customer_site'
+                'id' => 1002,
+                'title' => 'customer_registered',
             ],
             [
-                'id'    => 1001,
-                'title' => 'customer_registered'
+                'id' => 1003,
+                'title' => 'customer_update_account',
             ],
             [
-                'id'    => 2001,
-                'time_schedule_shift_access'
+                'id' => 1101,
+                'title' => 'time_schedule_show',
             ],
             [
-                'id'    => 2002,
-                'time_schedule_shift_show'
+                'id' => 1102,
+                'title' => 'time_schedule_create',
             ],
             [
-                'id'    => 2003,
-                'time_schedule_shift_create'
+                'id' => 1103,
+                'title' => 'time_schedule_edit',
             ],
             [
-                'id'    => 2004,
-                'time_schedule_shift_edit'
+                'id' => 1104,
+                'title' => 'time_schedule_delete',
             ],
             [
-                'id'    => 2005,
-                'time_schedule_shift_delete'
+                'id' => 1200,
+                'title' => 'time_schedule_shift_access',
             ],
             [
-                'id'    => 2101,
-                'time_schedule_access'
+                'id' => 1201,
+                'title' => 'time_schedule_shift_show',
             ],
             [
-                'id'    => 2102,
-                'time_schedule_show'
+                'id' => 1202,
+                'title' => 'time_schedule_shift_create',
             ],
             [
-                'id'    => 2103,
-                'time_schedule_create'
+                'id' => 1203,
+                'title' => 'time_schedule_shift_edit',
             ],
             [
-                'id'    => 2104,
-                'time_schedule_edit'
-            ],
-            [
-                'id'    => 2105,
-                'time_schedule_delete'
-            ],
-            [
-                'id'    => 2200,
-                'metrics'
+                'id' => 1204,
+                'title' => 'time_schedule_shift_delete',
             ],
         ];
 

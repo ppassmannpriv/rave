@@ -2,6 +2,7 @@
 
 namespace App\Models\Transaction;
 
+use App\Casts\MoneyCast;
 use App\Models\Transaction;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,24 +16,18 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Transaction|null $transaction
- * @method static \Illuminate\Database\Eloquent\Builder|PartialTransaction newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|PartialTransaction newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|PartialTransaction query()
- * @method static \Illuminate\Database\Eloquent\Builder|PartialTransaction whereAmount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PartialTransaction whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PartialTransaction whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PartialTransaction whereRaw($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PartialTransaction whereTransactionId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PartialTransaction whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class PartialTransaction extends Model
 {
     public $table = 'transaction_partials';
+
     public $primaryKey = 'id';
 
     protected $casts = [
-        'raw' => 'array'
+        'raw' => 'array',
+        'amount' => MoneyCast::class,
     ];
 
     protected $dates = [
@@ -42,6 +37,7 @@ class PartialTransaction extends Model
 
     protected $fillable = [
         'transaction_id',
+        'external_id',
         'amount',
         'raw',
         'created_at',

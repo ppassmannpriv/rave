@@ -2,10 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Payment;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Response;
 
 class UpdatePaymentRequest extends FormRequest
 {
@@ -30,7 +28,7 @@ class UpdatePaymentRequest extends FormRequest
                 'string',
                 'min:6',
                 'required',
-                'unique:transactions,reference,' . request()->route('payment'),
+                'unique:transactions,reference,'.request()->route('payment'),
             ],
         ];
     }

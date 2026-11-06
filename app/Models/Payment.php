@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use \DateTimeInterface;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newQuery()
  * @method static \Illuminate\Database\Query\Builder|Payment onlyTrashed()
@@ -32,6 +33,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Payment withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Payment withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 class Payment extends Model
@@ -41,15 +43,14 @@ class Payment extends Model
 
     public const PROVIDER_RADIO = [
         1 => 'PayPal for Friends & Family',
-        2 => 'PayPal Express',
     ];
 
     public const STATE_SELECT = [
         'initialized' => 'Initialized',
-        'processing'  => 'Processing',
-        'paid'        => 'Paid',
-        'cancelled'   => 'Cancelled',
-        'timed_out'   => 'Timed out',
+        'processing' => 'Processing',
+        'paid' => 'Paid',
+        'cancelled' => 'Cancelled',
+        'timed_out' => 'Timed out',
     ];
 
     public $table = 'payments';
@@ -65,9 +66,6 @@ class Payment extends Model
         'amount',
         'state',
         'reference',
-        'payment_id',
-        'payer_id',
-        'payer_email',
         'created_at',
         'updated_at',
         'deleted_at',

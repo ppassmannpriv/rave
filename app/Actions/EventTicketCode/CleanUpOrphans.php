@@ -23,7 +23,7 @@ class CleanUpOrphans
                         || ($order !== null && $order->status === Order::STATUS_CANCELLED)) {
                         $eventTicketCode->orderItem()->disassociate();
                         $eventTicketCode->save();
-                        Log::info('Cleared Event Ticket Code: ' . $eventTicketCode->code);
+                        Log::info('Cleared Event Ticket Code: '.$eventTicketCode->code);
                         $eventTicket->stock++;
                     }
                 }

@@ -1,4 +1,5 @@
 <?php
+
 // Admin routing
 Route::redirect('/admin', '/login');
 Auth::routes(['register' => false]);
@@ -56,7 +57,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('orders/destroy', 'OrderController@massDestroy')->name('orders.massDestroy');
     Route::resource('orders', 'OrderController');
     Route::get('orders/{id}/cancel', 'OrderController@cancel')->name('orders.cancel');
-    Route::get('orders/{id}/abort', 'OrderController@abort')->name('orders.abort');
 
     // Payment
     Route::delete('payments/destroy', 'PaymentController@massDestroy')->name('payments.massDestroy');
@@ -65,11 +65,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('paymentMethods/index', 'PaymentMethodController@index')->name('paymentMethods.index');
     Route::post('paymentMethods/upload', 'PaymentMethodController@uploadCsv')->name('paymentMethods.uploadCsv');
 
-    Route::get('bookkeeping/index', 'BookkeepingController@index')->name('bookkeeping.index');
-
     Route::get('tasks/schedule/index', 'TaskScheduleController@index')->name('tasks.schedule.index');
-
-    Route::get('metrics/index', 'MetricsController@index')->name('metrics.index');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password
@@ -92,43 +88,34 @@ Route::get('/cart/remove/{id}', '\App\Http\Controllers\Site\CartController@remov
 Route::post('/cart/order', '\App\Http\Controllers\Site\CartController@orderCart')->name('cart.order');
 Route::get('/cart/success', '\App\Http\Controllers\Site\CartController@success')->name('cart.success');
 
-Route::post('/payment/init', '\App\Http\Controllers\Site\PaymentController@initPayment')->name('payment.init');
-Route::get('/payment/cancel', '\App\Http\Controllers\Site\PaymentController@cancelPayment')->name('payment.cancel');
-Route::get('/payment/return', '\App\Http\Controllers\Site\PaymentController@returnPayment')->name('payment.return');
-Route::get('/payment/error', '\App\Http\Controllers\Site\PaymentController@errorPayment')->name('payment.error');
+Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'User', 'middleware' => ['auth']], function () {
+    Route::get('/', 'UserController@index')->name('index');
+    Route::get('/edit', 'UserController@edit')->name('edit');
 
-use App\Contracts\Navigation;
-
-// CMS Style routing
-Route::group([], function () {
-    try {
-        // Default index route stuff
-        // Route::redirect('/', '/site');
-        Route::get('/', 'Site\SiteController@index')->name('site.index');
-
-        // Get pages into router
-        $navigationService = App::make(Navigation::class);
-        foreach ($navigationService->getPages() as $page) {
-            Route::get($page->path, 'Site\SiteController@page')->name($page->path);
-        }
-
-        // Fallback index route aka noIndex
-        if ($navigationService->getIndexPage() === null) {
-            Route::get('/', 'Site\SiteController@noIndex')->name('site.index');
-        }
-    } catch (\Throwable $throwable) {
-        report($throwable);
-    }
+    Route::post('/password', 'Account\PasswordController@update')->name('password.update');
+    Route::post('/profile', 'Account\PasswordController@updateProfile')->name('profile.update');
+    Route::post('/profile/destroy', 'Account\PasswordController@destroy')->name('password.destroyProfile');
 });
+
+// CMS style routing: the index page (or the noIndex fallback) is resolved at request time, never at route load
+Route::get('/', 'Site\SiteController@index')->name('site.index');
 
 Route::get('/site-error', 'Site\SiteController@error')->name('site.error');
 
-Route::get('/' . env('CRON_ROUTE') , function(){
+Route::get('/'.config('rave.cron_route'), function () {
     Artisan::call('schedule:run');
+
     return 'OK';
 });
 
+Route::get('/paypal/return/{reference}', 'Site\PayPalController@paymentReturn')->name('paypal.return');
+Route::get('/paypal/cancel/{reference}', 'Site\PayPalController@paymentCancel')->name('paypal.cancel');
+Route::post('/webhooks/paypal', 'Site\PayPalWebhookController@handle')->name('paypal.webhook');
+
+// Catch-all for CMS pages; resolved by SiteController::page() from the request path
+Route::get('/{path}', 'Site\SiteController@page')->where('path', '.*')->name('site.page');
+
 // Handle 404 and other errors
-Route::fallback(function() {
+Route::fallback(function () {
     return redirect('/site-error')->with('warning', 'Sorry, this route is not available.');
 });

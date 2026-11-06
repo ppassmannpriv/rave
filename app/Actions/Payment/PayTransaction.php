@@ -11,6 +11,5 @@ class PayTransaction
 
     public function handle(Transaction $transaction): void
     {
-
     }
 }

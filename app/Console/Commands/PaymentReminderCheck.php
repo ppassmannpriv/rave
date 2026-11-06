@@ -32,20 +32,17 @@ class PaymentReminderCheck extends Command
      */
     public function handle(): int
     {
-        $this->info('Skipped. See command for outstanding todo!');
-        return 0;
-        // @TODO: We need to cache reminders for at least 24h so it only sends once every 24h not every 5 minutes for each user!
         $this->info('Looking for outstanding payments.');
         $orderTrunk = Order::where('status', '=', Order::STATUS_INITIALIZED)
             ->where('created_at', '<=', Carbon::now()->subDays(5)->toDateTimeString())
             ->whereRelation('transaction', 'state', '=', Transaction::STATE_INIT)->get();
         $outstandingOrders = $orderTrunk->where('created_at', '>=', Carbon::now()->subDays(6)->toDateTimeString());
         $cancelOrders = $orderTrunk->where('created_at', '<=', Carbon::now()->subDays(6)->toDateTimeString());
-        $this->info('Reminding ' . $outstandingOrders->count() . ' outstanding payments.');
+        $this->info('Reminding '.$outstandingOrders->count().' outstanding payments.');
         foreach ($outstandingOrders as $outstandingOrder) {
             PaymentReminderAction::make()->handle($outstandingOrder);
         }
-        $this->info('Cancelling ' . $cancelOrders->count() . ' orders.');
+        $this->info('Cancelling '.$cancelOrders->count().' orders.');
         foreach ($cancelOrders as $cancelOrder) {
             CancelOrderAction::make()->handle($cancelOrder);
         }

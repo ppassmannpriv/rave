@@ -8,7 +8,6 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\Admin\OrderResource;
 use App\Models\Order;
 use Gate;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class OrderApiController extends Controller

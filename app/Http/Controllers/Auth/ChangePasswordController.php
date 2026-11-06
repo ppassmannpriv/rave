@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use Gate;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ChangePasswordController extends Controller
@@ -39,7 +38,7 @@ class ChangePasswordController extends Controller
         $user = auth()->user();
 
         $user->update([
-            'email' => time() . '_' . $user->email,
+            'email' => time().'_'.$user->email,
         ]);
 
         $user->delete();

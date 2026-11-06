@@ -2,6 +2,7 @@
 
 namespace App\Actions\Cart;
 
+use App\Contracts\Cart;
 use App\Models\Order;
 use App\Services\OrderService;
 use Lorisleiva\Actions\Concerns\AsAction;
@@ -16,6 +17,7 @@ class CreateOrderFromCart
         if ($orderService === null) {
             throw new \Exception('Order service could not be loaded!');
         }
-        return $orderService->makeFromCart($cartData);
+
+        return $orderService->makeFromCart($cartData, \App::make(Cart::class)->content());
     }
 }
