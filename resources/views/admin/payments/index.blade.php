@@ -29,12 +29,6 @@
                         {{ trans('cruds.payment.fields.provider') }}
                     </th>
                     <th>
-                        {{ trans('cruds.order.title_singular') }} {{ trans('cruds.order.fields.id') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.user.fields.name') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.payment.fields.amount') }}
                     </th>
                     <th>
@@ -61,8 +55,6 @@
                             @endforeach
                         </select>
                     </td>
-                    <td></td>
-                    <td></td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
@@ -92,12 +84,6 @@
                     </td>
                     <td>
                         {{ $transaction->paymentMethod->name ?? '' }}
-                    </td>
-                    <td>
-                        {{ $transaction->order->id ?? '' }}
-                    </td>
-                    <td>
-                        {{ $transaction->order->user->name ?? '' }}
                     </td>
                     <td>
                         {{ $transaction->amount ?? '' }}

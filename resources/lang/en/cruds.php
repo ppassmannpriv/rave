@@ -47,12 +47,6 @@ return [
             'id_helper'                => ' ',
             'name'                     => 'Name',
             'name_helper'              => ' ',
-            'street'                   => 'Street',
-            'street_helper'            => ' ',
-            'postcode'                 => 'Postcode',
-            'postcode_helper'          => ' ',
-            'city'                     => 'City',
-            'city_helper'              => ' ',
             'email'                    => 'Email',
             'email_helper'             => ' ',
             'email_verified_at'        => 'Email verified at',
@@ -344,20 +338,6 @@ return [
             'crew_only_helper'      => 'This is shift is locked to crew members.',
             'event'              => 'Event',
             'event_helper'       => 'Time schedules can be connected to events.'
-        ],
-    ],
-    'metrics' => [
-        'title'          => 'Metrics',
-        'title_singular' => 'Metric',
-        'fields'         => [
-
-        ],
-    ],
-    'bookkeeping' => [
-        'title'          => 'Bookkeeping',
-        'title_singular' => 'Bookkeeping',
-        'fields'         => [
-
         ],
     ],
 ];

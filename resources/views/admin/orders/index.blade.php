@@ -19,7 +19,7 @@
             <table class=" table table-bordered table-striped table-hover datatable datatable-Order">
                 <thead>
                 <tr>
-                    <th width="11">
+                    <th width="10">
 
                     </th>
                     <th>
@@ -35,13 +35,7 @@
                         {{ trans('cruds.order.fields.qty') }}
                     </th>
                     <th>
-                        {{ trans('cruds.paymentMethods.title_singular') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.order.fields.status') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.order.fields.created_at') }}
                     </th>
                     <th>
                         &nbsp;
@@ -60,10 +54,6 @@
                             <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
                     </td>
                     <td>
                     </td>
@@ -94,13 +84,7 @@
                         {{ $order->quantityItems() ?? '?' }}
                     </td>
                     <td>
-                        {{ $order?->transaction?->paymentMethod?->name ?? '' }}
-                    </td>
-                    <td>
                         {{ $order->status ?? '' }}
-                    </td>
-                    <td>
-                        {{ $order->created_at ?? '' }}
                     </td>
                     <td>
                         @can('order_show')
@@ -114,14 +98,6 @@
                         <a class="btn btn-xs btn-warning" href="{{ route('admin.orders.cancel', $order->id) }}">
                             {{ trans('global.cancel') }}
                         </a>
-                        @endcan
-                        @endif
-
-                        @if ($order->isCancellable())
-                        @can('order_abort')
-                            <a class="btn btn-xs btn-warning" href="{{ route('admin.orders.abort', $order->id) }}">
-                                {{ trans('global.abort') }}
-                            </a>
                         @endcan
                         @endif
 

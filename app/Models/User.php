@@ -47,14 +47,6 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
- * @property string $street
- * @property string $postcode
- * @property string $city
- * @property string $country
- * @method static \Illuminate\Database\Eloquent\Builder|User whereCity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereCountry($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User wherePostcode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereStreet($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -62,29 +54,6 @@ class User extends Authenticatable
     use SoftDeletes;
     use Notifiable;
     use HasFactory;
-
-    public const ALLOWED_COUNTRIES = [
-        'AT',
-        'BE',
-        'HR',
-        'CY',
-        'EE',
-        'FI',
-        'FR',
-        'DE',
-        'GR',
-        'IE',
-        'IT',
-        'LV',
-        'LT',
-        'LU',
-        'MT',
-        'NL',
-        'PT',
-        'SK',
-        'SI',
-        'ES',
-    ];
 
     public $table = 'users';
 
@@ -106,10 +75,6 @@ class User extends Authenticatable
         'email_verified_at',
         'password',
         'remember_token',
-        'street',
-        'postcode',
-        'city',
-        'country',
         'created_at',
         'updated_at',
         'deleted_at',

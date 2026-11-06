@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'abort'                          => 'Abort',
     'actions'                        => 'Actions',
     'add'                            => 'Add',
     'allRightsReserved'              => 'All rights reserved.',

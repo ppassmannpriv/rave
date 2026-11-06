@@ -31,8 +31,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|EventTicketCode whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|EventTicketCode withTrashed()
  * @method static \Illuminate\Database\Query\Builder|EventTicketCode withoutTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|EventTicketCode whereEventTicketId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|EventTicketCode whereOrderItemId($value)
  * @mixin \Eloquent
  */
 class EventTicketCode extends Model
@@ -78,13 +76,5 @@ class EventTicketCode extends Model
             throw new \Exception('You cannot delete a code that has been purchased.');
         }
         return parent::delete();
-    }
-
-    public function isSold()
-    {
-        return in_array($this->orderItem?->order?->status, [
-            Order::STATUS_PAID,
-            Order::STATUS_CLOSED
-        ]);
     }
 }

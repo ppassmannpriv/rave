@@ -12,8 +12,7 @@ class EventController extends WebController
 {
     public function index(Request $request): Factory|View|Application
     {
-        // $events = Event::where('end', '<=', Carbon::now())->get();
-        $events = Event::all()->filter(fn($event) => !$event->isOver());
+        $events = Event::all();
         return $this->respond('events.index', ['events' => $events, 'siteType' => 'events']);
     }
 

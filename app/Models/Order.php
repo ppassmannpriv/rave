@@ -18,7 +18,6 @@ use App\Models\Order\OrderItem;
  * @property string $status
  * @property int|null $user_id
  * @property int|null $transaction_id
- * @property float $price
  * @property-read \App\Models\Transaction|null $transaction
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order\OrderItem[] $orderItems
  * @property-read \App\Models\User|null $user
@@ -35,11 +34,6 @@ use App\Models\Order\OrderItem;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|Order withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Order withoutTrashed()
- * @property int|null $payment_id
- * @property-read int|null $order_items_count
- * @method static \Illuminate\Database\Eloquent\Builder|Order wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereTransactionId($value)
  * @mixin \Eloquent
  */
 class Order extends Model
@@ -84,16 +78,13 @@ class Order extends Model
 
     public function orderItems()
     {
-        return $this->hasMany(OrderItem::class, 'order_id', 'id');
+        return $this->hasMany(OrderItem::Class, 'order_id', 'id');
     }
 
     public function quantityItems(): int
     {
         $qty = 0;
         foreach($this->orderItems as $orderItem) {
-            if ($orderItem->cartItem?->type === 'FEE') {
-                continue;
-            }
             $qty += $orderItem->qty;
         }
 
@@ -112,58 +103,5 @@ class Order extends Model
             static::STATUS_CANCELLED,
             static::STATUS_PAID
         ]);
-    }
-
-    public function toPayPalExpressArray(): array
-    {
-        $items = [];
-
-        /**
-         * @var ?Cart $cart
-         */
-        $cart = null;
-        foreach ($this->orderItems as $orderItem) {
-            if ($cart === null) {
-                $cart = $orderItem->cartItem->cart;
-            }
-
-            $name = null;
-            $description = null;
-            switch ($orderItem->cartItem) {
-                case 'FEE':
-                    $name = 'Transaction fee';
-                    $description = 'Transaction fees for ticketing, e-mail and PayPal.';
-                    break;
-                case 'TICKET':
-                    $name = $orderItem->eventTicket->getType();
-                    $description = $orderItem->eventTicket->event->name;
-                    break;
-                case 'VIRTUAL':
-                    $name = 'Virtual goods';
-                    $description = 'Non-physical assets.';
-                    break;
-                case 'SHIPPING':
-                    $name = 'Shipping cost';
-                    $description = 'Packaging, handling and posting of your orders.';
-                    break;
-            }
-
-            $items[] = [
-                'name' => $name,
-                'price' => $orderItem->single_price,
-                'description' => $description,
-                'quantity' => $orderItem->qty,
-            ];
-        }
-
-        return [
-            'amount' => $this->price,
-            'currency' => config('paypal.currency'),
-            'items' => $items,
-            'returnUrl' => url('payment/return'),
-            'cancelUrl' => url('payment/cancel'),
-            'transacionId' => $this->transaction->reference,
-            'noShipping' => 1,
-        ];
     }
 }
