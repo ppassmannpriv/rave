@@ -82,6 +82,8 @@ CRLF line endings (a Windows-checkout artifact) and a single `assertTrue(true)` 
 **Fix**: replace per-page route registration with one catch-all route (`Route::get('/{path}', ...)->where('path', '.*')`) that resolves the matching `ContentPage` at request time instead of at boot/cache time — a self-contained, low-risk change independent of the payment system.
 **STATUS — done**: the per-page loop is replaced with a single catch-all route registered last (`php -l` clean on both changed files), and `SiteController::page()` now preserves the original `enabled`/`index` filtering (previously only applied by the removed loop) before falling back to the same `/site-error` redirect the rest of the app already uses for a 404.
 
+**STATUS follow-up (2026-11-06)**: the `/` index route still chose between `index` and `noIndex` with a live `getIndexPage()` query at route-load time, so it had the same `route:cache` problem. It is now one `/` route; `SiteController::index()` falls back to `noIndex` at request time. Verified: `php artisan route:cache` succeeds with the database unreachable, and `tests/Feature/ExampleTest` (now `RefreshDatabase`) passes against an empty MySQL database.
+
 ### KI-16 — No real money type; a developer's own TODO flags this
 **File**: `app/Providers/AppServiceProvider.php::boot()`
 ```php

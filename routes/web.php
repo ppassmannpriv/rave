@@ -96,25 +96,8 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'User', 'middl
     Route::post('/profile/destroy', 'Account\PasswordController@destroy')->name('password.destroyProfile');
 });
 
-use App\Contracts\Navigation;
-
-// CMS Style routing
-Route::group([], function () {
-    try {
-        // Default index route stuff
-        // Route::redirect('/', '/site');
-        Route::get('/', 'Site\SiteController@index')->name('site.index');
-
-        $navigationService = App::make(Navigation::class);
-
-        // Fallback index route aka noIndex
-        if ($navigationService->getIndexPage() === null) {
-            Route::get('/', 'Site\SiteController@noIndex')->name('site.index');
-        }
-    } catch (\Throwable $throwable) {
-        report($throwable);
-    }
-});
+// CMS style routing: the index page (or the noIndex fallback) is resolved at request time, never at route load
+Route::get('/', 'Site\SiteController@index')->name('site.index');
 
 Route::get('/site-error', 'Site\SiteController@error')->name('site.error');
 

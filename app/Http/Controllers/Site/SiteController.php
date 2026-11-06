@@ -10,6 +10,10 @@ class SiteController extends WebController
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $contentPage = $this->navigationService->getIndexPage();
+        if ($contentPage === null) {
+            return $this->noIndex($request);
+        }
+
         return $this->respond('site.index', ['contentPage' => $contentPage, 'siteType' => 'index']);
     }
 
