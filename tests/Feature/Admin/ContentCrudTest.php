@@ -119,11 +119,10 @@ class ContentCrudTest extends TestCase
         });
     }
 
-
     private function userWith(array $permissions, string $email = 'admin@example.com'): User
     {
         $user = User::create(['name' => 'Admin', 'email' => $email, 'password' => 'x']);
-        $role = Role::create(['title' => 'Role for ' . $email]);
+        $role = Role::create(['title' => 'Role for '.$email]);
         foreach ($permissions as $title) {
             $permission = Permission::firstOrCreate(['title' => $title]);
             $role->permissions()->attach($permission->id);
@@ -138,7 +137,7 @@ class ContentCrudTest extends TestCase
         $all = [];
         foreach (self::RESOURCES as [, $prefix]) {
             foreach (self::ABILITIES as $ability) {
-                $all[] = $prefix . '_' . $ability;
+                $all[] = $prefix.'_'.$ability;
             }
         }
 
@@ -152,7 +151,7 @@ class ContentCrudTest extends TestCase
 
     private function page(string $path, array $attributes = []): ContentPage
     {
-        return ContentPage::create($attributes + ['title' => 'Page ' . $path, 'path' => $path, 'enabled' => true]);
+        return ContentPage::create($attributes + ['title' => 'Page '.$path, 'path' => $path, 'enabled' => true]);
     }
 
     private function makeRecord(string $resource): Model
@@ -191,14 +190,13 @@ class ContentCrudTest extends TestCase
         $this->assertSame('Existing', $resource === 'content-pages' ? $fresh->title : $fresh->name);
     }
 
-
     public function writeRoutes(): array
     {
         $cases = [];
         $permissionFor = ['store' => 'create', 'update' => 'edit', 'destroy' => 'delete', 'massDestroy' => 'delete'];
         foreach (self::RESOURCES as $resource => [, $prefix]) {
             foreach ($permissionFor as $action => $ability) {
-                $cases["{$resource} {$action}"] = [$resource, $action, $prefix . '_' . $ability];
+                $cases["{$resource} {$action}"] = [$resource, $action, $prefix.'_'.$ability];
             }
         }
 
@@ -210,10 +208,10 @@ class ContentCrudTest extends TestCase
         $cases = [];
         foreach (array_keys(self::RESOURCES) as $resource) {
             [, $prefix] = self::RESOURCES[$resource];
-            $cases["{$resource} index"] = [$resource, '', $prefix . '_access'];
-            $cases["{$resource} create"] = [$resource, '/create', $prefix . '_create'];
-            $cases["{$resource} show"] = [$resource, '/{id}', $prefix . '_show'];
-            $cases["{$resource} edit"] = [$resource, '/{id}/edit', $prefix . '_edit'];
+            $cases["{$resource} index"] = [$resource, '', $prefix.'_access'];
+            $cases["{$resource} create"] = [$resource, '/create', $prefix.'_create'];
+            $cases["{$resource} show"] = [$resource, '/{id}', $prefix.'_show'];
+            $cases["{$resource} edit"] = [$resource, '/{id}/edit', $prefix.'_edit'];
         }
 
         return $cases;
@@ -246,7 +244,7 @@ class ContentCrudTest extends TestCase
         $record = $this->makeRecord($resource);
         $this->actingAs($this->userWith($this->allContentPermissionsExcept($permission)));
 
-        $this->get('/admin/' . $resource . str_replace('{id}', (string) $record->id, $suffix))->assertForbidden();
+        $this->get('/admin/'.$resource.str_replace('{id}', (string) $record->id, $suffix))->assertForbidden();
     }
 
     /** @dataProvider readRoutes */
@@ -254,9 +252,8 @@ class ContentCrudTest extends TestCase
     {
         $record = $this->makeRecord($resource);
 
-        $this->get('/admin/' . $resource . str_replace('{id}', (string) $record->id, $suffix))->assertRedirect(route('login'));
+        $this->get('/admin/'.$resource.str_replace('{id}', (string) $record->id, $suffix))->assertRedirect(route('login'));
     }
-
 
     public function taxonomies(): array
     {
@@ -386,7 +383,6 @@ class ContentCrudTest extends TestCase
 
         $this->assertNotSoftDeleted($record);
     }
-
 
     public function test_page_store_creates_the_row_with_posted_fields_and_attaches_categories_and_tags(): void
     {
@@ -582,18 +578,17 @@ class ContentCrudTest extends TestCase
         $this->assertNotSoftDeleted($page);
     }
 
-
     /**
      * The real site.index view pulls in layouts and more tables, so a plain-PHP stub is put in front
      * of it on the view finder (a temp dir outside the repo) that only echoes what the controller passed.
      */
     private function stubSiteIndexView(): void
     {
-        $dir = sys_get_temp_dir() . '/rave-content-crud-views';
-        if (!is_dir($dir . '/site')) {
-            mkdir($dir . '/site', 0777, true);
+        $dir = sys_get_temp_dir().'/rave-content-crud-views';
+        if (! is_dir($dir.'/site')) {
+            mkdir($dir.'/site', 0777, true);
         }
-        file_put_contents($dir . '/site/index.php', '<?php echo "STUB|" . $siteType . "|" . $contentPage->id;');
+        file_put_contents($dir.'/site/index.php', '<?php echo "STUB|" . $siteType . "|" . $contentPage->id;');
         View::getFinder()->prependLocation($dir);
     }
 
@@ -606,7 +601,7 @@ class ContentCrudTest extends TestCase
         $response = $this->get('/info/about');
 
         $response->assertOk();
-        $this->assertSame('STUB|cms|' . $page->id, $response->getContent());
+        $this->assertSame('STUB|cms|'.$page->id, $response->getContent());
     }
 
     public function test_catch_all_route_redirects_a_disabled_page_to_the_error_page(): void

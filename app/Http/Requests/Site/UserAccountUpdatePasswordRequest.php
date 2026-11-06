@@ -4,7 +4,6 @@ namespace App\Http\Requests\Site;
 
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class UserAccountUpdatePasswordRequest extends FormRequest

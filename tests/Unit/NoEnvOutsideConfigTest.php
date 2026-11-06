@@ -11,7 +11,7 @@ class NoEnvOutsideConfigTest extends TestCase
         $root = dirname(__DIR__, 2);
         $offenders = [];
         foreach (['app', 'routes', 'bootstrap'] as $dir) {
-            $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($root . '/' . $dir, \FilesystemIterator::SKIP_DOTS));
+            $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($root.'/'.$dir, \FilesystemIterator::SKIP_DOTS));
             foreach ($files as $file) {
                 if ($file->getExtension() !== 'php' || str_contains($file->getPathname(), '/bootstrap/cache/')) {
                     continue;

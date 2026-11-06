@@ -26,7 +26,9 @@ use Tests\TestCase;
 class EventsAndTicketsCrudTest extends TestCase
 {
     private const EVENT_PERMISSIONS = ['event_access', 'event_create', 'event_edit', 'event_show', 'event_delete'];
+
     private const TICKET_PERMISSIONS = ['event_ticket_access', 'event_ticket_create', 'event_ticket_edit', 'event_ticket_show', 'event_ticket_delete'];
+
     private const CODE_PERMISSIONS = ['event_ticket_code_access', 'event_ticket_code_create', 'event_ticket_code_edit', 'event_ticket_code_show', 'event_ticket_code_delete'];
 
     private int $userCounter = 0;
@@ -107,7 +109,6 @@ class EventsAndTicketsCrudTest extends TestCase
             $table->softDeletes();
         });
     }
-
 
     private function userWith(array $permissions): User
     {
@@ -190,7 +191,7 @@ class EventsAndTicketsCrudTest extends TestCase
      * Each route is requested by a user holding every permission of the resource except the one the
      * route requires; all must be 403.
      *
-     * @param array<int, array{0: string, 1: string, 2: string, 3?: array}> $routes [method, uri, required permission, data]
+     * @param  array<int, array{0: string, 1: string, 2: string, 3?: array}>  $routes [method, uri, required permission, data]
      */
     private function assertEachRouteForbiddenWithoutItsPermission(array $routes, array $allPermissions): void
     {
@@ -201,14 +202,13 @@ class EventsAndTicketsCrudTest extends TestCase
         }
     }
 
-    /** @param array<int, array{0: string, 1: string, 2?: array}> $routes */
+    /** @param  array<int, array{0: string, 1: string, 2?: array}>  $routes */
     private function assertEachRouteRedirectsGuestToLogin(array $routes): void
     {
         foreach ($routes as [$method, $uri, $data]) {
             $this->call($method, $uri, $data)->assertRedirect(route('login'));
         }
     }
-
 
     public function test_an_admin_with_event_create_can_store_an_event_with_the_posted_fields(): void
     {
@@ -336,7 +336,6 @@ class EventsAndTicketsCrudTest extends TestCase
         $this->assertSame(1, Event::count());
         $this->assertSame('Summer Rave', $event->refresh()->name);
     }
-
 
     public function test_an_admin_with_event_ticket_create_can_store_a_ticket_with_the_posted_fields(): void
     {
@@ -496,7 +495,6 @@ class EventsAndTicketsCrudTest extends TestCase
         $this->assertSame(1, EventTicket::count());
         $this->assertSame(100, (int) $ticket->refresh()->stock);
     }
-
 
     public function test_an_admin_with_code_create_can_store_a_code_for_a_ticket(): void
     {

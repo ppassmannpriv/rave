@@ -1,4 +1,5 @@
 <?php
+
 // Admin routing
 Route::redirect('/admin', '/login');
 Auth::routes(['register' => false]);
@@ -101,8 +102,9 @@ Route::get('/', 'Site\SiteController@index')->name('site.index');
 
 Route::get('/site-error', 'Site\SiteController@error')->name('site.error');
 
-Route::get('/' . config('rave.cron_route'), function(){
+Route::get('/'.config('rave.cron_route'), function () {
     Artisan::call('schedule:run');
+
     return 'OK';
 });
 
@@ -114,6 +116,6 @@ Route::post('/webhooks/paypal', 'Site\PayPalWebhookController@handle')->name('pa
 Route::get('/{path}', 'Site\SiteController@page')->where('path', '.*')->name('site.page');
 
 // Handle 404 and other errors
-Route::fallback(function() {
+Route::fallback(function () {
     return redirect('/site-error')->with('warning', 'Sorry, this route is not available.');
 });

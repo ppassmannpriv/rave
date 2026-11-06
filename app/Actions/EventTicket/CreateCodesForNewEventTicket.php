@@ -32,6 +32,7 @@ class CreateCodesForNewEventTicket
         if (EventTicketCode::where('code', '=', $uniqueCode)->exists()) {
             return $this->generateUniqueCode();
         }
+
         return $uniqueCode;
     }
 }

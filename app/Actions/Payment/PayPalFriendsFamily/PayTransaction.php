@@ -37,11 +37,11 @@ class PayTransaction
         $transaction = $likelyTransaction ?? Transaction::where('reference', '=', $transactionData[PayPalFriendsFamily::noteColumn()])
             ->whereIn('state', [
                 Transaction::STATE_INIT,
-                Transaction::STATE_ORDERED
+                Transaction::STATE_ORDERED,
             ])->orderBy('created_at', 'ASC')->first();
 
         if ($transaction === null && app()->isLocal()) {
-            throw new TransactionNotFoundException('Transaction not found. ' . json_encode([
+            throw new TransactionNotFoundException('Transaction not found. '.json_encode([
                 'reference' => $transactionData[PayPalFriendsFamily::noteColumn()],
                 'amount' => $paymentAmount->toDecimalString(),
             ]));
@@ -51,22 +51,22 @@ class PayTransaction
         }
         // The same CSV row can reach us again through an overlapping PayPal export; the row hash
         // makes re-applying it a no-op instead of counting the same payment twice.
-        ApplyPaymentToTransaction::run($transaction, $paymentAmount, $transactionData, 'ff-' . sha1(json_encode($transactionData)));
+        ApplyPaymentToTransaction::run($transaction, $paymentAmount, $transactionData, 'ff-'.sha1(json_encode($transactionData)));
     }
 
     private function validateTransactionData(array $transactionData): void
     {
         if (array_key_exists(PayPalFriendsFamily::amountColumn(), $transactionData) === false) {
-            throw new ValidationException(PayPalFriendsFamily::amountColumn() . ' is missing. ' . json_encode(['row' => $transactionData]));
+            throw new ValidationException(PayPalFriendsFamily::amountColumn().' is missing. '.json_encode(['row' => $transactionData]));
         }
         if (is_numeric(str_replace(',', '.', $transactionData[PayPalFriendsFamily::amountColumn()])) === false) {
-            throw new ValidationException(PayPalFriendsFamily::amountColumn() . ' is not numeric. ' . json_encode(['row' => $transactionData]));
+            throw new ValidationException(PayPalFriendsFamily::amountColumn().' is not numeric. '.json_encode(['row' => $transactionData]));
         }
         if (array_key_exists(PayPalFriendsFamily::noteColumn(), $transactionData) === false) {
-            throw new ValidationException(PayPalFriendsFamily::noteColumn() . ' is missing. ' . json_encode(['row' => $transactionData]));
+            throw new ValidationException(PayPalFriendsFamily::noteColumn().' is missing. '.json_encode(['row' => $transactionData]));
         }
         if (strlen($transactionData[PayPalFriendsFamily::noteColumn()]) !== Transaction::REFERENCE_LENGTH) {
-            throw new ReferenceValidationException(PayPalFriendsFamily::noteColumn() . ' is not 10 chars long. ' . json_encode(['row' => $transactionData]));
+            throw new ReferenceValidationException(PayPalFriendsFamily::noteColumn().' is not 10 chars long. '.json_encode(['row' => $transactionData]));
         }
     }
 

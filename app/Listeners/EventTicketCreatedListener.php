@@ -2,10 +2,8 @@
 
 namespace App\Listeners;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use App\Events\EventTicketCreatedEvent;
 use App\Actions\EventTicket\CreateCodesForNewEventTicket;
+use App\Events\EventTicketCreatedEvent;
 
 class EventTicketCreatedListener
 {

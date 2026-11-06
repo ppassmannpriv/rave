@@ -31,7 +31,7 @@ class ProcessPayPalWebhookEvent
             case 'PAYMENT.CAPTURE.REFUNDED':
                 $transaction = $this->findByReference($resource['custom_id'] ?? null);
                 if ($transaction !== null) {
-                    $transaction->comment = trim(($transaction->comment ?? '') . ' - PayPal ' . $event['event_type'] . ' for capture ' . ($resource['id'] ?? '?') . ', needs staff review.', ' -');
+                    $transaction->comment = trim(($transaction->comment ?? '').' - PayPal '.$event['event_type'].' for capture '.($resource['id'] ?? '?').', needs staff review.', ' -');
                     $transaction->save();
                 }
                 break;

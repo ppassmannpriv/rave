@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\User\Account;
 
 use App\Http\Controllers\Site\WebController;
-use App\Http\Requests\Site\UserAccountUpdateProfileRequest;
-use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\Site\UserAccountUpdatePasswordRequest;
+use App\Http\Requests\Site\UserAccountUpdateProfileRequest;
 
 class PasswordController extends WebController
 {
@@ -30,7 +29,7 @@ class PasswordController extends WebController
         $user = auth()->user();
 
         $user->update([
-            'email' => time() . '_' . $user->email,
+            'email' => time().'_'.$user->email,
         ]);
 
         $user->delete();

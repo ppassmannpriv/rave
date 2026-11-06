@@ -8,7 +8,6 @@ use App\Http\Requests\UpdateEventTicketRequest;
 use App\Http\Resources\Admin\EventTicketResource;
 use App\Models\EventTicket;
 use Gate;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class EventTicketsApiController extends Controller

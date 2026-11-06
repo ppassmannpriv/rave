@@ -8,7 +8,8 @@ use App\Models\Transaction;
 use Illuminate\Support\Facades\Mail;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class PaymentReminderAction {
+class PaymentReminderAction
+{
     use AsAction;
 
     public function handle(Order $order)

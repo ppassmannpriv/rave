@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -11,8 +9,9 @@ return new class extends Migration
         'time_schedule_show',
         'time_schedule_create',
         'time_schedule_edit',
-        'time_schedule_delete'
+        'time_schedule_delete',
     ];
+
     /**
      * Run the migrations.
      *

@@ -4,7 +4,6 @@ namespace Tests\Unit\Actions\Payment\PayPalFriendsFamily;
 
 use App\Actions\Payment\PayPalFriendsFamily\PayTransaction;
 use App\Exceptions\PaymentMethods\PayPalFriendsFamily\ValidationException;
-use App\Exceptions\PaymentMethods\TransactionNotFoundException;
 use App\Models\Order;
 use App\Models\PaymentMethod;
 use App\Models\Transaction;

@@ -2,10 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Models\ContentPage;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Response;
 
 class UpdateContentPageRequest extends FormRequest
 {
@@ -40,7 +38,7 @@ class UpdateContentPageRequest extends FormRequest
             ],
             'enabled' => [
                 'boolean',
-                'required'
+                'required',
             ],
             'index' => [
                 'boolean',

@@ -4,7 +4,6 @@ namespace App\Http\Requests\Site;
 
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class UserAccountUpdateProfileRequest extends FormRequest
@@ -24,8 +23,8 @@ class UserAccountUpdateProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'  => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . auth()->id()],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.auth()->id()],
         ];
     }
 }

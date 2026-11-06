@@ -17,6 +17,7 @@ class CreateOrderFromCart
         if ($orderService === null) {
             throw new \Exception('Order service could not be loaded!');
         }
+
         return $orderService->makeFromCart($cartData, \App::make(Cart::class)->content());
     }
 }

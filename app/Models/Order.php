@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use \DateTimeInterface;
+use App\Models\Order\OrderItem;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Order\OrderItem;
 
 /**
  * App\Models\Order
@@ -21,6 +21,7 @@ use App\Models\Order\OrderItem;
  * @property-read \App\Models\Transaction|null $transaction
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order\OrderItem[] $orderItems
  * @property-read \App\Models\User|null $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
  * @method static \Illuminate\Database\Query\Builder|Order onlyTrashed()
@@ -34,6 +35,7 @@ use App\Models\Order\OrderItem;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|Order withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Order withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 class Order extends Model
@@ -42,10 +44,15 @@ class Order extends Model
     use HasFactory;
 
     public const STATUS_INITIALIZED = 'initialized';
+
     public const STATUS_PROCESSING = 'processing';
+
     public const STATUS_REFUNDED = 'refunded';
+
     public const STATUS_PAID = 'paid';
+
     public const STATUS_CLOSED = 'closed';
+
     public const STATUS_CANCELLED = 'cancelled';
 
     public $table = 'orders';
@@ -78,13 +85,13 @@ class Order extends Model
 
     public function orderItems()
     {
-        return $this->hasMany(OrderItem::Class, 'order_id', 'id');
+        return $this->hasMany(OrderItem::class, 'order_id', 'id');
     }
 
     public function quantityItems(): int
     {
         $qty = 0;
-        foreach($this->orderItems as $orderItem) {
+        foreach ($this->orderItems as $orderItem) {
             $qty += $orderItem->qty;
         }
 
@@ -98,10 +105,10 @@ class Order extends Model
 
     public function isCancellable()
     {
-        return !in_array($this->status, [
+        return ! in_array($this->status, [
             static::STATUS_CLOSED,
             static::STATUS_CANCELLED,
-            static::STATUS_PAID
+            static::STATUS_PAID,
         ]);
     }
 }

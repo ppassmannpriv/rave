@@ -22,7 +22,7 @@ class KernelScheduleTest extends TestCase
     {
         $events = collect($this->app->make(Schedule::class)->events())
             ->filter(fn (Event $event) => str_contains($event->command, $command));
-        $this->assertCount(1, $events, $command . ' must be scheduled exactly once');
+        $this->assertCount(1, $events, $command.' must be scheduled exactly once');
 
         return $events->first();
     }

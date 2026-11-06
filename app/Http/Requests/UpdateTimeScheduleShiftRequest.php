@@ -2,10 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Event;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Response;
 
 class UpdateTimeScheduleShiftRequest extends FormRequest
 {
@@ -26,11 +24,11 @@ class UpdateTimeScheduleShiftRequest extends FormRequest
             ],
             'start' => [
                 'required',
-                'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
+                'date_format:'.config('panel.date_format').' '.config('panel.time_format'),
             ],
             'end' => [
                 'required',
-                'date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
+                'date_format:'.config('panel.date_format').' '.config('panel.time_format'),
             ],
             'crew_only' => [
                 'boolean',

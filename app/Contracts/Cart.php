@@ -4,7 +4,8 @@ namespace App\Contracts;
 
 use Illuminate\Support\Collection;
 
-interface Cart {
+interface Cart
+{
     public function getTickets(): Collection;
 
     public function content();

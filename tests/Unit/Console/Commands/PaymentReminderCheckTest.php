@@ -148,8 +148,8 @@ class PaymentReminderCheckTest extends TestCase
     ): array {
         $this->userCount++;
         $user = User::create([
-            'name' => 'Buyer ' . $this->userCount,
-            'email' => 'buyer' . $this->userCount . '@example.com',
+            'name' => 'Buyer '.$this->userCount,
+            'email' => 'buyer'.$this->userCount.'@example.com',
             'password' => 'irrelevant',
         ]);
         $paymentMethod = PaymentMethod::firstOrCreate(
@@ -165,7 +165,7 @@ class PaymentReminderCheckTest extends TestCase
         $transaction = Transaction::create([
             'payment_method_id' => $paymentMethod->id,
             'order_id' => $order->id,
-            'reference' => 'REF' . str_pad((string) $order->id, 7, '0', STR_PAD_LEFT),
+            'reference' => 'REF'.str_pad((string) $order->id, 7, '0', STR_PAD_LEFT),
             'amount' => '50.00',
             'state' => $transactionState,
         ]);

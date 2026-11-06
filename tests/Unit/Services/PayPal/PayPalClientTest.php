@@ -40,7 +40,7 @@ class PayPalClientTest extends TestCase
 
         $this->assertSame(['id' => 'ORDER1', 'approve_url' => 'https://paypal.test/approve'], $order);
         Http::assertSent(function (Request $request) {
-            if (!str_ends_with($request->url(), '/v2/checkout/orders')) {
+            if (! str_ends_with($request->url(), '/v2/checkout/orders')) {
                 return false;
             }
 

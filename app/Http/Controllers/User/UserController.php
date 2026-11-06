@@ -13,12 +13,14 @@ class UserController extends WebController
     public function index(Request $request): Factory|View|Application
     {
         $user = \Auth::getUser();
+
         return $this->respond('user.index', ['user' => $user, 'siteType' => 'user']);
     }
 
     public function edit(): Factory|View|Application
     {
         $user = \Auth::getUser();
+
         return $this->respond('user.edit', ['user' => $user, 'siteType' => 'user']);
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Actions\Order;
 
 use App\Models\Order;
-
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class AttachEventTicketCodeToOrderItemAction

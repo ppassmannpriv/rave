@@ -7,7 +7,9 @@ use App\Models\PaymentMethod;
 class PayPalFriendsFamily extends PaymentMethod
 {
     public const ALIAS = 'paypal_ff';
+
     public const REPORT_DIR = 'paymentMethods/paypal_ff';
+
     public const REPORT_FILE_NAME = 'transaction_records';
 
     public static function amountColumn(): string

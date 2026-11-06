@@ -126,7 +126,7 @@ class AccessAndSchedulesCrudTest extends TestCase
         foreach ($requests as $request) {
             [$method, $uri] = $request;
             $status = $this->send($method, $uri, $request[2] ?? [])->status();
-            $this->assertSame(403, $status, strtoupper($method) . " $uri must be forbidden");
+            $this->assertSame(403, $status, strtoupper($method)." $uri must be forbidden");
         }
     }
 
@@ -135,7 +135,7 @@ class AccessAndSchedulesCrudTest extends TestCase
         foreach ($requests as $request) {
             [$method, $uri] = $request;
             $response = $this->send($method, $uri, $request[2] ?? []);
-            $this->assertTrue($response->isRedirect(route('login')), strtoupper($method) . " $uri must redirect a guest to login");
+            $this->assertTrue($response->isRedirect(route('login')), strtoupper($method)." $uri must redirect a guest to login");
         }
     }
 

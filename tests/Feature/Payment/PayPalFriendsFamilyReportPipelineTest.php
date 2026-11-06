@@ -142,7 +142,7 @@ class PayPalFriendsFamilyReportPipelineTest extends TestCase
             $lines[] = sprintf('"01.01.2026","TX%d","%s","%s","buyer@example.com"', $i, $amount, $note);
         }
 
-        return implode("\n", $lines) . "\n";
+        return implode("\n", $lines)."\n";
     }
 
     private function upload(User $admin, string $csvContents)
@@ -201,7 +201,7 @@ class PayPalFriendsFamilyReportPipelineTest extends TestCase
         $this->assertSame(Transaction::STATE_INIT, $untouched->refresh()->state);
         $this->assertSame(0, $untouched->partialTransactions()->count());
         $this->assertSame([], $this->storedReports());
-        $this->assertCount(1, Storage::disk('s3')->files(PayPalFriendsFamily::REPORT_DIR . '/processed'));
+        $this->assertCount(1, Storage::disk('s3')->files(PayPalFriendsFamily::REPORT_DIR.'/processed'));
     }
 
     public function test_an_invalid_row_does_not_stop_the_rows_after_it(): void

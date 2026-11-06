@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Event;
 use App\Models\Order;
-use Symfony\Component\HttpFoundation\Response;
 use Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class HomeController
 {
@@ -18,7 +18,7 @@ class HomeController
 
         return view('home', [
             'orders' => $orders,
-            'event' => $event
+            'event' => $event,
         ]);
     }
 }

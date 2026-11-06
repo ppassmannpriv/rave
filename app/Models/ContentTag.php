@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use \DateTimeInterface;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|ContentTag newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ContentTag newQuery()
  * @method static \Illuminate\Database\Query\Builder|ContentTag onlyTrashed()
@@ -28,6 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|ContentTag whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|ContentTag withTrashed()
  * @method static \Illuminate\Database\Query\Builder|ContentTag withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 class ContentTag extends Model

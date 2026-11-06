@@ -22,6 +22,7 @@ use Tests\TestCase;
 class CleanUpOrphansTest extends TestCase
 {
     private const NOW = '2026-03-10 12:00:00';
+
     private const INITIAL_STOCK = 10;
 
     protected function setUp(): void
@@ -127,7 +128,7 @@ class CleanUpOrphansTest extends TestCase
         ]);
 
         return EventTicketCode::create([
-            'code' => 'CODE' . $orderItem->id,
+            'code' => 'CODE'.$orderItem->id,
             'event_ticket_id' => $eventTicketId,
             'order_item_id' => $orderItem->id,
         ]);

@@ -12,14 +12,13 @@ use App\Models\Transaction;
 use App\Models\User;
 use App\ValueObjects\Money;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Collection;
-use Illuminate\Session\SessionManager;
 use Illuminate\Support\Str;
 
 /**
  * @mixin \Eloquent
  */
-class OrderService {
+class OrderService
+{
     /**
      * Creates one order with one order item per cart item. Everything happens in a single
      * transaction with the tickets locked, so a sold-out ticket or a missing ticket code rolls
@@ -39,9 +38,9 @@ class OrderService {
             $user = User::where('email', '=', $cartData['email'])->first();
             if ($user === null) {
                 $user = User::create([
-                    'name'           => $cartData['firstname'] . ' ' . $cartData['lastname'],
-                    'email'          => $cartData['email'],
-                    'password'       => bcrypt(Str::random(10)),
+                    'name' => $cartData['firstname'].' '.$cartData['lastname'],
+                    'email' => $cartData['email'],
+                    'password' => bcrypt(Str::random(10)),
                     'remember_token' => null,
                 ]);
             }
@@ -61,7 +60,7 @@ class OrderService {
                     'single_price' => $cartItem->single_price,
                     'row_price' => $cartItem->row_price,
                     'cart_item_id' => $cartItem->id,
-                    'event_ticket_id' => $eventTicket->id
+                    'event_ticket_id' => $eventTicket->id,
                 ]);
                 $total = $total->add(Money::fromDecimalString($cartItem->row_price));
             }
@@ -89,12 +88,13 @@ class OrderService {
         if ($paymentMethod === null) {
             throw new \Exception('Payment method not found.');
         }
+
         return Transaction::create([
             'payment_method_id' => $paymentMethod->id,
             'order_id' => $order->id,
             'reference' => Str::upper(Str::random(Transaction::REFERENCE_LENGTH)),
             'amount' => $order->price,
-            'state' => Transaction::STATE_INIT
+            'state' => Transaction::STATE_INIT,
         ]);
     }
 }

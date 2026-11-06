@@ -14,12 +14,13 @@ class PayPalClient
 
     /**
      * @return array{id: string, approve_url: string}
+     *
      * @throws PayPalApiException
      */
     public function createOrder(string $reference, Money $amount, string $returnUrl, string $cancelUrl): array
     {
         $response = $this->request()
-            ->withHeaders(['PayPal-Request-Id' => 'create-' . $reference])
+            ->withHeaders(['PayPal-Request-Id' => 'create-'.$reference])
             ->post('/v2/checkout/orders', [
                 'intent' => 'CAPTURE',
                 'purchase_units' => [[
@@ -39,8 +40,8 @@ class PayPalClient
         $order = $this->json($response, 'create order');
 
         $approveUrl = collect($order['links'] ?? [])->firstWhere(fn ($link) => in_array($link['rel'] ?? null, ['payer-action', 'approve'], true))['href'] ?? null;
-        if (!isset($order['id']) || $approveUrl === null) {
-            throw new PayPalApiException('PayPal create order response has no id or approval link: ' . $response->body());
+        if (! isset($order['id']) || $approveUrl === null) {
+            throw new PayPalApiException('PayPal create order response has no id or approval link: '.$response->body());
         }
 
         return ['id' => $order['id'], 'approve_url' => $approveUrl];
@@ -55,9 +56,9 @@ class PayPalClient
     public function captureOrder(string $orderId): array
     {
         $response = $this->request()
-            ->withHeaders(['PayPal-Request-Id' => 'capture-' . $orderId])
+            ->withHeaders(['PayPal-Request-Id' => 'capture-'.$orderId])
             ->withBody('{}', 'application/json')
-            ->post('/v2/checkout/orders/' . $orderId . '/capture');
+            ->post('/v2/checkout/orders/'.$orderId.'/capture');
 
         if ($response->status() === 422 && str_contains($response->body(), 'ORDER_ALREADY_CAPTURED')) {
             return $this->getOrder($orderId);
@@ -68,11 +69,12 @@ class PayPalClient
 
     public function getOrder(string $orderId): array
     {
-        return $this->json($this->request()->get('/v2/checkout/orders/' . $orderId), 'get order');
+        return $this->json($this->request()->get('/v2/checkout/orders/'.$orderId), 'get order');
     }
 
     /**
-     * @param array<string, string|null> $headers lower-cased PayPal transmission headers
+     * @param  array<string, string|null>  $headers lower-cased PayPal transmission headers
+     *
      * @throws PayPalApiException
      */
     public function verifyWebhookSignature(array $headers, array $event): bool
@@ -92,9 +94,9 @@ class PayPalClient
 
     private function request(): PendingRequest
     {
-        $baseUrl = config('paypal.base_urls.' . config('paypal.mode'));
+        $baseUrl = config('paypal.base_urls.'.config('paypal.mode'));
         if ($baseUrl === null) {
-            throw new PayPalApiException('Unknown PAYPAL_BUSINESS_MODE "' . config('paypal.mode') . '", expected sandbox or live.');
+            throw new PayPalApiException('Unknown PAYPAL_BUSINESS_MODE "'.config('paypal.mode').'", expected sandbox or live.');
         }
 
         return Http::baseUrl($baseUrl)->acceptJson()->timeout(15)->withToken($this->accessToken());
@@ -110,12 +112,12 @@ class PayPalClient
             throw new PayPalApiException('PAYPAL_BUSINESS_CLIENT_ID / PAYPAL_BUSINESS_CLIENT_SECRET are not configured.');
         }
 
-        $response = Http::baseUrl(config('paypal.base_urls.' . config('paypal.mode')))
+        $response = Http::baseUrl(config('paypal.base_urls.'.config('paypal.mode')))
             ->withBasicAuth(config('paypal.client_id'), config('paypal.client_secret'))
             ->asForm()->acceptJson()->timeout(15)
             ->post('/v1/oauth2/token', ['grant_type' => 'client_credentials']);
         $token = $this->json($response, 'obtain access token');
-        if (!isset($token['access_token'])) {
+        if (! isset($token['access_token'])) {
             throw new PayPalApiException('PayPal token response has no access_token.');
         }
         Cache::put(self::TOKEN_CACHE_KEY, $token['access_token'], max(60, ($token['expires_in'] ?? 300) - 60));
@@ -126,7 +128,7 @@ class PayPalClient
     private function json(Response $response, string $what): array
     {
         if ($response->failed()) {
-            throw new PayPalApiException('PayPal ' . $what . ' failed with HTTP ' . $response->status() . ': ' . $response->body());
+            throw new PayPalApiException('PayPal '.$what.' failed with HTTP '.$response->status().': '.$response->body());
         }
 
         return $response->json() ?? [];

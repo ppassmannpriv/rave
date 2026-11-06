@@ -38,11 +38,11 @@ class PaymentReminderCheck extends Command
             ->whereRelation('transaction', 'state', '=', Transaction::STATE_INIT)->get();
         $outstandingOrders = $orderTrunk->where('created_at', '>=', Carbon::now()->subDays(6)->toDateTimeString());
         $cancelOrders = $orderTrunk->where('created_at', '<=', Carbon::now()->subDays(6)->toDateTimeString());
-        $this->info('Reminding ' . $outstandingOrders->count() . ' outstanding payments.');
+        $this->info('Reminding '.$outstandingOrders->count().' outstanding payments.');
         foreach ($outstandingOrders as $outstandingOrder) {
             PaymentReminderAction::make()->handle($outstandingOrder);
         }
-        $this->info('Cancelling ' . $cancelOrders->count() . ' orders.');
+        $this->info('Cancelling '.$cancelOrders->count().' orders.');
         foreach ($cancelOrders as $cancelOrder) {
             CancelOrderAction::make()->handle($cancelOrder);
         }

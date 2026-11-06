@@ -12,7 +12,6 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\User;
 use Gate;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class OrderController extends Controller
@@ -105,7 +104,7 @@ class OrderController extends Controller
     {
         abort_if(Gate::denies('order_cancel'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $order = Order::find($orderId);
-        abort_if(!$order->isCancellable(), Response::HTTP_BAD_REQUEST, '400 Bad Request');
+        abort_if(! $order->isCancellable(), Response::HTTP_BAD_REQUEST, '400 Bad Request');
         CancelOrderAction::make()->handle($order);
 
         return redirect()->route('admin.orders.index');

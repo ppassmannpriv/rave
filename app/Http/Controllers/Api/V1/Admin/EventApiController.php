@@ -9,7 +9,6 @@ use App\Http\Requests\UpdateEventRequest;
 use App\Http\Resources\Admin\EventResource;
 use App\Models\Event;
 use Gate;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class EventApiController extends Controller

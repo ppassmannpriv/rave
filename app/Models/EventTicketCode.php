@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Order\OrderItem;
-use \DateTimeInterface;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int|null $order_item_id
  * @property-read \App\Models\Order\OrderItem|null $orderItem
  * @property-read \App\Models\EventTicket|null $eventTicket
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|EventTicketCode newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|EventTicketCode newQuery()
  * @method static \Illuminate\Database\Query\Builder|EventTicketCode onlyTrashed()
@@ -31,6 +32,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|EventTicketCode whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|EventTicketCode withTrashed()
  * @method static \Illuminate\Database\Query\Builder|EventTicketCode withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 class EventTicketCode extends Model
@@ -75,6 +77,7 @@ class EventTicketCode extends Model
         if ($this->orderItem === null) {
             throw new \Exception('You cannot delete a code that has been purchased.');
         }
+
         return parent::delete();
     }
 }

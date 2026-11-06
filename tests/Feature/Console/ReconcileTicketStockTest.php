@@ -47,7 +47,7 @@ class ReconcileTicketStockTest extends TestCase
         $ticket = EventTicket::create(['ticket_type' => 'regular', 'price' => '25.00', 'cap' => $cap, 'stock' => $stock]);
         for ($i = 0; $i < $cap; $i++) {
             DB::table('event_ticket_codes')->insert([
-                'code' => 'T' . $ticket->id . '-' . $i,
+                'code' => 'T'.$ticket->id.'-'.$i,
                 'event_ticket_id' => $ticket->id,
                 'order_item_id' => $i < $handedOut ? 1000 + $i : null,
             ]);

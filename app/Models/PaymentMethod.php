@@ -2,22 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\PaymentMethod\PayPal;
 use App\Models\PaymentMethod\PayPalFriendsFamily;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class PaymentMethod extends Model
 {
     use HasFactory;
 
     public const ALIAS = null;
+
     public const CLASSMAP = [
         PayPalFriendsFamily::ALIAS => PayPalFriendsFamily::class,
         PayPal::ALIAS => PayPal::class,
     ];
 
     public $table = 'payment_methods';
+
     public $primaryKey = 'id';
 
     protected $casts = [

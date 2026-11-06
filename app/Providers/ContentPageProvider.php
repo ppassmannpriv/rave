@@ -3,10 +3,10 @@
 namespace App\Providers;
 
 use App\Contracts\Cart;
-use App\Services\CartService;
-use Illuminate\Support\ServiceProvider;
-use App\Services\NavigationService;
 use App\Contracts\Navigation;
+use App\Services\CartService;
+use App\Services\NavigationService;
+use Illuminate\Support\ServiceProvider;
 
 class ContentPageProvider extends ServiceProvider
 {
@@ -15,7 +15,8 @@ class ContentPageProvider extends ServiceProvider
         $this->app->singleton(Navigation::class, fn ($app) => new NavigationService());
     }
 
-    public function boot() {
+    public function boot()
+    {
         $this->app->singleton(Cart::class, fn ($app) => new CartService(
             session()
         ));

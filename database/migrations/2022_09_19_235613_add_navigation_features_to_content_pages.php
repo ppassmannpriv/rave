@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('path')->unique();
             $table->boolean('enabled')->default(0);
             $table->boolean('index')->default(0);
-
         });
     }
 

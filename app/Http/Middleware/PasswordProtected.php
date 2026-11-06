@@ -2,12 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Contracts\Encryption\DecryptException;
-use \Illuminate\Http\Request;
 use Closure;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Http\Request;
 
-class PasswordProtected {
-
+class PasswordProtected
+{
     public function handle(Request $request, Closure $next, string $guard = null)
     {
         $password = config('rave.password_protection');
@@ -21,6 +21,7 @@ class PasswordProtected {
 
         if (in_array($request->get('password'), $passwords)) {
             setcookie('password', encrypt($request->get('password')), 0, '/');
+
             return redirect($request->url());
         }
 
@@ -36,7 +37,8 @@ class PasswordProtected {
         return response(view('password-protection.password'), 403);
     }
 
-    private function isNotInProtectedOnlyPath($request) {
+    private function isNotInProtectedOnlyPath($request)
+    {
         return false;
     }
 }

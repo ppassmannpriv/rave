@@ -19,10 +19,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $end
  * @property-read ?\App\Models\Event $event
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TimeSchedule\Shift[] $shifts
+ *
  * @mixin \Eloquent
  */
-class TimeSchedule extends Model {
+class TimeSchedule extends Model
+{
     public $table = 'time_schedules';
+
     public $primaryKey = 'id';
 
     protected $dates = [
@@ -30,7 +33,7 @@ class TimeSchedule extends Model {
         'updated_at',
         'deleted_at',
         'start',
-        'end'
+        'end',
     ];
 
     protected $fillable = [

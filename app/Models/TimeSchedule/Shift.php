@@ -20,12 +20,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $start
  * @property \Illuminate\Support\Carbon|null $end
  * @property-read \App\Models\TimeSchedule $timeSchedule
+ *
  * @mixin \Eloquent
  */
-class Shift extends Model {
+class Shift extends Model
+{
     public const DATETIME_FORMAT = 'Y-m-d H:i:s';
 
     public $table = 'time_schedule_shifts';
+
     public $primaryKey = 'id';
 
     protected $dates = [
@@ -33,7 +36,7 @@ class Shift extends Model {
         'updated_at',
         'deleted_at',
         'start',
-        'end'
+        'end',
     ];
 
     protected $fillable = [
@@ -60,12 +63,13 @@ class Shift extends Model {
 
     public function isHelper(): bool
     {
-        return !$this->isCrewOnly();
+        return ! $this->isCrewOnly();
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return array
+     *
      * @throws \Throwable
      */
     public static function createRepeating(array $data): array

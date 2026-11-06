@@ -14,7 +14,7 @@ class PayPalWebhookController extends Controller
     public function handle(Request $request, PayPalClient $client)
     {
         $event = $request->json()->all();
-        if (!isset($event['id'], $event['event_type'])) {
+        if (! isset($event['id'], $event['event_type'])) {
             return response('Invalid event', 400);
         }
 

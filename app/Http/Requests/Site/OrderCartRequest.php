@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Site;
 
 use App\Contracts\Cart;
-use App\Models\ContentCategory;
 use App\Models\PaymentMethod;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;

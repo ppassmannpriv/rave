@@ -21,7 +21,7 @@ class ApplyPayPalCapture
             return;
         }
         if (($capture['amount']['currency_code'] ?? null) !== config('paypal.currency')) {
-            $transaction->comment = trim(($transaction->comment ?? '') . ' - PayPal capture ' . ($capture['id'] ?? '?') . ' ignored: unexpected currency.', ' -');
+            $transaction->comment = trim(($transaction->comment ?? '').' - PayPal capture '.($capture['id'] ?? '?').' ignored: unexpected currency.', ' -');
             $transaction->save();
 
             return;

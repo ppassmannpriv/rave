@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Events\EventTicketCreatedEvent;
 use App\Models\Order\OrderItem;
-use \DateTimeInterface;
 use Carbon\Carbon;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $cap
  * @property-read \App\Models\Event|null $event
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EventTicketCode[] $eventTicketCodes
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|EventTicket newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|EventTicket newQuery()
  * @method static \Illuminate\Database\Query\Builder|EventTicket onlyTrashed()
@@ -41,6 +42,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|EventTicket whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|EventTicket withTrashed()
  * @method static \Illuminate\Database\Query\Builder|EventTicket withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 class EventTicket extends Model
@@ -50,9 +52,9 @@ class EventTicket extends Model
 
     public const TICKET_TYPE_RADIO = [
         'early_bird' => 'Early Bird',
-        'regular'    => 'Regular',
+        'regular' => 'Regular',
         'guest_list' => 'Guest List',
-        'vip'        => 'VIP',
+        'vip' => 'VIP',
     ];
 
     public $table = 'event_tickets';
@@ -89,22 +91,22 @@ class EventTicket extends Model
 
     public function getFromAttribute($value)
     {
-        return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
+        return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format').' '.config('panel.time_format')) : null;
     }
 
     public function setFromAttribute($value)
     {
-        $this->attributes['from'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
+        $this->attributes['from'] = $value ? Carbon::createFromFormat(config('panel.date_format').' '.config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
     }
 
     public function getToAttribute($value)
     {
-        return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
+        return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format').' '.config('panel.time_format')) : null;
     }
 
     public function setToAttribute($value)
     {
-        $this->attributes['to'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
+        $this->attributes['to'] = $value ? Carbon::createFromFormat(config('panel.date_format').' '.config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
     }
 
     protected function serializeDate(DateTimeInterface $date)
@@ -122,6 +124,7 @@ class EventTicket extends Model
         if (OrderItem::where('event_ticket_id', '=', $this->id)->get()->count()) {
             throw new \Exception('Sorry, you cannot delete this ticket. It has been ordered.');
         }
+
         return parent::delete();
     }
 
@@ -137,11 +140,12 @@ class EventTicket extends Model
 
     public function isAvailable(): bool
     {
-	$now = Carbon::now();
-	$to = new Carbon($this->to);
-	if ($now->isBefore($to) === false) {
-	    return false;
-	}
+        $now = Carbon::now();
+        $to = new Carbon($this->to);
+        if ($now->isBefore($to) === false) {
+            return false;
+        }
+
         return $this->stock > 0 && $this->eventTicketSold() < $this->cap;
     }
 }

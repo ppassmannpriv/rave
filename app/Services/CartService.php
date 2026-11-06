@@ -3,22 +3,25 @@
 namespace App\Services;
 
 use App\Contracts\Cart;
-use App\Models\CartItem;
-use Illuminate\Support\Collection;
 use Illuminate\Session\SessionManager;
+use Illuminate\Support\Collection;
 
-class CartService implements Cart {
+class CartService implements Cart
+{
     const MINIMUM_QUANTITY = 1;
+
     const TTL = 900;
+
     const DEFAULT_INSTANCE = 'cartId';
 
     protected SessionManager $session;
+
     protected $instance;
 
     /**
      * Constructs a new cart object.
      *
-     * @param SessionManager $session
+     * @param  SessionManager  $session
      */
     public function __construct(SessionManager $session)
     {
@@ -47,8 +50,10 @@ class CartService implements Cart {
             $this->clear();
             $cart = $this->loadDatabaseCart();
             $this->session->put(self::DEFAULT_INSTANCE, $cart->id);
+
             return $cart;
         }
+
         return $this->loadDatabaseCart($sessionCartId);
     }
 

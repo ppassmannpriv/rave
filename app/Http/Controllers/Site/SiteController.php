@@ -28,6 +28,7 @@ class SiteController extends WebController
             // Same behavior as the Route::fallback() handler in routes/web.php
             return redirect('/site-error')->with('warning', 'Sorry, this route is not available.');
         }
+
         return $this->respond('site.index', ['contentPage' => $contentPage, 'siteType' => 'cms']);
     }
 

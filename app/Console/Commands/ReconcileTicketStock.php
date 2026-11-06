@@ -30,8 +30,8 @@ class ReconcileTicketStock extends Command
 
         $this->table(['ticket', 'type', 'stock', 'cap', 'codes handed out', 'suggested stock'], $rows);
         $this->info($this->option('apply')
-            ? $changes . ' ticket(s) corrected.'
-            : $changes . ' ticket(s) differ. Dry run: nothing written, use --apply to correct them.');
+            ? $changes.' ticket(s) corrected.'
+            : $changes.' ticket(s) differ. Dry run: nothing written, use --apply to correct them.');
 
         return 0;
     }

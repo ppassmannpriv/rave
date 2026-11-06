@@ -61,6 +61,6 @@ class ApplyPaymentToTransaction
 
     private function appendComment(?string $existing, string $addition): string
     {
-        return $existing !== null ? $existing . ' - ' . $addition : $addition;
+        return $existing !== null ? $existing.' - '.$addition : $addition;
     }
 }

@@ -2,17 +2,17 @@
 
 namespace App\Mail;
 
+use App\Models\Order;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Order;
 
 class OrderSuccessful extends Mailable
 {
     use Queueable, SerializesModels;
 
     public Order $order;
+
     /**
      * Create a new message instance.
      *
@@ -30,6 +30,6 @@ class OrderSuccessful extends Mailable
      */
     public function build()
     {
-        return $this->subject('Order #' . $this->order->id . ' - Here are your tickets!')->view('mail.order-successful');
+        return $this->subject('Order #'.$this->order->id.' - Here are your tickets!')->view('mail.order-successful');
     }
 }

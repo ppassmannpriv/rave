@@ -16,11 +16,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Transaction|null $transaction
+ *
  * @mixin \Eloquent
  */
 class PartialTransaction extends Model
 {
     public $table = 'transaction_partials';
+
     public $primaryKey = 'id';
 
     protected $casts = [

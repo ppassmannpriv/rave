@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\EventTicket|null $eventTicket
+ *
  * @mixin \Eloquent
  */
 class CartItem extends Model
@@ -23,6 +23,7 @@ class CartItem extends Model
     use HasFactory;
 
     public $table = 'cart_items';
+
     public $primaryKey = 'id';
 
     protected $dates = [
