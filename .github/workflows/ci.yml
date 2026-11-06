@@ -59,11 +59,9 @@ jobs:
       - name: PHPUnit (Unit + Feature)
         run: vendor/bin/phpunit --testsuite Unit,Feature
 
-  # Style debt still exists (roadmap 6.2). Report only, until the pint pass lands and this can be made blocking.
   pint:
-    name: Pint (report only)
+    name: Pint
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
 
